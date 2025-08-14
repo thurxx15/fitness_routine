@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/*CONF GERAL DO SITE*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;}
+
+section {
+    position: flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background: #121212;}
+
+
+/*PAGINA DE INICIO DO SITE*/
+/*header*/
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;}
+
+header .logo {
+    position: absolute;
+    max-width: 200px;
+    bottom: 3px;}
+
+header .links .lk {
+    position: relative;
+    display: flex;}
+
+header .links .links-h1 {
+    position: relative;
+    display: inline-block;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 20px;
+    margin-left: 80px;
+    transition: color 0.4s ease;}
+
+header .links .links-h1::after {
+    content: ''; 
+    position: absolute;
+    bottom: 4px; 
+    left: 0;
+    width: 0; 
+    height: 2px; 
+    background-color: #c8b8db; 
+    transition: width 0.4s ease;}
+
+header .links .links-h1:hover {
+    color: #c8b8db;}
+
+header .links .links-h1:hover::after {
+    width: 100%;}
+
+header .links .links-h2 {
+    position: relative;
+    display: inline-block;
+    margin-right: 80px;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 20px;
+    margin-left: 80px;
+    transition: color 0.4s ease;}
+
+header .links .links-h2::after {
+    content: ''; 
+    position: absolute;
+    bottom: 4px; 
+    left: 0;
+    width: 0; 
+    height: 2px; 
+    background-color: #c8b8db; 
+    transition: width 0.4s ease;}
+
+header .links .links-h2:hover {
+    color: #c8b8db;}
+
+header .links .links-h2:hover::after {
+    width: 100%;}
+
+.links .btn a {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    margin-top: -10px;
+    padding: 5px;
+    text-decoration: none;
+    border-radius: 50%;
+    transition: 0.3s ease-in-out;}
+
+/*LISTA*/
+.container {
+  width: 1520px;
+  margin: 100px auto;
+  padding: 15px;
+  background-color: #121212;
+  border-radius: 10px;
+  text-align: center;}
+
+.list-pla {
+    
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  max-height:300px;
+  width: 1500px;
+  overflow-y: auto;
+  margin-bottom: 30px;
+  padding-right: 10px;
+  scroll-behavior: smooth;}
+
+.item-list {
+  padding: 15px;
+  background-color: #3c096c;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;}
+
+.item-list:hover {
+  background: #c8b8db;}
+
+.btn-pla {
+  padding: 14px 28px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.3s;}
+
+.btn-pla:hover {
+  background-color: #0056b3;}
