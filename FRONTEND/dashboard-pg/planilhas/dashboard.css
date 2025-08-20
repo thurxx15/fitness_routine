@@ -73,13 +73,6 @@ body {
 .main.expandida {
   padding-left: 30px; }
 
-.card {
-  background-color: #1e1e1e;
-  padding: 20px;
-  border-left: 5px solid #3c096c;
-  border-radius: 8px;
-  margin-bottom: 20px; }
-
 .botoes-fixos {
   position: fixed;
   bottom: 20px;
@@ -103,4 +96,36 @@ body {
 
 .btn-fixo {
   text-decoration: none;
-  color: white; }
+  color: white;}
+
+
+/*MAIN DO SITE*/
+.page-header {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between; }
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #c8b8db; }
+
+.btn .btn-gerar { 
+  display: inline-block;
+  padding: 10px 25px;
+  background: #c8b8db;
+  color: #121212;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  border-radius: 40px;
+  transition: 0.3s ease-in-out;
+  -webkit-box-shadow: -3px 3px 35px -5px rgba(200,184,219,1);
+  -moz-box-shadow: -3px 3px 35px -5px rgba(200,184,219,1);
+  box-shadow: -3px 3px 35px -5px rgba(200,184,219,1); }
+
+.btn .btn-gerar:hover {
+    transform: translateY(-10px);
+    color: #121212; }
+

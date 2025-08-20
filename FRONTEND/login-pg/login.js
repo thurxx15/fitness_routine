@@ -27,6 +27,7 @@ async function login(username, password) {
         if (!resposta.ok) {
             const erro = await resposta.json()
             console.log('ERRO NO LOGIN', erro);
+            alert('Usuário ou senha inválidos');
             return {sucesso: false, erro: erro.detail}
         }
         

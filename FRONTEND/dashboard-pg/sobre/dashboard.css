@@ -104,3 +104,91 @@ body {
 .btn-fixo {
   text-decoration: none;
   color: white; }
+
+
+/* SOBRE NOS */
+
+.sobre-nos-container {
+  max-width: 900px;
+  margin: 0 auto; }
+
+.titulo-principal {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #c8b8db;
+  text-align: center;
+  margin-bottom: 10px; }
+
+.subtitulo-principal {
+  text-align: center;
+  font-size: 1.1em;
+  color: #aaa;
+  margin-bottom: 40px; }
+
+.card h2 {
+  font-size: 1.6em;
+  color: #c8b8db;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px; }
+
+.card h2 i {
+  margin-right: 15px;
+  color: #c8b8db;
+  font-size: 0.9em; }
+
+.card p, .card li {
+  line-height: 1.8;
+  color: #ddd; }
+
+.equipe-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 25px;
+  text-align: center; }
+
+.membro-equipe {
+  background-color: #121212;
+  padding: 20px;
+  border-radius: 8px;
+  width: 200px;
+  transition: transform 0.3s ease, background-color 0.3s ease;  }
+
+.membro-equipe:hover {
+  transform: translateY(-5px);
+  background-color: #2b2b2b; }
+
+.img-mbr {
+  border-radius: 1000px;
+  width: 80px; }
+
+.membro-equipe h3 {
+  margin-bottom: 5px;
+  color: #fff; }
+
+.membro-equipe h4 {
+  font-size: 0.9em;
+  font-weight: 300;
+  color: #c8b8db; }
+
+.lista-valores {
+  list-style: none;
+  padding-left: 0; }
+
+.lista-valores li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 12px; }
+
+.lista-valores li::before {
+  content: '\f00c';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  color: #3c096c;
+  position: absolute;
+  left: 0;
+  top: 4px; }

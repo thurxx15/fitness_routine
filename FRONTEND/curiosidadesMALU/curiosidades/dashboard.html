@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Fitness Routine - Dashboard </title>
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="../mitos-pg/style.css" />
+</head>
+<body>
+
+  <div class="barra_lateral" id="barraLateral">
+    <a href="../mitos/dashboard.html"><h1>Mitos</h1></a>
+    
+    <a href="../inicio/dashboard.html" class="link">Início</a>
+    <a href="../planilhas/dashboard.html" class="link">Treinos</a>
+    <a href="../curiosidades/dashboard.html" class="link">Curiosidades</a>
+    <a href="../sobre/dashboard.html" class="link">Sobre</a>
+
+    <div class="barra-footer">
+      <a href="../usuario-pg/usuario.html">Perfil</a>
+    </div>
+  </div>
+
+  <div class="main" id="mainContent">
+
+    <section class="mitos">
+
+    <div class="carousel" id="carousel">
+
+        <div class="carousel-interno">
+
+            <div class="carousel-item active">
+                <img src="../mitos-pg/img/mito1.jpg" alt="Image 1">
+                <div class="carousel-legenda">
+                    <h1>Sua genética influencia seus resultados</h1>
+                    <p>Nem todos ganham massa da mesma forma — e tá tudo bem.</p>
+                    <div class="btn"><a href="../mitos-pg/Mitos/mito1.html">SAIBA MAIS</a></div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="../mitos-pg/img/mito2.png" alt="Image 2">
+                <div class="carousel-legenda">
+                    <h1>Musculação fortalece corpo e mente</h1>
+                    <p>Mais do que físico, o treino transforma a forma como você se vê.</p>
+                    <div class="btn"><a href="../mitos-pg/Mitos/mito2.html">SAIBA MAIS</a></div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="../mitos-pg/img/mito3.jpg" alt="Image 3">
+                <div class="carousel-legenda">
+                    <h1>Músculos fortes = menos lesões</h1>
+                    <p>A musculação é um escudo contra lesões e dores.</p>
+                    <div class="btn"><a href="../mitos-pg/Mitos/mito3.html">SAIBA MAIS</a></div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="../mitos-pg/img/mito4.png" alt="Image 4">
+                <div class="carousel-legenda">
+                    <h1>Treinar pode prolongar sua vida</h1>
+                    <p>Musculação é qualidade de vida agora — e na velhice.</p>
+                    <div class="btn"><a href="../mitos-pg/Mitos/mito4.html">SAIBA MAIS</a></div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="../mitos-pg/img/Mito5.jpg" alt="Image 5">
+                <div class="carousel-legenda">
+                    <h1>O sedentarismo é o maior inimigo da sua saúde</h1>
+                    <p>Ficar parado cobra um preço alto — e mais cedo do que se pensa.</p>
+                    <div class="btn"><a href="../mitos-pg/Mitos/mito5.html">SAIBA MAIS</a></div>
+                </div>
+            </div>
+
+        </div>
+        <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+        <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+    </div>
+
+    <script src="../mitos-pg/script.js"></script>
+</section>
+
+  </div>
+
+  <div class="botoes-fixos">
+    <button class="toggle-btn" onclick="alternarBarra()">☰</button>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

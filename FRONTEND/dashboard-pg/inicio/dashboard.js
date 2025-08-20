@@ -21,7 +21,7 @@ function removerFixos() {
 const nomeUsuario = localStorage.getItem("usuario");
 
     if (nomeUsuario) {
-        document.getElementById("boas-vindas").textContent = `Olá ${nomeUsuario}, Bem-vindo ao Fitness Routine`;
+        document.getElementById("boas-vindas").textContent = `Olá ${nomeUsuario}, Bem-vindo ao Fitness Routine.`;
     } else {
         // Caso entre direto na página sem login, redireciona pro login
         window.location.href = "../../login-pg/login.html";

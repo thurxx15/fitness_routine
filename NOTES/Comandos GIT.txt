@@ -1,0 +1,24 @@
+git config --global user.name "Fulano de Tal"
+git config --global user.email fulanodetal@exemplo.br
+
+git init -> Iniciar Um Projeto Git
+git add . -> Envia modificações para a area de Staging
+git status -> Verificar area de stagin
+git commit -m "Menssagem" -> Cria um commit "Cria um historico"
+git log --online -> Verifica o historico do projeto
+
+----------------------------- GITHUB ------------------------------
+
+1º -> git remote add origin https://github.com/thurxx15/fitness_routine.git
+2º -> gerar e configurar token
+	git remote set-url origin https://SEU_USUARIO:SEU_TOKEN@github.com/OWNER/REPO.git
+
+feito isso só usar
+
+git push -u origin master -> Serve para subir um repositorio para o github (toda vez que alterar o projeto)
+git pull origin master -> Atualiza projetos
+
+
+clonar repositorio:  git clone <repository_url> [destination_directory]
+
+github.com/thurxx15/fitness_routine
