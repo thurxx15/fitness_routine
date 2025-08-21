@@ -16,3 +16,21 @@ function removerFixos() {
     }
   });
 }
+
+/*CARROUSEL*/
+const items = document.querySelectorAll(".carousel-item");
+let index = 0;
+
+document.querySelector(".next").addEventListener("click", () => {
+    index = (index + 1) % items.length;
+    updateCarousel();
+});
+
+document.querySelector(".prev").addEventListener("click", () => {
+    index = (index - 1 + items.length) % items.length;
+    updateCarousel();
+});
+
+function updateCarousel() {
+    document.querySelector(".carousel-inner").style.transform = `translateX(${-index * 100}%)`;
+}
