@@ -1,0 +1,24 @@
+# Ambientes virtuais
+.venv/
+venv/
+
+# Python cache/bytecode
+__pycache__/
+*.py[cod]
+
+# Banco local (se usar sqlite no dev)
+*.sqlite3
+
+# Logs
+*.log
+
+# VSCode / PyCharm
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Migrations cache
+*/migrations/__pycache__/
