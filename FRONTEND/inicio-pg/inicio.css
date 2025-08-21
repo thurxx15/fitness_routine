@@ -197,25 +197,21 @@ header .links .links-h2:hover::after {
 
 /*imgs*/
 .img {
-    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     right: 50px;
     max-width: 100%;
-    bottom: -120px;
     top: 0px;
     z-index: 1; }
 
 .img .img-ini {
-    width: 580px;
-    height: 460px;
-    border-radius: 25px;
-     max-width: 100%;
-    box-shadow: 1px 5px 35px 11px rgba(60,9,108,0.64);
-    -webkit-box-shadow: 1px 5px 35px 11px rgba(60,9,108,0.64);
-    -moz-box-shadow: 1px 5px 35px 11px rgba(60,9,108,0.64); }
-
+    width: 680px;
+    height: 480px;
+    border-radius: 25px 0px 0px 25px;
+    max-width: 120%;
+    right: 2rem;
+    margin-top: 100px; }
 
 /*PAGINA DE BEM-VINDO DO SITE*/
 
@@ -292,10 +288,7 @@ header .links .links-h2:hover::after {
     height: auto;
     display: block;
     object-fit: cover;
-    border-radius: 0px 20px 20px 0px;
-    box-shadow: 1px 5px 35px 11px rgba(60,9,108,0.64);
-    -webkit-box-shadow: 1px 5px 35px 11px rgba(60,9,108,0.64);
-    -moz-box-shadow: 1px 5px 35px 11px rgba(60,9,108,0.64); }
+    border-radius: 0px 20px 20px 0px;}
 
 /* Texto à direita */
 .container3 .info3 {
@@ -338,7 +331,7 @@ header .links .links-h2:hover::after {
 
 /*PAGINA DE MITOS DO SITE*/
 
-.mitos {
+.curiosidades {
     height: 500px;
     background-image: url('../midia/img/img-mts.jpg');
     background-attachment: fixed;
