@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="shortcut icon" href="../../../midia/ico/ico-aba.png" type="image/x-icon">
+  <title> Fitness Routine - Dashboard </title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer" />
+        
+  <link rel="stylesheet" href="cur.css" />
+</head>
+<body>
+
+  <div class="barra_lateral" id="barraLateral">
+    <img src="../../../midia/logo-dash.png" alt="logo-dash"><br><br>
+        <a href="../../inicio/dashboard.html" class="link">Início</a>
+        <a href="../../planilhas/dashboard.html" class="link">Treinos</a>
+        <a href="../../curiosidades/dashboard.html" class="link">Curiosidades</a>
+        <a href="../../sobre/dashboard.html" class="link">Sobre</a>
+  </div>
+
+  <div class="main" id="mainContent">
+  <img src="../../../midia/cur/img-cur1.jpg" alt="Banner de Curiosidades Fitness" class="banner-image">
+
+  <div class="card curiosities-card">
+    <h2>Aprofundando o assunto...</h2>
+
+    <i class="texto-aspas">
+      "Genética não é destino. Com consistência, qualquer pessoa pode evoluir muito."
+    </i> <br><br>
+
+
+    <ul class="lista-destaque">
+      <li><b>Fibras Musculares:</b> Quem tem mais fibras rápidas tende a ganhar força e massa com mais facilidade. Já quem tem mais fibras lentas costuma ter mais resistência. Mas ambos podem desenvolver os dois tipos com treino certo. </li>
+      <li><b>Níveis Hormonais:</b> Testosterona, GH e outros hormônios influenciam diretamente na velocidade do progresso. Porém, mesmo quem não tem níveis naturalmente altos consegue ótimos resultados ajustando treino, descanso e nutrição. </li>
+      <li><b>Metabolismo:</b> Algumas pessoas queimam mais calorias naturalmente, outras menos. Saber disso ajuda a ajustar dieta para hipertrofia ou definição. </li>
+    </ul>
+
+    <p><b>O ponto principal:</b> Genética pode influenciar o ritmo, mas consistência, treino bem estruturado e alimentação adequada superam qualquer limitação inicial. Com o tempo, os resultados sempre aparecem. </p>
+
+    <a href="../dashboard.html" id="btn-voltar">Voltar</a>
+  </div>
+</div>
+
+  <div class="botoes-fixos">
+    <button class="toggle-btn" onclick="alternarBarra(), removerFixos()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <button class="toggle-btn" id="btn-logout">
+      <a href="../../inicio-pg/inicio.html" class="btn-fixo">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </a>
+    </button>
+
+    <button class="toggle-btn" id="btn-user">
+      <a href="../../usuario-pg/usuario.html" class="btn-fixo">
+        <i class="fas fa-user"></i>
+      </a>
+    </button>
+
+  </div>
+
+<script src="cur.js"></script>
+</body>
+</html>
