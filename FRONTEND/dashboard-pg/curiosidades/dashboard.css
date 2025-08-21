@@ -5,7 +5,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box; }
-
+  
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #121212;
@@ -75,10 +75,31 @@ body {
 
 .card {
   background-color: #1e1e1e;
-  padding: 20px;
   border-left: 5px solid #3c096c;
   border-radius: 8px;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  padding: 20px;
+  height: 160px; }
+
+.card a { 
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 25px;
+  background: #c8b8db;
+  color: #121212;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  border-radius: 40px;
+  transition: 0.3s ease-in-out;
+  -webkit-box-shadow: -3px 3px 35px -5px rgba(200,184,219,1);
+  -moz-box-shadow: -3px 3px 35px -5px rgba(200,184,219,1);
+  box-shadow: -3px 3px 35px -5px rgba(200,184,219,1); }
+
+.card a:hover {
+    transform: translateY(-8px);
+    color: #121212; }
 
 .botoes-fixos {
   position: fixed;
@@ -114,7 +135,8 @@ body {
   max-width: 1500px;
   max-height: 1000px;
   overflow: hidden;
-  border-radius: 30px; }
+  border-radius: 30px;
+  margin-bottom: 20px; }
 
 .carousel-inner {
   display: flex;
@@ -128,48 +150,12 @@ body {
 
 .carousel-item img {
   width: 100%;
-  height: 500px;
+  height: 450px;
   object-fit: cover; }
-
-.carousel-text {
-  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%; }
-
-.carousel-text h2 {
-  font-size: 24px;
-  margin-bottom: 330px;
-  color: #3c096c; }
-
-.carousel-text p {
-  font-size: 16px;
-  color: #c8b8db; }
-
-.carousel-text a {
-  display: inline-block;
-  padding: 10px 25px;
-  background: #c8b8db;
-  color: #121212;
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-decoration: none;
-  margin-bottom: 20px;
-  border-radius: 40px;
-  transition: 0.3s ease-in-out;
-  -webkit-box-shadow: -3px 3px 35px -5px rgba(200,184,219,1);
-  -moz-box-shadow: -3px 3px 35px -5px rgba(200,184,219,1);
-  box-shadow: -3px 3px 35px -5px rgba(200,184,219,1); }
-
-.carousel-text a:hover {
-  transform: translateY(-8px);
-    color: #121212; }
 
 .prev, .next {
   position: absolute;
-  top: 80%;
+  top: 85%;
   background: #3c096c65;
   border: none;
   color: #c8b8db;

@@ -22,3 +22,14 @@ git pull origin master -> Atualiza projetos
 clonar repositorio:  git clone <repository_url> [destination_directory]
 
 github.com/thurxx15/fitness_routine
+
+---------------------------- MERGE ----------------------
+
+1° -> git checkout -b "nome"
+2° -> git checkout nome
+3° -> modificar no site oque desejar
+4° -> git add .
+5° -> git commit -m "mensagem"
+6° -> git checkout master
+7° -> git merge "nome"
+8° -> git push -u origin
