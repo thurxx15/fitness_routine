@@ -4,7 +4,7 @@ venv/
 
 # Python cache/bytecode
 __pycache__/
-*.py[cod]
+*.py[cod]$
 
 # Banco local (se usar sqlite no dev)
 *.sqlite3
