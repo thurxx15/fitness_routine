@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="shortcut icon" href="../../../midia/ico/ico-aba.png" type="image/x-icon">
+  <title> Fitness Routine - Dashboard </title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer" />
+        
+  <link rel="stylesheet" href="cur.css" />
+</head>
+<body>
+
+  <div class="barra_lateral" id="barraLateral">
+    <img src="../../../midia/logo-dash.png" alt="logo-dash"><br><br>
+        <a href="../../inicio/dashboard.html" class="link">Início</a>
+        <a href="../../planilhas/dashboard.html" class="link">Treinos</a>
+        <a href="../../curiosidades/dashboard.html" class="link">Curiosidades</a>
+        <a href="../../sobre/dashboard.html" class="link">Sobre</a>
+  </div>
+
+  <div class="main" id="mainContent">
+  <img src="../../../midia/cur/img-cur1.jpg" alt="Banner de Curiosidades Fitness" class="banner-image">
+
+  <div class="card curiosities-card">
+    <h2>Aprofundando o assunto...</h2>
+
+    <i class="texto-aspas">
+      "Mais do que físico, o treino transforma a forma como você se vê."
+    </i> <br><br>
+
+
+    <ul class="lista-destaque">
+    <li><b>Autoestima:</b> Ver resultados e conquistar metas aumenta a confiança, melhorando também a forma como a pessoa se enxerga no dia a dia.</li>
+    <li><b>Hormônios do bem-estar:</b> Endorfina, dopamina e serotonina melhoram o humor, reduzem estresse e até ajudam no foco e na qualidade do sono.</li>
+    <li><b>Controle e disciplina:</b> A rotina de treino traz propósito, cria hábitos positivos e fortalece a sensação de progresso contínuo na vida.</li>
+</ul>
+
+<p>Muitos dizem que virou um “remédio natural” para o emocional: cuidar do corpo fortalece a mente, trazendo equilíbrio físico e mental.</p>
+
+
+    <a href="../dashboard.html" id="btn-voltar">Voltar</a>
+  </div>
+  </div>
+
+  <div class="botoes-fixos">
+    <button class="toggle-btn" onclick="alternarBarra(), removerFixos()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <button class="toggle-btn" id="btn-logout">
+      <a href="../../inicio-pg/inicio.html" class="btn-fixo">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </a>
+    </button>
+
+    <button class="toggle-btn" id="btn-user">
+      <a href="../../usuario-pg/usuario.html" class="btn-fixo">
+        <i class="fas fa-user"></i>
+      </a>
+    </button>
+
+  </div>
+
+<script src="cur.js"></script>
+</body>
+</html>

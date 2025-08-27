@@ -7,15 +7,15 @@ function alternarBarra() {
 }
 
 function removerFixos() {
-    const btnConfig = document.getElementById('btn-config');
-    const btnLogout = document.getElementById('btn-logout');
-    const btnUser = document.getElementById('btn-user');
+  const btnConfig = document.getElementById('btn-config');
+  const btnLogout = document.getElementById('btn-logout');
+  const btnUser = document.getElementById('btn-user');
 
-    [btnConfig, btnLogout, btnUser].forEach((btn) => {
-        if (btn) {
-            btn.style.display = (btn.style.display === 'none') ? 'block' : 'none';
-        }
-    });
+  [btnConfig, btnLogout, btnUser].forEach((btn) => {
+    if (btn) {
+      btn.style.display = (btn.style.display === 'none') ? 'block' : 'none';
+    }
+  });
 }
 
 // Data for the dynamic card
@@ -23,27 +23,27 @@ const cardData = [
     {
         title: "Sua genética influencia seus resultados",
         text: "Nem todos ganham massa da mesma forma — e tá tudo bem.",
-        link: "../curiosidades/dashboard.html"
+        link: "cur-top/cur1.html"
     },
     {
         title: "Musculação fortalece corpo e mente",
         text: "Mais do que físico, o treino transforma a forma como você se vê.",
-        link: "../curiosidades/dashboard.html"
+        link: "cur-top/cur2.html"
     },
     {
         title: "Músculos fortes = menos lesões",
         text: "A musculação é um escudo contra lesões e dores.",
-        link: "../curiosidades/dashboard.html"
+        link: "cur-top/cur3.html"
     },
     {
         title: "Treinar pode prolongar sua vida",
         text: "Musculação é qualidade de vida agora — e na velhice.",
-        link: "../curiosidades/dashboard.html"
+        link: "cur-top/cur4.html"
     },
     {
         title: "O sedentarismo é o maior inimigo da sua saúde",
         text: "Ficar parado cobra um preço alto — e mais cedo do que se pensa.",
-        link: "../curiosidades/dashboard.html"
+        link: "cur-top/cur5.html"
     }
 ];
 

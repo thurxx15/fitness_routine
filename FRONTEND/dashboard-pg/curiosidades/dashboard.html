@@ -62,10 +62,23 @@
     </div>
 
     <div class="botoes-fixos">
-        <button class="toggle-btn" onclick="alternarBarra()"><i class="fas fa-bars"></i></button>
-        <button class="toggle-btn" ><a href="../../inicio-pg/inicio.html" class="btn-fixo"><i class="fa-solid fa-right-from-bracket"></i></a></button>
-        <button class="toggle-btn" ><a href="../../usuario-pg/usuario.html" class="btn-fixo"><i class="fas fa-user"></i></a></button>
-    </div>
+    <button class="toggle-btn" onclick="alternarBarra(), removerFixos()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <button class="toggle-btn" id="btn-logout">
+      <a href="../../inicio-pg/inicio.html" class="btn-fixo">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </a>
+    </button>
+
+    <button class="toggle-btn" id="btn-user">
+      <a href="../../usuario-pg/usuario.html" class="btn-fixo">
+        <i class="fas fa-user"></i>
+      </a>
+    </button>
+
+  </div>
 
 <script src="dashboard.js"></script>
 </body>
