@@ -1,0 +1,110 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: #f0f0f0;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 32px 20px 20px 20px;
+    border-bottom-left-radius: 32px;
+    border-bottom-right-radius: 32px;
+}
+
+header h1 {
+    color: #a680ff;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px #a680ff44;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.hero img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.conteudo {
+    max-width: 900px;
+    margin: 32px auto;
+    background: rgba(34, 24, 54, 0.85);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px rgba(166,128,255,0.12);
+    border: 2px solid #a680ff33;
+    animation: fadeIn 0.6s ease-in-out;
+    padding: 30px 50px 60px 50px;
+}
+
+h2 {
+    color: #c6aaff;
+    font-size: 2rem;
+    margin-bottom: 18px;
+    text-shadow: 0 2px 8px #c6aaff44;
+}
+
+ul li {
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    padding-left: 8px;
+    border-left: 3px solid #a680ff55;
+}
+
+.btn-voltar {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 25px;
+    background: #c8b8db;
+    color: #121212;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 40px;
+    transition: 0.3s ease-in-out;
+}
+
+
+.btn-voltar:hover {
+    background: #845de0;
+    color: #fff;
+    transition: 4ms ease-in-out;
+}
+
+.legenda {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #b87fff; /* roxo claro/destaque */
+    margin-bottom: 20px; /* separa do título */
+    background: none; /* remove caixinha */
+    padding: 0; /* remove espaçamento interno */
+    box-shadow: none; /* tira sombra */
+    border-radius: 0; /* tira cantos arredondados */
+}
+
+.lista-destaque li {
+  margin-bottom: 14px;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px 14px;
+  border-radius: 8px;
+}
+
+.conteudo-expandida {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .mainContent:not(.expandida) {
+        margin-left: 0;
+    }
+
+
+}
