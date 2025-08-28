@@ -112,7 +112,7 @@ header .links .links-h2:hover::after {
     box-shadow: -3px 3px 35px -5px rgba(200,184,219,1); }
 
 .links .btn .btn-ini:hover {
-    transform: translateY(-10px);
+    transform: scale(1.1);
     color: #121212; }
 
 /*container*/
@@ -158,7 +158,7 @@ header .links .links-h2:hover::after {
     box-shadow: -3px 3px 35px -5px rgba(200,184,219,1); }
 
 .container .info a:hover {
-    transform: translateY(-10px); }
+    transform: scale(1.1); }
 
 /*icones*/
 .ico {
@@ -185,7 +185,7 @@ header .links .links-h2:hover::after {
 
 .ico li a:hover {
     background: #374724;
-    transform: translateY(-5px);
+    transform: scale(1.1);
     filter: invert(1);
     -webkit-box-shadow: 3px -3px 35px -5px rgb(0, 0, 0);
     -moz-box-shadow: 3px -3px 35px -5px rgb(0, 0, 0);
@@ -260,7 +260,7 @@ header .links .links-h2:hover::after {
     box-shadow: -3px 3px 35px -5px rgba(200,184,219,1); }
 
 .container2 .info2 .btn-bvd:hover {
-    transform: translateY(-10px); }
+    transform: scale(1.1); }
 
 
 /*PAGINA DE PLANILHAS DO SITE*/
@@ -326,7 +326,7 @@ header .links .links-h2:hover::after {
     box-shadow: -3px 3px 35px -5px rgba(200,184,219,1); }
 
 .container3 .info3 .btn-pla:hover {
-    transform: translateY(-10px); } 
+    transform: scale(1.1); } 
 
 
 /*PAGINA DE MITOS DO SITE*/
@@ -383,7 +383,7 @@ header .links .links-h2:hover::after {
     box-shadow: -3px 3px 35px -5px rgba(200,184,219,1); }
 
 .container5 .info5 .btn-mts:hover {
-    transform: translateY(-10px); }
+    transform: scale(1.1); }
 
 
 /*RODAPÉ DO SITE*/
