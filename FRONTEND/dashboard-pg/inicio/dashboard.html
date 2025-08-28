@@ -61,7 +61,40 @@
 
   </div>
 
-  <div class="botoes-fixos">
+<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ConfigModal">
+    <button class="modal-fechar" id="fecharModal" aria-label="Fechar"><i class="fa-solid fa-x"></i></button>
+    <h2 id="tituloModal">Configurações de usuário</h2>
+
+    <form id="formPreferencias">
+      <div class="modal-grid">
+        <div class="col-inputs">
+          <div class="grupo">
+            <label for="username">Usuario: </label>
+            <input type="text" id="username" name="username"/>
+          </div>
+
+          <div class="grupo">
+            <label for="email">Email: </label>
+            <input type="mail" id="email" name="email"/>
+          </div>
+
+          <div class="grupo">
+            <label for="senha">Senha: </label>
+            <input type="password" id="senha" name="senha"/>
+          </div>
+        </div>
+      </div>
+
+      <div class="acoes">
+        <button type="button" class="btn-secundario" id="cancelarModal">Cancelar</button>
+        <button type="submit" class="btn-primario">Salvar configurações</button>
+      </div>
+    </form>
+  </div>
+</div>
+  
+<div class="botoes-fixos">
     <button class="toggle-btn" onclick="alternarBarra(), removerFixos()">
       <i class="fas fa-bars"></i>
     </button>
@@ -72,13 +105,11 @@
       </a>
     </button>
 
-    <button class="toggle-btn" id="btn-user">
-      <a href="../../usuario-pg/usuario.html" class="btn-fixo">
+    <button class="toggle-btn" id="btn-user" >
         <i class="fas fa-user"></i>
-      </a>
     </button>
 
-  </div>
+</div>
 
 <script src="dashboard.js"></script>
 </body>
