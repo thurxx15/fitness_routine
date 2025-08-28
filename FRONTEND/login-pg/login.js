@@ -1,17 +1,11 @@
 const togglePassword = document.getElementById('toggle-password');
 const passwordInput = document.getElementById('password');
+const btnAcao = document.getElementById('btnAcao');
+const userInput = document.getElementById('user');
 
-togglePassword.addEventListener('click', function () {
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-
-    this.textContent = type === 'password' ? 'visibility_off' : 'visibility';
-
-});
-
+function login() {
+    
 const URL = "http://127.0.0.1:8000/api/token/";
-
-
 
 async function login(username, password) {
     try {
@@ -70,3 +64,27 @@ formLogin.addEventListener('click', async(event) => {
         mensagemErro.textContent = resultadoLogin.mensagem; }
     
 })
+
+    console.log("Login disparado!");
+    btnAcao.click(); // Se quiser simular o clique no botão
+}
+
+// Escuta o Enter em qualquer input de login
+[userInput, passwordInput].forEach(input => {
+    input.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            login();
+        }
+    });
+});
+
+// Também pode manter o botão clicável normalmente
+btnAcao.addEventListener('click', login);
+
+togglePassword.addEventListener('click', function () {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+
+    this.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+
+});

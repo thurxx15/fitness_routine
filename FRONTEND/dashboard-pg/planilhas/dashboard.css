@@ -250,3 +250,75 @@ body {
     border: 1px solid #2a1f3d;
     border-radius: 12px;
     cursor: pointer; }
+
+/* --- Estilo do Modal --- */
+.modal-overlay2 {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000; }
+
+.modal-overlay2.aberta {
+    display: flex; }
+
+.modal2 {
+    width: 100%;
+    max-width: 400px;
+    max-height: 650px;
+    background: #1a1525;
+    border: 1px solid #231935;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+    animation: surgir 0.2s ease-out;
+    position: relative; }
+
+@keyframes surgir {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; } }
+
+.modal2 h2 {
+    margin-bottom: 10px;
+    color: #c8b8db; }
+
+.modal2-fechar {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    background: transparent;
+    color: #c8b8db;
+    border: none;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer; }
+
+#formPreferencias .grupo {
+    display: grid;
+    gap: 8px;
+    margin: 12px 0; }
+
+#formPreferencias label, #formPreferencias span {
+    font-weight: 500; 
+    font-size: 13px; }
+
+#formPreferencias input[type="mail"], input[type="text"], input[type="password"], textarea {
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: #ffffff; 
+    font-size: 12px;}
+
+.acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 6px; }
+
+.col-inputs {
+    display: flex;
+    flex-direction: column;
+    flex: 2; }

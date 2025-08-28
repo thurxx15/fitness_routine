@@ -83,3 +83,32 @@ function updateCard(newIndex) {
 
 // Initial update to show the content of the first slide on page load
 updateCard(index);
+
+const abrirModalBtn = document.getElementById('btn-user');
+const modalOverlay = document.getElementById('modalOverlay');
+const fecharModalBtn = document.getElementById('fecharModal');
+const cancelarModalBtn = document.getElementById('cancelarModal');
+
+function abrirModal() {
+  modalOverlay.classList.add('aberta');
+  modalOverlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharModal() {
+  modalOverlay.classList.remove('aberta');
+  modalOverlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+abrirModalBtn.addEventListener('click', abrirModal);
+fecharModalBtn.addEventListener('click', fecharModal);
+cancelarModalBtn.addEventListener('click', fecharModal);
+
+modalOverlay.addEventListener('click', (e) => {
+  if (e.target === modalOverlay) fecharModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') fecharModal();
+});
