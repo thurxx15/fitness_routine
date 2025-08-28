@@ -66,6 +66,26 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') fecharModal();
 });
 
+function atualizarTempo(valor) {
+  let horas = Math.floor(valor / 60);
+  let minutos = valor % 60;
+  document.getElementById("saida").textContent = `${horas}h ${minutos.toString().padStart(2, '0')}min`;
+}
+
+
+document.getElementById("formPreferencias").addEventListener("submit", function(minimo) {
+  const selecionados = document.querySelectorAll('input[name="grupos"]:checked');
+  const erroMsg = document.getElementById("erro-grupos");
+
+  if (selecionados.length < 3) {
+    minimo.preventDefault();
+    erroMsg.style.display = "inline-block";
+    erroMsg.textContent = "Selecione pelo menos 3 grupos musculares.";
+  } else {
+    erroMsg.style.display = "none";
+  }
+});
+
 
 const acessToken = localStorage.getItem('accessToken');
 
