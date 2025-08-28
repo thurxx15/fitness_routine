@@ -54,19 +54,21 @@
 
     <form id="formPreferencias">
       <div class="grupo">
-        <label for="NomeTreino">Qual será o nome do seu treino:</label>
+        <label for="NomeTreino">Nome do seu treino:</label>
         <input type="text" id="NomeTreino" name="NomeTreino"/>
       </div>
 
       <div class="grupo">
         <label for="diasSemana">Quantos dias você quer treinar na semana:</label>
         <input type="number" id="diasSemana" name="diasSemana" min="1" max="7" />
-      </div>
+      </div> 
 
-      <div class="grupo">
-        <label for="horasDia">Quantas horas por dia:</label>
-        <input type="time" id="horasDia" name="horasDia"/>
-      </div>
+<div class="grupo-slider">
+  <label for="horas">Quantas horas por dia:</label>
+  <input type="range" id="horas" min="20" max="300" step="5" value="120" oninput="atualizarTempo(this.value)">
+  <output id="saida">2h 00min</output>
+</div>
+
 
       <div class="grupo">
         <span>Grupos musculares (selecione no mínimo 3):</span>
@@ -88,6 +90,7 @@
         <label for="limitacoes">Limitações de saúde (opcional):</label>
         <textarea id="limitacoes" name="limitacoes" rows="3"></textarea>
       </div>
+       <span id="erro-grupos" class="erro"></span>
 
       <div class="acoes">
         <button type="button" class="btn-secundario" id="cancelarModal">Cancelar</button>

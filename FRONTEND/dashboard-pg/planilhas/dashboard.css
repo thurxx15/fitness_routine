@@ -111,7 +111,7 @@ body {
     display: inline-block;
     padding: 10px 25px;
     background: #c8b8db;
-    font-weight: 500;
+    font-weight: 520;
     font-size: 18px;
     text-decoration: none;
     border-radius: 40px;
@@ -119,8 +119,7 @@ body {
     cursor: pointer; }
 
 .btn .btn-gerar:hover {
-    transform: scale(1.1);
-    color: #121212; }
+    transform: scale(1.1); }
 
 .tabela-container {
     background: #1a1525;
@@ -250,3 +249,73 @@ body {
     border: 1px solid #2a1f3d;
     border-radius: 12px;
     cursor: pointer; }
+
+/* Quando foca no input */
+input[type="time"]:focus {
+  border-color: #9d4edd;
+  box-shadow: 0 0 12px rgba(157, 78, 221, 0.8);
+}
+
+/* Remove ícones nativos no Chrome */
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background: url('https://img.icons8.com/ios-glyphs/30/9d4edd/clock--v1.png') no-repeat center;
+  background-size: 20px;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+/* Deixa o ícone mais bonito ao passar o mouse */
+input[type="time"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+.erro {
+  display: none;
+  color: #fff;
+  background: #e74c3c;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  margin-top: 8px;
+  position: relative;
+}
+
+.erro::before {
+  content: "⚠ ";
+}
+
+.erro::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 15px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent #e74c3c transparent;
+}
+
+.grupo-slider {
+  display: flex; 
+  align-items: center; 
+  gap: 15px; 
+  margin: 12px 0; }
+
+.grupo-slider input[type="range"] {
+  flex-grow: 1; 
+}
+
+.grupo-slider output {
+  min-width: 70px; 
+  text-align: right;
+  font-size: 18px;
+}
+
+input[type="range"] {
+    height: 8px;
+    border-radius: 5px;
+    background: #2a1f3d;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    accent-color: #9d4edd;
+}
