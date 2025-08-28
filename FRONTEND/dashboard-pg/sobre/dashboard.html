@@ -117,57 +117,6 @@
 
   </div>
 
-  <div class="modal-overlay" id="modalOverlay" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tituloModal">
-    <button class="modal-fechar" id="fecharModal" aria-label="Fechar">×</button>
-    <h2 id="tituloModal">Preencha suas preferências</h2>
-
-    <form id="formPreferencias">
-      <div class="grupo">
-        <label for="NomeTreino">Qual será o nome do seu treino:</label>
-        <input type="text" id="NomeTreino" name="NomeTreino"/>
-      </div>
-
-      <div class="grupo">
-        <label for="diasSemana">Quantos dias você quer treinar na semana:</label>
-        <input type="number" id="diasSemana" name="diasSemana" min="1" max="7" />
-      </div>
-
-      <div class="grupo">
-        <label for="horasDia">Quantas horas por dia:</label>
-        <input type="time" id="horasDia" name="horasDia"/>
-      </div>
-
-      <div class="grupo">
-        <span>Grupos musculares (selecione no mínimo 3):</span>
-        <div class="grade-checkboxes">
-          <label><input type="checkbox" name="grupos" value="Peito" /> Peito</label>
-          <label><input type="checkbox" name="grupos" value="Costas" /> Costas</label>
-          <label><input type="checkbox" name="grupos" value="Ombros" /> Ombros</label>
-          <label><input type="checkbox" name="grupos" value="Bíceps" /> Bíceps</label>
-          <label><input type="checkbox" name="grupos" value="Tríceps" /> Tríceps</label>
-          <label><input type="checkbox" name="grupos" value="Pernas" /> Pernas</label>
-          <label><input type="checkbox" name="grupos" value="Glúteos" /> Glúteos</label>
-          <label><input type="checkbox" name="grupos" value="Panturrilhas" /> Panturrilhas</label>
-          <label><input type="checkbox" name="grupos" value="Lombar" /> Lombar</label>
-          <label><input type="checkbox" name="grupos" value="Full Body" /> Full Body</label>
-        </div>
-      </div>
-
-      <div class="grupo">
-        <label for="limitacoes">Limitações de saúde (opcional):</label>
-        <textarea id="limitacoes" name="limitacoes" rows="3"></textarea>
-      </div>
-
-      <div class="acoes">
-        <button type="button" class="btn-secundario" id="cancelarModal">Cancelar</button>
-        <button type="submit" class="btn-primario">Salvar Treino</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-
 <script src="dashboard.js"></script>
 </body>
 </html>

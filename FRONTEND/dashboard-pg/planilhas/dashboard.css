@@ -111,24 +111,16 @@ body {
     display: inline-block;
     padding: 10px 25px;
     background: #c8b8db;
-    color: #121212;
     font-weight: 500;
     font-size: 18px;
-    letter-spacing: 1px;
     text-decoration: none;
     border-radius: 40px;
     transition: 0.3s ease-in-out;
-    -webkit-box-shadow: -3px 3px 35px -5px rgba(200,184,219,1);
-    -moz-box-shadow: -3px 3px 35px -5px rgba(200,184,219,1);
-    box-shadow: -3px 3px 35px -5px rgba(200,184,219,1); }
+    cursor: pointer; }
 
 .btn .btn-gerar:hover {
-    transform: translateY(-10px);
+    transform: scale(1.1);
     color: #121212; }
-
-.btn .btn-gerar:hover {
-  transform: translateY(-10px);
-  color: #121212; }
 
 .tabela-container {
     background: #1a1525;
