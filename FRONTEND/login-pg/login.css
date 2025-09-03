@@ -89,7 +89,8 @@ h2 {
     padding-right: 35px; }
 
 .ico li {
-    list-style: none; }
+    list-style: none; 
+    gap: 40px; }
 
 .ico li a {
     display: inline-block;
@@ -105,7 +106,7 @@ h2 {
 
 .ico li a:hover {
     background: #374724;
-    transform: translateY(-5px);
+    transform: scale(1.1);
     filter: invert(1);
     -webkit-box-shadow: 3px -3px 35px -5px rgb(0, 0, 0);
     -moz-box-shadow: 3px -3px 35px -5px rgb(0, 0, 0);

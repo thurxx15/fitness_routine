@@ -87,7 +87,10 @@ document.getElementById("formPreferencias").addEventListener("submit", function(
 });
 
 
-const acessToken = localStorage.getItem('accessToken');
+const token = localStorage.getItem('accessToken');
 
 const payload = JSON.parse(atob(token.split('.')[1]));
-document.getElementById('username').value = payload.nome;
+console.log(payload);
+document.getElementById('username').value = payload.username;
+document.getElementById('email').value = payload.email;
+document.getElementById('senha').value = payload.password;
