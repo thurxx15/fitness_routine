@@ -177,7 +177,8 @@ body {
 
 .modal h2 {
     margin-bottom: 14px;
-    color: #c8b8db; }
+    color: #c8b8db;
+    font-size: 22px; }
 
 .modal-fechar {
     position: absolute;
@@ -391,3 +392,8 @@ input[type="range"] {
     display: flex;
     flex-direction: column;
     flex: 2; }
+
+.fa-solid.fa-x {
+    color: #c8b8db;
+    font-size: 22px;
+}
