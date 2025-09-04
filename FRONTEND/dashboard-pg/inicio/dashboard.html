@@ -61,33 +61,79 @@
 
   </div>
 
-<div class="modal-overlay" id="modalOverlay" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="ConfigModal">
-    <button class="modal-fechar" id="fecharModal" aria-label="Fechar"><i class="fa-solid fa-x"></i></button>
-    <h2 id="tituloModal">Configurações de usuário</h2>
+<div class="modal-info" id="modalInfo" aria-hidden="true">
+  <div class="modal2" role="dialog" aria-modal="true" aria-labelledby="ConfigInfo">
+    <button class="modal2-fechar" id="fecharInfo" aria-label="Fechar"><i class="fa-solid fa-x"></i></button>
+    <h2 id="tituloInfo">Configurações de usuário</h2>
 
     <form id="formPreferencias">
       <div class="modal-grid">
+        
+        <!-- Coluna esquerda -->
         <div class="col-inputs">
+
           <div class="grupo">
-            <label for="username">Usuario: </label>
+            <label>Nome completo:</label>
+            <div class="nome-sobrenome">
+              <input type="text" id="nome" name="nome" placeholder="Nome"/>
+              <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome"/>
+            </div>
+          </div>
+
+          <div class="grupo">
+            <label for="username">Nome de usuário: </label>
             <input type="text" id="username" name="username"/>
           </div>
 
           <div class="grupo">
             <label for="email">Email: </label>
-            <input type="mail" id="email" name="email"/>
+            <input type="email" id="email" name="email"/>
           </div>
 
           <div class="grupo">
             <label for="senha">Senha: </label>
-            <input type="password" id="senha" name="senha"/>
+            <input type="password" id="password" name="senha"/>
+          </div>
+
+          <div class="grupo">
+            <label for="confirmaSenha">Confirmar senha: </label>
+            <input type="password" id="confirmaSenha" name="confirmaSenha"/>
+          </div>
+        </div>
+
+        <!-- Coluna direita -->
+        <div class="col-inputs">
+          <div class="grupo">
+            <label for="nasc">Ano de nascimento: </label>
+            <input type="date" id="dateUser" name="nasc"/>
+          </div>
+
+          <div class="grupo">
+            <label for="nivel">Experiência: </label>
+            <div class="level-box">
+              <select id="nivelUser" name="nivel">
+                <option value="" disabled selected>Escolha o nível</option>
+                <option value="iniciante">Iniciante</option>
+                <option value="intermediario">Intermediário</option>
+                <option value="experiente">Avançado</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grupo">
+            <label for="peso">Peso: (kg) </label>
+            <input type="number" id="pesoUser" name="peso" step="0.1"/>
+          </div>
+
+          <div class="grupo">
+            <label for="altura">Altura: (cm)</label>
+            <input type="number" id="alturaUser" name="altura"/>
           </div>
         </div>
       </div>
 
       <div class="acoes">
-        <button type="button" class="btn-secundario" id="cancelarModal">Cancelar</button>
+        <button type="button" class="btn-secundario" id="cancelarInfo">Cancelar</button>
         <button type="submit" class="btn-primario">Salvar configurações</button>
       </div>
     </form>
@@ -105,7 +151,7 @@
       </a>
     </button>
 
-    <button class="toggle-btn" id="btn-user" >
+    <button class="toggle-btn" id="abrirInfo" >
         <i class="fas fa-user"></i>
     </button>
 

@@ -9,7 +9,7 @@ function alternarBarra() {
 function removerFixos() {
   const btnConfig = document.getElementById('btn-config');
   const btnLogout = document.getElementById('btn-logout');
-  const btnUser = document.getElementById('btn-user');
+  const btnUser = document.getElementById('abrirInfo');
 
   [btnConfig, btnLogout, btnUser].forEach((btn) => {
     if (btn) {
@@ -72,7 +72,6 @@ function updateCarousel() {
     updateCard(index);
 }
 
-// Function to update the card content
 function updateCard(newIndex) {
     const currentData = cardData[newIndex];
     cardTitle.textContent = currentData.title;
@@ -81,34 +80,34 @@ function updateCard(newIndex) {
     cardLink.textContent = "Ver mais";
 }
 
-// Initial update to show the content of the first slide on page load
 updateCard(index);
 
-const abrirModalBtn = document.getElementById('btn-user');
-const modalOverlay = document.getElementById('modalOverlay');
-const fecharModalBtn = document.getElementById('fecharModal');
-const cancelarModalBtn = document.getElementById('cancelarModal');
+/*BLOCO DAS INFORMAÇÕES*/
+const abrirInfo = document.getElementById('abrirInfo');
+const modalInfo = document.getElementById('modalInfo');
+const fecharInfo = document.getElementById('fecharInfo');
+const cancelarInfo = document.getElementById('cancelarInfo');
 
-function abrirModal() {
-  modalOverlay.classList.add('aberta');
-  modalOverlay.setAttribute('aria-hidden', 'false');
+function abrir_info() {
+  modalInfo.classList.add('aberta');
+  modalInfo.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
 }
-
-function fecharModal() {
-  modalOverlay.classList.remove('aberta');
-  modalOverlay.setAttribute('aria-hidden', 'true');
+function fechar_info() {
+  modalInfo.classList.remove('aberta');
+  modalInfo.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
 }
 
-abrirModalBtn.addEventListener('click', abrirModal);
-fecharModalBtn.addEventListener('click', fecharModal);
-cancelarModalBtn.addEventListener('click', fecharModal);
+abrirInfo.addEventListener('click', abrir_info);
+cancelarInfo.addEventListener('click', fechar_info);
+fecharInfo.addEventListener('click', fechar_info);
 
-modalOverlay.addEventListener('click', (e) => {
-  if (e.target === modalOverlay) fecharModal();
+
+/*info*/
+modalInfo.addEventListener('click', (e) => {
+  if (e.target === modalInfo) fechar_info();
 });
-
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') fecharModal();
+  if (e.key === 'Escape') fechar_info();
 });
