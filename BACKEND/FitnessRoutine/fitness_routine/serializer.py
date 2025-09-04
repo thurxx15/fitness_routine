@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 
@@ -19,8 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'password')
-        read_only_fields = ('id','first_name')
+        fields = ('id', 'username', 'email', 'first_name', 'last_name')
+        read_only_fields = ('id')
 
     def update(self, instance, validated_data):
         instance.username = validated_data.get('username', instance.username)
