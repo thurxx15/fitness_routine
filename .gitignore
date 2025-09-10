@@ -6,6 +6,8 @@ venv/
 __pycache__/
 *.py[cod]
 
+__pycache__/
+
 # Banco local (se usar sqlite no dev)
 *.sqlite3
 
