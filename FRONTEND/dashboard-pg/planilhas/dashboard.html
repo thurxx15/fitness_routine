@@ -12,6 +12,9 @@
         referrerpolicy="no-referrer" />
       
   <link rel="stylesheet" href="dashboard.css" />
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 </head>
 <body>
 
@@ -32,18 +35,21 @@
   </header>
 
   <div class="tabela-container">
-    <table id="tabelaTreinos">
-      <thead>
-        <tr>
-          <th>Nome: </th>
-          <th>Grupos Musculares:</th>
-          <th>Ações: </th>
+   <!-- dashboard-pg/planilhas/dashboard.html -->
+<table id="tabelaTreinos" class="display" style="width:100%;">
+    <thead>
+        <tr >
+          <div class="fundo-tabela">
+            <th></th> <!-- Coluna para o controle '+' -->
+            <th>Nome do Treino</th>
+            <th>Objetivo</th>
+            <th>Exercícios (Resumo)</th>
+            <th>Data de Criação</th>
+            </div>
         </tr>
-      </thead>
-      <tbody>
-        
-      </tbody>
-    </table>
+    </thead>
+    <tbody></tbody>
+</table>
   </div>
 </div>
 
@@ -136,12 +142,12 @@
           </div>
 
           <div class="grupo">
-            <label for="senha">Senha: </label>
+            <label for="senha">Nova senha: </label>
             <input type="password" id="password" name="senha"/>
           </div>
 
           <div class="grupo">
-            <label for="confirmaSenha">Confirmar senha: </label>
+            <label for="confirmaSenha">Confirmar nova senha: </label>
             <input type="password" id="confirmaSenha" name="confirmaSenha"/>
           </div>
         </div>
@@ -160,7 +166,7 @@
                 <option value="" disabled selected>Escolha o nível</option>
                 <option value="iniciante">Iniciante</option>
                 <option value="intermediario">Intermediário</option>
-                <option value="experiente">Avançado</option>
+                <option value="avancado">Avançado</option>
               </select>
             </div>
           </div>
@@ -198,7 +204,13 @@
 
 </div>
 
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="dashboard.js"></script>
+
+
 </body>
 
 </html>

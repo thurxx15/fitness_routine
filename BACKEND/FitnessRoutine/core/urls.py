@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 from fitness_routine.views import UserCreate, UserProfileView
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from fitness_routine.views import UserCreate, UserProfileView, GerarTreinoView, TreinoListView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,6 +17,8 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     
     path('api/me/', UserProfileView.as_view(), name='user_profile'),
+    path('api/treinos/', TreinoListView.as_view(), name='treino_list'),
+    path('api/gerar-treino/', GerarTreinoView.as_view(), name='gerar_treino'),
 
 
 

@@ -111,3 +111,108 @@ modalInfo.addEventListener('click', (e) => {
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') fechar_info();
 });
+
+// --- FUNÇÃO PARA CARREGAR OS DADOS DO USUÁRIO ---
+async function carregarDadosUsuario() {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+        window.location.href = '../../login-pg/login.html'; // Redireciona se não estiver logado
+        return;
+    }
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/me/', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Falha ao carregar dados do usuário.');
+        }
+
+        const data = await response.json();
+
+        // Preenche os campos do formulário com os dados da API
+        document.getElementById('nome').value = data.first_name || '';
+        document.getElementById('sobrenome').value = data.last_name || '';
+        document.getElementById('username').value = data.username;
+        document.getElementById('email').value = data.email;
+        
+        // Desabilita campos não editáveis
+        document.getElementById('nome').readOnly = true;
+        document.getElementById('sobrenome').readOnly = true;
+        document.getElementById('username').readOnly = true;
+
+        if (data.profile) {
+            document.getElementById('dateUser').value = data.profile.data_nascimento || '';
+            document.getElementById('nivelUser').value = data.profile.nivel_experiencia || '';
+            document.getElementById('pesoUser').value = data.profile.peso || '';
+            document.getElementById('alturaUser').value = data.profile.altura || '';
+        }
+
+    } catch (error) {
+        console.error('Erro:', error);
+        alert(error.message);
+    }
+}
+
+
+// --- FUNÇÃO PARA SALVAR AS ALTERAÇÕES ---
+async function salvarConfiguracoes(event) {
+    event.preventDefault(); // Impede o recarregamento da página
+
+    // Validação de campos obrigatórios no front-end
+    const peso = document.getElementById('pesoUser').value;
+    const altura = document.getElementById('alturaUser').value;
+    const experiencia = document.getElementById('nivelUser').value;
+    console.log(experiencia);
+    const dataNascimento = document.getElementById('dateUser').value;
+
+    if (!peso || !altura || !experiencia || !dataNascimento) {
+        alert('Por favor, preencha todos os campos obrigatórios: Peso, Altura, Experiência e Data de Nascimento.');
+        return;
+    }
+
+    const accessToken = localStorage.getItem('accessToken');
+    const dadosAtualizados = {
+        email: document.getElementById('email').value, // Permite edição do email
+        profile: {
+            data_nascimento: dataNascimento,
+            peso: parseFloat(peso),
+            altura: parseInt(altura),
+            nivel_experiencia: experiencia
+        }
+    };
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/me/', {
+            method: 'PATCH', // PATCH é ideal para atualizações parciais
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dadosAtualizados)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error('Falha ao salvar as configurações: ' + JSON.stringify(errorData));
+        }
+
+        alert('Configurações salvas com sucesso!');
+        fechar_info(); // Fecha o modal após o sucesso
+
+    } catch (error) {
+        console.error('Erro ao salvar:', error);
+        alert(error.message);
+    }
+}
+
+// Carrega os dados quando o modal é aberto
+abrirInfo.addEventListener('click', carregarDadosUsuario);
+
+// Salva os dados quando o formulário é enviado
+formConfiguracoes.addEventListener('submit', salvarConfiguracoes);

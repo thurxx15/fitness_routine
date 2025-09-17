@@ -1,112 +1,315 @@
-/*BLOCO DA BARRA*/
+/*
+================================================================================
+|   ARQUIVO JAVASCRIPT - DASHBOARD DE TREINOS (PLANILHAS)                      |
+================================================================================
+|   Este arquivo gerencia:                                                     |
+|   1. A inicialização e estilização do DataTable para listar os treinos.      |
+|   2. A funcionalidade de linhas expansíveis (child rows) para detalhes.    |
+|   3. A submissão do formulário de novo treino, chamando a API do Gemini.     |
+|   4. A atualização automática do DataTable após a criação de um novo treino. |
+|   5. As funções de UI da barra lateral e do modal de configurações do usuário.|
+================================================================================
+*/
+
+// --- FUNÇÕES GERAIS DA INTERFACE (Sidebar e Modal de Configurações) ---
+
 function alternarBarra() {
-  const barra = document.getElementById('barraLateral');
-  const conteudo = document.getElementById('mainContent');
-
-  barra.classList.toggle('oculta');
-  conteudo.classList.toggle('expandida'); 
+    const barra = document.getElementById('barraLateral');
+    const conteudo = document.getElementById('mainContent');
+    barra.classList.toggle('oculta');
+    conteudo.classList.toggle('expandida');
 }
+
 function removerFixos() {
-  const btnConfig = document.getElementById('btn-config');
-  const btnLogout = document.getElementById('btn-logout');
-  const btnUser = document.getElementById('abrirInfo');
-
-  [btnConfig, btnLogout, btnUser].forEach((btn) => {
-    if (btn) {
-      btn.style.display = (btn.style.display === 'none') ? 'block' : 'none';
-    }
-  });
+    const btnLogout = document.getElementById('btn-logout');
+    const btnUser = document.getElementById('abrirInfo');
+    [btnLogout, btnUser].forEach((btn) => {
+        if (btn) {
+            btn.style.display = (btn.style.display === 'none') ? 'block' : 'none';
+        }
+    });
 }
 
-/*BLOCO DO FORMULÁRIO*/
+// Lógica para o Modal de "Novo Treino"
 const abrirForm = document.getElementById('abrirForm');
 const modalForm = document.getElementById('modalForm');
 const fecharForm = document.getElementById('fecharForm');
 const cancelarForm = document.getElementById('cancelarForm');
 
 function abrir_form() {
-  modalForm.classList.add('aberta');
-  modalForm.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
+    modalForm.classList.add('aberta');
+    document.body.style.overflow = 'hidden';
 }
+
 function fechar_form() {
-  modalForm.classList.remove('aberta');
-  modalForm.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
+    modalForm.classList.remove('aberta');
+    document.body.style.overflow = '';
 }
 
-abrirForm.addEventListener('click', abrir_form);
-cancelarForm.addEventListener('click', fechar_form);
-fecharForm.addEventListener('click', fechar_form);
+if(abrirForm) abrirForm.addEventListener('click', abrir_form);
+if(cancelarForm) cancelarForm.addEventListener('click', fechar_form);
+if(fecharForm) fecharForm.addEventListener('click', fechar_form);
+if(modalForm) modalForm.addEventListener('click', (e) => { if (e.target === modalForm) fechar_form(); });
 
-/*BLOCO DAS INFORMAÇÕES*/
+// Lógica para o Modal de "Configurações do Usuário"
 const abrirInfo = document.getElementById('abrirInfo');
 const modalInfo = document.getElementById('modalInfo');
 const fecharInfo = document.getElementById('fecharInfo');
 const cancelarInfo = document.getElementById('cancelarInfo');
 
 function abrir_info() {
-  modalInfo.classList.add('aberta');
-  modalInfo.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
+    modalInfo.classList.add('aberta');
+    document.body.style.overflow = 'hidden';
 }
 function fechar_info() {
-  modalInfo.classList.remove('aberta');
-  modalInfo.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
+    modalInfo.classList.remove('aberta');
+    document.body.style.overflow = '';
+}
+if(abrirInfo) abrirInfo.addEventListener('click', abrir_info);
+if(cancelarInfo) cancelarInfo.addEventListener('click', fechar_info);
+if(fecharInfo) fecharInfo.addEventListener('click', fechar_info);
+if(modalInfo) modalInfo.addEventListener('click', (e) => { if (e.target === modalInfo) fechar_info(); });
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        fechar_form();
+        fechar_info();
+    }
+});
+
+
+// --- LÓGICA DO DATATABLE E GERAÇÃO DE TREINOS ---
+
+// Executa o código apenas quando o DOM estiver completamente carregado
+$(document).ready(function() {
+
+    /**
+     * Formata os detalhes dos exercícios para serem exibidos na linha filha (child row).
+     * @param {Array} exercicios - O array de objetos de exercício da API.
+     * @returns {string} O HTML formatado para a linha de detalhes.
+     */
+    function formatarDetalhes(exercicios) {
+        if (!exercicios || exercicios.length === 0) {
+            return '<div class="details-container"><p>Este treino não possui exercícios detalhados.</p></div>';
+        }
+
+        let detailsHtml = '<div class="details-container"><h4>Detalhes dos Exercícios:</h4><ul>';
+        exercicios.forEach(ex => {
+            detailsHtml += `<li><strong>${ex.nome_exercicio}</strong> (${ex.grupo_muscular || 'N/A'}): ${ex.series} séries de ${ex.repeticoes} repetições, com ${ex.descanso} de descanso.</li>`;
+        });
+        detailsHtml += '</ul></div>';
+        return detailsHtml;
+    }
+
+    // Armazena a instância da API do DataTable para manipulação futura (ex: reload)
+    const tabela = $('#tabelaTreinos').DataTable({
+        "ajax": {
+            "url": "http://127.0.0.1:8000/api/treinos/",
+            "type": "GET",
+            "headers": {
+                "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            "dataSrc": "" // A API retorna um array JSON diretamente
+        },
+        "columns": [
+            {
+                "className": 'details-control', // Classe para o controle de expansão
+                "orderable": false,
+                "data": null,
+                "defaultContent": '' // O ícone '+' é adicionado via CSS
+            },
+            { "data": "nome_treino" },
+            { "data": "objetivo" },
+            { 
+                "data": "exercicios",
+                "render": function(data) { // Renderiza um resumo dos exercícios
+                    if (!data || data.length === 0) return "Nenhum exercício";
+                    const nomes = data.map(ex => ex.nome_exercicio);
+                    const preview = nomes.slice(0, 2).join(', ');
+                    return nomes.length > 2 ? `${preview}...` : preview;
+                }
+            },
+            { 
+                "data": "data_criacao",
+                "render": function(data) { // Formata a data para um formato legível
+                    return new Date(data).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' });
+                }
+            }
+        ],
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+        },
+        "responsive": true,
+        "order": [[4, 'desc']] // Ordena pela 5ª coluna (data de criação), do mais novo para o mais antigo
+    });
+
+    // Event listener para o clique no controle de expansão (+)
+    $('#tabelaTreinos tbody').on('click', 'td.details-control', function () {
+        const tr = $(this).closest('tr');
+        const row = tabela.row(tr);
+
+        if (row.child.isShown()) {
+            // Se a linha já está aberta, fecha
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            // Se a linha está fechada, abre e exibe os detalhes formatados
+            row.child(formatarDetalhes(row.data().exercicios)).show();
+            tr.addClass('shown');
+        }
+    });
+
+    // Event listener para a submissão do formulário de "Novo Treino"
+    const formNovoTreino = document.getElementById('formPreferencias');
+    if (formNovoTreino) {
+        formNovoTreino.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const submitButton = formNovoTreino.querySelector('button[type="submit"]');
+            submitButton.textContent = 'Gerando com IA...';
+            submitButton.disabled = true;
+
+            const nomeTreino = document.getElementById('NomeTreino').value;
+            const diasSemana = document.getElementById('diasSemana').value;
+            const gruposMusculares = Array.from(document.querySelectorAll('input[name="grupos"]:checked')).map(cb => cb.value);
+            const limitacoes = document.getElementById('limitacoes').value;
+            const objetivo = "Hipertrofia e Força"; // Valor de exemplo, pode ser pego de um campo <select> no modal
+
+            const dadosParaApi = { nomeTreino, diasSemana, gruposMusculares, limitacoes, objetivo };
+
+            try {
+                const response = await fetch('http://127.0.0.1:8000/api/gerar-treino/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                    },
+                    body: JSON.stringify(dadosParaApi)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Falha ao gerar o treino. Verifique os dados e tente novamente.');
+                }
+
+                alert('Treino gerado e salvo com sucesso!');
+                fechar_form();
+                
+                // Recarrega os dados do DataTable a partir da fonte AJAX para exibir o novo treino
+                tabela.ajax.reload(null, false); // `null, false` evita resetar a paginação
+
+            } catch (error) {
+                alert(`Erro: ${error.message}`);
+            } finally {
+                // Restaura o botão em caso de sucesso ou falha
+                submitButton.textContent = 'Salvar Treino';
+                submitButton.disabled = false;
+            }
+        });
+    }
+});
+
+// --- FUNÇÃO PARA CARREGAR OS DADOS DO USUÁRIO ---
+async function carregarDadosUsuario() {
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+        window.location.href = '../../login-pg/login.html'; // Redireciona se não estiver logado
+        return;
+    }
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/me/', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Falha ao carregar dados do usuário.');
+        }
+
+        const data = await response.json();
+
+        // Preenche os campos do formulário com os dados da API
+        document.getElementById('nome').value = data.first_name || '';
+        document.getElementById('sobrenome').value = data.last_name || '';
+        document.getElementById('username').value = data.username;
+        document.getElementById('email').value = data.email;
+        
+        // Desabilita campos não editáveis
+        document.getElementById('nome').readOnly = true;
+        document.getElementById('sobrenome').readOnly = true;
+        document.getElementById('username').readOnly = true;
+
+        if (data.profile) {
+            document.getElementById('dateUser').value = data.profile.data_nascimento || '';
+            document.getElementById('nivelUser').value = data.profile.nivel_experiencia || '';
+            document.getElementById('pesoUser').value = data.profile.peso || '';
+            document.getElementById('alturaUser').value = data.profile.altura || '';
+        }
+
+    } catch (error) {
+        console.error('Erro:', error);
+        alert(error.message);
+    }
 }
 
-abrirInfo.addEventListener('click', abrir_info);
-cancelarInfo.addEventListener('click', fechar_info);
-fecharInfo.addEventListener('click', fechar_info);
 
-/*FECHAR MODAL CLICANDO FORA*/
-/*form*/
-modalForm.addEventListener('click', (e) => {
-  if (e.target === modalForm) fechar_form();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') fechar_form();
-});
+// --- FUNÇÃO PARA SALVAR AS ALTERAÇÕES ---
+async function salvarConfiguracoes(event) {
+    event.preventDefault(); // Impede o recarregamento da página
 
-/*info*/
-modalInfo.addEventListener('click', (e) => {
-  if (e.target === modalInfo) fechar_info();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') fechar_info();
-});
+    // Validação de campos obrigatórios no front-end
+    const peso = document.getElementById('pesoUser').value;
+    const altura = document.getElementById('alturaUser').value;
+    const experiencia = document.getElementById('nivelUser').value;
+    console.log(experiencia);
+    const dataNascimento = document.getElementById('dateUser').value;
 
-/*TEMPO*/
-function atualizarTempo(valor) {
-  let horas = Math.floor(valor / 60);
-  let minutos = valor % 60;
-  document.getElementById("saida").textContent = `${horas}h ${minutos.toString().padStart(2, '0')}min`;
+    if (!peso || !altura || !experiencia || !dataNascimento) {
+        alert('Por favor, preencha todos os campos obrigatórios: Peso, Altura, Experiência e Data de Nascimento.');
+        return;
+    }
+
+    const accessToken = localStorage.getItem('accessToken');
+    const dadosAtualizados = {
+        email: document.getElementById('email').value, // Permite edição do email
+        profile: {
+            data_nascimento: dataNascimento,
+            peso: parseFloat(peso),
+            altura: parseInt(altura),
+            nivel_experiencia: experiencia
+        }
+    };
+
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/me/', {
+            method: 'PATCH', // PATCH é ideal para atualizações parciais
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dadosAtualizados)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error('Falha ao salvar as configurações: ' + JSON.stringify(errorData));
+        }
+
+        alert('Configurações salvas com sucesso!');
+        fechar_info(); // Fecha o modal após o sucesso
+
+    } catch (error) {
+        console.error('Erro ao salvar:', error);
+        alert(error.message);
+    }
 }
 
-/*ERRO*/
-document.getElementById("formPreferencias").addEventListener("submit", function(minimo_limitacoes) {
-  const selecionados = document.querySelectorAll('input[name="grupos"]:checked');
-  const erroMsg = document.getElementById("erro-limitacoes");
+// Carrega os dados quando o modal é aberto
+abrirInfo.addEventListener('click', carregarDadosUsuario);
 
-  if (selecionados.length < 3) {
-    minimo_limitacoes.preventDefault();
-    erroMsg.style.display = "inline-block";
-    erroMsg.textContent = "Selecione pelo menos 3 grupos musculares."; } 
-  
-  else {
-    erroMsg.style.display = "none"; }
-});
-document.getElementById("formPreferencias").addEventListener("submit", function(minimo_d_s) {
-  const dias = document.getElementById("diasSemana").value;
-  const erroMsg = document.getElementById("erro-d_s");
-
-  if (dias < 1 || dias > 7) {
-    minimo_d_s.preventDefault();
-    erroMsg.style.display = "inline-block";
-    erroMsg.textContent = "Insira uma quantidade de dias válidos."; } 
-  
-  else {
-    erroMsg.style.display = "none";
-  }
-});
+// Salva os dados quando o formulário é enviado
+formConfiguracoes.addEventListener('submit', salvarConfiguracoes);
