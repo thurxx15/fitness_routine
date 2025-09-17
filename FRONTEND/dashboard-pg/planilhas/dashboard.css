@@ -316,6 +316,7 @@ input[type="range"] {
   border-style: solid;
   border-color: transparent transparent #e74c3c transparent; }
 
+
 /*MODAL 2*/
 .modal-info {
     position: fixed;
@@ -498,8 +499,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .btn-secundario:hover { 
     background: #211a2f; }
 
-    
-/*TABELA DATATABLES*/
+
+
+
+
 .dataTables_wrapper {
     color: #c8b8db;
 }
@@ -571,4 +574,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #a0a0a0;
     padding-top: 8px;
 }
-
+.fundo-tabela{
+    padding: 10px;
+}

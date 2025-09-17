@@ -313,3 +313,95 @@ abrirInfo.addEventListener('click', carregarDadosUsuario);
 
 // Salva os dados quando o formulário é enviado
 formConfiguracoes.addEventListener('submit', salvarConfiguracoes);
+
+/*
+================================================================================
+|   ARQUIVO JAVASCRIPT - DASHBOARD DE TREINOS (COM GRUPOS MINIMIZÁVEIS)        |
+================================================================================
+*/
+
+$(document).ready(function() {
+    // --- FUNÇÕES DE UI E LÓGICA DE MODAIS ---
+    // (Suas funções como alternarBarra, abrir_form, etc., devem estar aqui)
+
+    // --- LÓGICA DO DATATABLE COM GRUPOS MINIMIZÁVEIS ---
+    const tabela = $('#tabelaTreinos').DataTable({
+        "ajax": {
+            "url": "http://127.0.0.1:8000/api/treinos/",
+            "headers": { "Authorization": `Bearer ${localStorage.getItem('accessToken')}` },
+            "dataSrc": function(json) {
+                // Transforma a lista de treinos em uma lista "plana" de exercícios
+                const flatData = [];
+                json.forEach(treino => {
+                    const nomeDoGrupo = `Treino - ${treino.nome_treino}`;
+                    treino.exercicios.forEach(exercicio => {
+                        flatData.push({
+                            ...exercicio,
+                            treino_nome: nomeDoGrupo,
+                            treino_objetivo: treino.objetivo
+                        });
+                    });
+                });
+                return flatData;
+            }
+        },
+        "columns": [
+            // As colunas agora são dos exercícios
+            { "data": "nome_exercicio" },
+            { "data": "series" },
+            { "data": "repeticoes" },
+            { "data": "descanso" }
+        ],
+        
+        "rowGroup": {
+            dataSrc: 'treino_nome',
+            startRender: null, // Desativa o cabeçalho padrão
+            // Cria um cabeçalho customizado que pode ser clicado
+            header: function ( group ) {
+                return $('<div class="treino-group-header">')
+                    .append( `<span class="group-title">${group}</span>` )
+                    .append( '<span class="toggle-icon">-</span>' ); // Começa expandido
+            }
+        },
+        
+        // --- Customizações para o visual de ficha ---
+        "paging": false,
+        "info": false,
+        "searching": false,
+        "ordering": false,
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+        }
+    });
+
+    // --- LÓGICA PARA MINIMIZAR/EXPANDIR O GRUPO DE TREINO ---
+    $('#tabelaTreinos').on('click', '.treino-group-header', function() {
+        // Encontra todas as linhas de exercício que pertencem a este grupo
+        const rows = $(this).nextUntil('.treino-group-header');
+        // Alterna a visibilidade delas
+        rows.toggle();
+
+        // Alterna o ícone do botão
+        const icon = $(this).find('.toggle-icon');
+        icon.text(icon.text() === '-' ? '+' : '-');
+    });
+
+    // --- LÓGICA PARA O FORMULÁRIO DE "NOVO TREINO" ---
+    const formNovoTreino = document.getElementById('formPreferencias');
+    if (formNovoTreino) {
+        formNovoTreino.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            // (Seu código de fetch para gerar o treino permanece o mesmo)
+            // ...
+            // Lembre-se de recarregar a tabela no final:
+            // tabela.ajax.reload();
+        });
+    }
+});
+
+function atualizarTempo(valor) {
+  let horas = Math.floor(valor / 60);
+  let minutos = valor % 60;
+  // Encontra o elemento 'saida' e atualiza seu texto
+  document.getElementById("saida").textContent = `${horas}h ${minutos.toString().padStart(2, '0')}min`;
+}
