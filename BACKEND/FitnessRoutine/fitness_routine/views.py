@@ -10,6 +10,10 @@ from .serializer import TreinoSerializer
 from rest_framework import generics, permissions, viewsets
 from .serializer import UserSerializer, UserProfileSerializer
 
+from rest_framework.response import Response
+from rest_framework import status, permissions, generics
+from rest_framework_simplejwt.tokens import RefreshToken
+
 # --- Configuração da API do Gemini ---
 # Carregue a chave da API a partir de uma variável de ambiente
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
@@ -119,3 +123,17 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+    
+
+class LogoutView(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            refresh_token = request.data["refresh_token"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response(status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

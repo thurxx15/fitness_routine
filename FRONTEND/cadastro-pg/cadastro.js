@@ -27,6 +27,8 @@ btn.addEventListener('click', function() {
     formData.append('username', document.getElementById('user').value);
     formData.append('email', document.getElementById('email').value);
     formData.append('password', document.getElementById('password').value);
+    formData.append('first_name', document.getElementById('first_name').value);
+    formData.append('last_name', document.getElementById('last_name').value);
 
     const URL = 'http://127.0.0.1:8000/api/register/';
 

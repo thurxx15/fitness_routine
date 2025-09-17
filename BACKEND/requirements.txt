@@ -17,7 +17,7 @@ djangorestframework-simplejwt==5.3.1
 
 # Middleware para gerenciar cabeçalhos de Cross-Origin Resource Sharing (CORS)
 # Essencial para permitir que o front-end se comunique com a API
-django-cors-headers==4.3.1
+django-cors-headers==4.3.1 
 
 # SDK oficial do Google para interagir com a API do Gemini
 # Usado para a geração de treinos baseada em IA

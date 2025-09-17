@@ -66,8 +66,7 @@ h2 {
   font-weight: 600;
   cursor: pointer;
   background-color: #32075b;
-  color: white;
-  margin-top: 10px; }
+  color: white; }
 
 .btn:hover {
   background-color: #612d7d; }
@@ -75,7 +74,6 @@ h2 {
 .ico {
   display: flex;
   justify-content: flex-start; 
-  margin-top: -50px; 
   padding-left: 10px; }
 
 .ico li {
@@ -171,3 +169,14 @@ body > *:nth-child(2) {
 
 body > *:nth-child(3) {
   animation-delay: 0.5s; }
+
+
+.name-fields {
+  display: flex; 
+  gap: 15px;   
+  margin-bottom: 15px;  
+}
+
+.name-fields .input-field {
+  margin-bottom: 0;
+}

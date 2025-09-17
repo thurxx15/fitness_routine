@@ -7,6 +7,7 @@ from fitness_routine.views import UserCreate, UserProfileView
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from fitness_routine.views import UserCreate, UserProfileView, GerarTreinoView, TreinoListView
+from fitness_routine.views import UserCreate, UserProfileView, LogoutView
 
 
 urlpatterns = [
@@ -20,7 +21,7 @@ urlpatterns = [
     path('api/treinos/', TreinoListView.as_view(), name='treino_list'),
     path('api/gerar-treino/', GerarTreinoView.as_view(), name='gerar_treino'),
 
-
+    path('api/logout/', LogoutView.as_view(), name='logout'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
