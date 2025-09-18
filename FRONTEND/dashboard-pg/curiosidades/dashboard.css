@@ -163,5 +163,7 @@ body {
   padding: 15px 15px;
   border-radius: 20px; }
 
-.prev { left: 15px; }
-.next { right: 15px; }
+.prev { left: 15px; cursor: pointer; }
+.next { right: 15px; cursor: pointer; }
+
+
