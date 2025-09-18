@@ -10,6 +10,8 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
         crossorigin="anonymous" 
         referrerpolicy="no-referrer" />
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
         
   <link rel="stylesheet" href="dashboard.css" />
   <link rel="stylesheet" href="../modal-style.css"/>
@@ -47,10 +49,10 @@
           <p>Acesse suas planilhas e comece a treinar agora mesmo.</p>
         </a>
 
-        <a href="../../usuario-pg/usuario.html" class="acao-card">
+        <a class="acao-card" class="acao-card" id="btnPerfil">
           <i class="fas fa-chart-line"></i>
-          <h3>Acompanhar Progresso</h3>
-          <p>Visualize suas métricas e veja sua evolução ao longo do tempo.</p>
+          <h3>Acompanhar Perfil</h3>
+          <p>Visualize suas informações e características.</p>
         </a>
 
         <a href="../curiosidades/dashboard.html" class="acao-card">
@@ -93,13 +95,18 @@
           </div>
 
           <div class="grupo">
-            <label for="senha">Nova senha: </label>
-            <input type="password" id="password" name="senha"/>
+            <div class="password-field">
+              <input type="password" class="input-field" id="password" placeholder="Senha">
+              <span class="material-symbols-outlined" id="toggle-password">visibility</span>
+            </div>
           </div>
 
           <div class="grupo">
-            <label for="confirmaSenha">Confirmar nova senha: </label>
-            <input type="password" id="confirmaSenha" name="confirmaSenha"/>
+            <div class="password-field">
+              <input type="password" id="password-verify" class="input-field" placeholder="Confirme sua senha">
+              <small id="passwordVerifyHelp" class="password-help"></small>
+              <span class="material-symbols-outlined" id="toggle-password-verify">visibility</span>
+            </div>
           </div>
         </div>
 

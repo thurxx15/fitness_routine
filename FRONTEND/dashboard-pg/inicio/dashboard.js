@@ -17,6 +17,10 @@ function removerFixos() {
   });
 }
 
+window.onload = function() {
+    carregarDadosUsuario()
+}
+
 
 const nomeUsuario = localStorage.getItem("usuario");
 
@@ -33,6 +37,8 @@ const modalInfo = document.getElementById('modalInfo');
 const fecharInfo = document.getElementById('fecharInfo');
 const cancelarInfo = document.getElementById('cancelarInfo');
 
+const abrirInfoPerfil = document.getElementById('btnPerfil');
+
 function abrir_info() {
   modalInfo.classList.add('aberta');
   modalInfo.setAttribute('aria-hidden', 'false');
@@ -45,6 +51,8 @@ function fechar_info() {
 }
 
 abrirInfo.addEventListener('click', abrir_info);
+abrirInfoPerfil.addEventListener('click', abrir_info);
+
 cancelarInfo.addEventListener('click', fechar_info);
 fecharInfo.addEventListener('click', fechar_info);
 
@@ -133,7 +141,7 @@ async function salvarConfiguracoes(event) {
     };
 
     const novaSenha = document.getElementById('password').value;
-    const confirmaSenha = document.getElementById('confirmaSenha').value;
+    const confirmaSenha = document.getElementById('password-verify').value;
 
     if (novaSenha) {
         if (novaSenha !== confirmaSenha) {
@@ -245,3 +253,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+
+const passwordInput = document.getElementById('password');
+const passwordVerifyInput = document.getElementById('password-verify');
+const togglePassword = document.getElementById('toggle-password');
+const togglePasswordVerify = document.getElementById('toggle-password-verify');
+
+togglePassword.addEventListener('click', function () {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    togglePassword.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+    });
+
+    togglePasswordVerify.addEventListener('click', function () {
+    const type = passwordVerifyInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordVerifyInput.setAttribute('type', type);
+    togglePasswordVerify.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+    });
+
+btn.addEventListener('click', function() {
+
+    if (passwordInput.value !== passwordVerifyInput.value) {
+        alert('As senhas não coincidem, verifique novamente.');
+        return; } });

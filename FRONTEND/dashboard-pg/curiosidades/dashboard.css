@@ -165,3 +165,37 @@ body {
 
 .prev { left: 15px; }
 .next { right: 15px; }
+
+
+.password-field {
+  position: relative;
+  width: 100%; }
+
+.password-field input {
+  padding-right: 40px; }
+
+.password-field .material-symbols-outlined {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 20px!important; }
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 1000,
+    'GRAD' 0,
+    'opsz' 24; }
+
+.password-field .material-symbols-outlined.riscado::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  right: 2px;
+  height: 2px;
+  background-color: #888;
+  transform: rotate(-45deg); }
