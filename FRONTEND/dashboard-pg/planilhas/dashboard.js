@@ -1,23 +1,18 @@
-/*
-================================================================================
-|   ARQUIVO JAVASCRIPT - DASHBOARD DE TREINOS (PLANILHAS)                      |
-================================================================================
-|   Este arquivo gerencia:                                                     |
-|   1. A inicialização e estilização do DataTable para listar os treinos.      |
-|   2. A funcionalidade de linhas expansíveis (child rows) para detalhes.    |
-|   3. A submissão do formulário de novo treino, chamando a API do Gemini.     |
-|   4. A atualização automática do DataTable após a criação de um novo treino. |
-|   5. As funções de UI da barra lateral e do modal de configurações do usuário.|
-================================================================================
-*/
-
-// --- FUNÇÕES GERAIS DA INTERFACE (Sidebar e Modal de Configurações) ---
-
 function alternarBarra() {
     const barra = document.getElementById('barraLateral');
     const conteudo = document.getElementById('mainContent');
     barra.classList.toggle('oculta');
     conteudo.classList.toggle('expandida');
+}
+
+function atualizarTempo(valor) {
+  let horas = Math.floor(valor / 60);
+  let minutos = valor % 60;
+  // Encontra o elemento 'saida' e atualiza seu texto
+  const saidaElemento = document.getElementById("saida");
+  if (saidaElemento) {
+    saidaElemento.textContent = `${horas}h ${minutos.toString().padStart(2, '0')}min`;
+  }
 }
 
 function removerFixos() {
