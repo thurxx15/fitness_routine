@@ -11,11 +11,12 @@
         crossorigin="anonymous" 
         referrerpolicy="no-referrer" />
       
-  <link rel="stylesheet" href="dashboard.css" />
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+
+  <link rel="stylesheet" href="dashboard.css" />
 
 </head>
 <body>
@@ -37,22 +38,20 @@
   </header>
 
   <div class="tabela-container">
-   <!-- dashboard-pg/planilhas/dashboard.html -->
-<table id="tabelaTreinos" class="display" style="width:100%;">
+  <table id="tabelaTreinos" class="display" style="width:100%;">
     <thead>
-        <tr >
-          <div class="fundo-tabela">
-            <th></th> <!-- Coluna para o controle '+' -->
-            <th>Nome do Treino</th>
-            <th>Objetivo</th>
-            <th>Exercícios (Resumo)</th>
-            <th>Data de Criação</th>
-            </div>
-        </tr>
+      <tr>
+        <th></th>
+        <th>Nome do Treino</th>
+        <th>Objetivo</th>
+        <th>Exercícios (Resumo)</th>
+        <th>Data de Criação</th>
+      </tr>
     </thead>
     <tbody></tbody>
-</table>
-  </div>
+  </table>
+</div>
+
 </div>
 
 <div class="modal-form" id="modalForm" aria-hidden="true">
@@ -92,9 +91,12 @@
           <label><input type="checkbox" name="grupos" value="Glúteos" /> Glúteos</label>
           <label><input type="checkbox" name="grupos" value="Panturrilhas" /> Panturrilhas</label>
           <label><input type="checkbox" name="grupos" value="Lombar" /> Lombar</label>
-          <label><input type="checkbox" name="grupos" value="Full Body" /> Antebraços</label>
-          <label><input type="checkbox" name="grupos" value="Full Body" /> Trapézio</label>
+          <label><input type="checkbox" name="grupos" value="Antebraços" /> Antebraços</label>
+          <label><input type="checkbox" name="grupos" value="Trapézio" /> Trapézio</label>
           <label><input type="checkbox" name="grupos" value="Full Body" /> Full Body</label>
+          <label><input type="checkbox" name="grupos" value="ABC" /> ABC</label>
+          <label><input type="checkbox" name="grupos" value="ABCD" /> ABCD</label>
+          <label><input type="checkbox" name="grupos" value="PPL (Push / Pull / Legs)" /> PPL</label>
         </div>
       </div><br>
 
@@ -198,6 +200,25 @@
   </div>
 </div>
 
+<div class="modal-treino" id="modalTreino" >
+  <div class="modal-content">
+    
+    <div class="modal-header">
+      <h2 id="modal-titulo">Nome do Treino</h2>
+      <button id="modal-fechar" class="modal-close-btn">&times;</button>
+    </div>
+
+    <div id="modal-body-content" class="modal-body">
+      <!-- O conteúdo do treino (tabelas por dia) será inserido aqui pelo JavaScript -->
+    </div>
+
+    <div class="modal-footer">
+      <button id="btnDownloadPdf" class="btn-pdf">Baixar Treino em PDF</button>
+    </div>
+
+  </div>
+</div>
+
 <div class="botoes-fixos">
     <button class="toggle-btn" onclick="alternarBarra(), removerFixos()"> <i class="fas fa-bars"></i> </button>
 
@@ -211,12 +232,11 @@
 
 </div>
 
-
-
 <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="dashboard.js"></script>
-
 
 </body>
 

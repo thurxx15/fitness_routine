@@ -45,12 +45,24 @@ class Treino(models.Model):
         return f"Treino '{self.nome_treino}' de {self.user.username}"
 
 class Exercicio(models.Model):
+
+    DIA_CHOICES = [
+        ("Segunda-feira", "Segunda-feira"),
+        ("Terça-feira", "Terça-feira"),
+        ("Quarta-feira", "Quarta-feira"),
+        ("Quinta-feira", "Quinta-feira"),
+        ("Sexta-feira", "Sexta-feira"),
+        ("Sábado", "Sábado"),
+        ("Domingo", "Domingo"),
+    ]
+    
     treino = models.ForeignKey(Treino, on_delete=models.CASCADE, related_name='exercicios')
     nome_exercicio = models.CharField(max_length=100)
     series = models.CharField(max_length=20)
     repeticoes = models.CharField(max_length=20)
     descanso = models.CharField(max_length=50, help_text="Tempo de descanso entre as séries")
     grupo_muscular = models.CharField(max_length=50)
+    dia_semana = models.CharField(max_length=20, choices=DIA_CHOICES, blank=True, null=True)
 
     def __str__(self):
         return self.nome_exercicio

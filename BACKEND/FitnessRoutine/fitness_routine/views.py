@@ -64,7 +64,8 @@ class GerarTreinoView(APIView):
                             grupo_muscular=dia.get('grupo_muscular'),
                             series=exercicio_data.get('series'),
                             repeticoes=exercicio_data.get('repeticoes'),
-                            descanso=exercicio_data.get('descanso')
+                            descanso=exercicio_data.get('descanso'),
+                            dia_semana=exercicio_data.get('dia_semana')
                         )
 
             serializer = TreinoSerializer(novo_treino)
@@ -84,6 +85,8 @@ class GerarTreinoView(APIView):
         - Dias por semana: {prefs.get('diasSemana')}
         - Grupos musculares a focar: {', '.join(prefs.get('gruposMusculares', []))}
         - Limitações: {prefs.get('limitacoes', 'Nenhuma')}
+        - Separar o treino por dias da semana (ex: Segunda-feira, Terça-feira, etc.)
+       
 
         Retorne a resposta ESTRITAMENTE como um objeto JSON válido, sem nenhum texto ou formatação adicional (como markdown).
         O JSON deve seguir esta estrutura:
@@ -98,12 +101,35 @@ class GerarTreinoView(APIView):
                   "series": "4",
                   "repeticoes": "8-12",
                   "descanso": "60 segundos"
+                  "dia_semana": "Segunda-feira"
                 }},
                 {{
                   "exercicio": "Crucifixo Inclinado com Halteres",
                   "series": "3",
                   "repeticoes": "10-15",
                   "descanso": "45 segundos"
+                  "dia_semana": "Segunda-feira"
+                }}
+              ]
+            }}
+
+            {{
+              "dia": 2,
+              "grupo_muscular": "Peito e Tríceps",
+              "exercicios": [
+                {{
+                  "exercicio": "Supino Reto com Barra",
+                  "series": "4",
+                  "repeticoes": "8-12",
+                  "descanso": "60 segundos"
+                  "dia_semana": "Terça-feira"
+                }},
+                {{
+                  "exercicio": "Crucifixo Inclinado com Halteres",
+                  "series": "3",
+                  "repeticoes": "10-15",
+                  "descanso": "45 segundos"
+                  "dia_semana": "Terça-feira"
                 }}
               ]
             }}

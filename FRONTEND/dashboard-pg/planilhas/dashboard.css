@@ -125,33 +125,6 @@ body {
     font-weight: 700;
     color: #c8b8db; }
 
-/*tabela*/
-.tabela-container {
-    background: #1a1525;
-    border: 1px solid #2a1f3d;
-    border-radius: 12px;
-    padding: 15px;
-    margin-top: 20px;
-    overflow-x: auto; }
-
-#tabelaTreinos {
-    width: 100%;
-    border-collapse: collapse;
-    color: #ffffff;
-    font-size: 15px; }
-
-#tabelaTreinos thead {
-    background: #3c096c;
-    color: #c8b8db; }
-
-#tabelaTreinos th, #tabelaTreinos td {
-    padding: 12px;
-    border-bottom: 1px solid #2a1f3d;
-    text-align: left; }
-
-#tabelaTreinos tbody tr:hover {
-    background: rgba(200,184,219,0.08); }
-
 /*MODAL 1*/
 .modal-form {
     position: fixed;
@@ -500,78 +473,232 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background: #211a2f; }
 
 
-
-
+/* ==========================================================================
+   ESTILOS GERAIS E CONTAINER
+   ========================================================================== */
+.tabela-container {
+    padding: 20px;
+    background-color: #121212;
+    border-radius: 15px;
+    font-family: 'Segoe UI', 'Poppins', sans-serif;
+}
 
 .dataTables_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Diminui o espaçamento geral */
     color: #c8b8db;
 }
 
-/* Estilo dos campos de busca e seleção de quantidade */
-.dataTables_wrapper .dataTables_length select,
-.dataTables_wrapper .dataTables_filter input {
-    background-color: #120e1b;
-    border: 1px solid #2a1f3d;
-    border-radius: 8px;
-    color: #ffffff;
-    padding: 8px;
+/* ==========================================================================
+   CONTROLES DO TOPO E DA BASE (AQUI ESTÁ A CORREÇÃO)
+   ========================================================================== */
+
+/* Container para a linha de cima (Show entries + Search) */
+.tabela-controles-topo {
+    display: flex;
+    justify-content: space-between; /* <-- Alinha itens nas extremidades */
+    align-items: center;
 }
 
-/* Header da tabela */
-#tabelaTreinos thead th {
-    background-color: #3c096c;
+/* Container para a linha de baixo (Info + Paginação) */
+.tabela-controles-base {
+    display: flex;
+    justify-content: space-between; /* <-- Alinha itens nas extremidades */
+    align-items: center;
+}
+
+/* Estiliza os campos de input e select */
+.dataTables_length select,
+.dataTables_filter input {
+    background: #1f1f1f;
+    color: #eeeeee;
+    border: 1px solid #3c096c;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-left: 5px;
+}
+
+/* Remove margens extras para um alinhamento perfeito */
+.dataTables_length, .dataTables_filter {
+    margin: 0;
+}
+
+/*==========================================================================
+   ESTILOS DA TABELA (Mantidos e Refinados)
+   ========================================================================== */
+#tabelaTreinos {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #1a1a1a;
+    border: 1px solid #3c096c;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#tabelaTreinos thead {
+    background: linear-gradient(135deg, #3c096c, #5a189a);
     color: #ffffff;
-    border-bottom: 2px solid #5a189a;
+}
+
+#tabelaTreinos thead th {
+    padding: 15px 18px;
+    text-align: left;
     font-weight: 600;
 }
 
-/* Cor do texto do corpo da tabela */
 #tabelaTreinos tbody td {
-    color: #e0e0e0;
-    padding: 12px 10px;
+    padding: 14px 18px;
+    border-bottom: 1px solid #332147;
 }
 
-/* Linhas da tabela e efeito de hover */
-#tabelaTreinos tbody tr {
-    background-color: #1a1525;
-    border-bottom: 1px solid #2a1f3d;
-    transition: background-color 0.2s ease;
+#tabelaTreinos tbody tr:nth-child(even) {
+    background-color: #211f24;
 }
 
 #tabelaTreinos tbody tr:hover {
-    background-color: #2c2144; /* Cor mais clara para destacar */
-    cursor: pointer;
+    background-color: #2a1b3d;
 }
 
-/* Remove a borda da última linha */
-#tabelaTreinos tbody tr:last-child {
+#tabelaTreinos tbody tr:last-child td {
     border-bottom: none;
 }
 
-/* Paginação */
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-    background-color: transparent;
-    border: 1px solid #2a1f3d;
-    color: #c8b8db !important; /* !important para sobrescrever estilos inline */
+/* ==========================================================================
+   PAGINAÇÃO (Mantida)
+   ========================================================================== */
+.dataTables_paginate .paginate_button {
+    padding: 8px 14px;
     margin: 0 4px;
-    border-radius: 8px;
+    background: #1f1f1f;
+    border: 1px solid #3c096c;
+    border-radius: 6px;
+    color: #c8b8db;
+    text-decoration: none;
+    cursor: pointer;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+.dataTables_paginate .paginate_button:hover {
     background: #3c096c;
-    border-color: #5a189a;
+    color: #ffffff;
+}
+
+.dataTables_paginate .paginate_button.current {
+    background: linear-gradient(135deg, #7b2cbf, #9d4edd);
     color: #ffffff !important;
+    font-weight: bold;
+    border: none;
 }
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background: #5a189a;
-    border-color: #7b2cbf;
-    color: #ffffff !important;
+/* O fundo escurecido do modal */
+.modal-treino {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
 }
 
-/* Informações ("Mostrando 1 de 10...") */
-.dataTables_wrapper .dataTables_info {
-    color: #a0a0a0;
-    padding-top: 8px;
+/* A caixa principal do modal */
+.modal-content {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+    animation: slide-down 0.4s ease-out;
 }
 
+.modal-header {
+    padding: 15px 25px;
+    background-color: #3c096c;
+    color: #fff;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.modal-close-btn:hover {
+    transform: scale(1.2);
+}
+
+.modal-body {
+    padding: 25px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 15px 25px;
+    text-align: right;
+    border-top: 1px solid #3c096c;
+}
+
+.btn-pdf {
+    background-color: #7b2cbf;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.btn-pdf:hover {
+    background-color: #9d4edd;
+}
+
+/* Estilos para a tabela DENTRO do modal */
+.tabela-dia {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+.tabela-dia th, .tabela-dia td {
+    padding: 12px;
+    border: 1px solid #332147;
+    text-align: left;
+}
+.tabela-dia th {
+    background-color: #2a1b3d;
+    font-size: 1.1em;
+}
+.exercicio-link {
+    color: #c8b8db;
+    text-decoration: none;
+    font-weight: bold;
+}
+.exercicio-link:hover {
+    text-decoration: underline;
+    color: #fff;
+}
+
+@keyframes slide-down {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
