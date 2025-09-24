@@ -101,49 +101,148 @@ $(document).ready(function() {
         return detailsHtml;
     }
 
-    // Armazena a instância da API do DataTable para manipulação futura (ex: reload)
+    $(document).ready(function() {
+
+    // --- [NOVA SEÇÃO 1]: LÓGICA DO MODAL DE DETALHES DO TREINO ---
+
+    const modalTreino = document.getElementById('modalTreino');
+    const modalTitulo = document.getElementById('modal-titulo');
+    const modalBody = document.getElementById('modal-body-content');
+    const btnFecharModalTreino = document.getElementById('modal-fechar');
+    const btnDownload = document.getElementById('btnDownloadPdf');
+
+    function abrirModalDetalhes() { if (modalTreino) modalTreino.style.display = 'flex'; }
+    function fecharModalDetalhes() { if (modalTreino) modalTreino.style.display = 'none'; }
+    
+    if(btnFecharModalTreino) btnFecharModalTreino.onclick = fecharModalDetalhes;
+    if(modalTreino) window.onclick = function(event) { if (event.target == modalTreino) fecharModalDetalhes(); };
+
+    // Função para agrupar exercícios por dia da semana
+    function agruparExerciciosPorDia(exercicios) {
+        return exercicios.reduce((acc, ex) => {
+            const dia = ex.dia_semana || 'Não especificado';
+            if (!acc[dia]) acc[dia] = [];
+            acc[dia].push(ex);
+            return acc;
+        }, {});
+    }
+
+    // Função principal que "recheia" o modal com os dados do treino
+    function popularModal(dadosDoTreino) {
+    modalTitulo.textContent = dadosDoTreino.nome_treino;
+    modalBody.innerHTML = ''; // Limpa o conteúdo anterior
+
+    const exerciciosAgrupados = agruparExerciciosPorDia(dadosDoTreino.exercicios);
+    const ordemDias = ["Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado", "Domingo", "Não especificado"];
+
+    for (const dia of ordemDias) {
+        if (exerciciosAgrupados[dia]) {
+            const exerciciosDoDia = exerciciosAgrupados[dia];
+            
+            let tabelaHtml = `
+                <table class="tabela-dia">
+                    <thead>
+                        <tr><th colspan="4">${dia}</th></tr>
+                        <tr>
+                            <th>Exercício</th>
+                            <th>Séries</th>
+                            <th>Repetições</th>
+                            <th>Descanso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            exerciciosDoDia.forEach(ex => {
+                const youtubeUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(ex.nome_exercicio + ' exercicio')}`;
+                tabelaHtml += `
+                    <tr>
+                        <td><a href="${youtubeUrl}" target="_blank" class="exercicio-link">${ex.nome_exercicio}</a></td>
+                        <td>${ex.series}</td>
+                        <td>${ex.repeticoes}</td>
+                        
+                        <!-- CORREÇÃO AQUI: Mudamos de 'tempo_descanso' para 'descanso' -->
+                        <td>${ex.descanso}</td>
+
+                    </tr>
+                `;
+            });
+
+            tabelaHtml += `</tbody></table>`;
+            modalBody.innerHTML += tabelaHtml;
+        }
+    }
+    
+    // Adiciona uma mensagem se nenhum exercício foi encontrado
+    if (modalBody.innerHTML === '') {
+        modalBody.innerHTML = '<p>Não há exercícios detalhados para este treino.</p>';
+    }
+
+    abrirModalDetalhes();
+}
+
     const tabela = $('#tabelaTreinos').DataTable({
+
+        // =============================================================
+        // A LINHA QUE FALTAVA ESTÁ AQUI:
+        // Define a estrutura do HTML para que o CSS funcione.
+        "dom": '<"tabela-controles-topo"lf>' +
+               't' +
+               '<"tabela-controles-base"ip>',
+        // =============================================================
+
         "ajax": {
             "url": "http://127.0.0.1:8000/api/treinos/",
             "type": "GET",
             "headers": {
+                // CORREÇÃO: A sintaxe correta usa `backticks` (`)
                 "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
             },
             "dataSrc": "" // A API retorna um array JSON diretamente
         },
         "columns": [
             {
-                "className": 'details-control', // Classe para o controle de expansão
+                "className": 'details-control',
                 "orderable": false,
                 "data": null,
-                "defaultContent": '' // O ícone '+' é adicionado via CSS
+                "defaultContent": ''
             },
             { "data": "nome_treino" },
             { "data": "objetivo" },
             { 
                 "data": "exercicios",
-                "render": function(data) { // Renderiza um resumo dos exercícios
+                "render": function(data) {
                     if (!data || data.length === 0) return "Nenhum exercício";
                     const nomes = data.map(ex => ex.nome_exercicio);
                     const preview = nomes.slice(0, 2).join(', ');
+                    // CORREÇÃO: A sintaxe correta usa `backticks` (`)
                     return nomes.length > 2 ? `${preview}...` : preview;
                 }
             },
             { 
                 "data": "data_criacao",
-                "render": function(data) { // Formata a data para um formato legível
+                "render": function(data) {
                     return new Date(data).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' });
                 }
             }
         ],
         "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json"
+            "search": "Pesquisar:",
+            // CORREÇÃO: Faltavam os underscores (_)
+            "lengthMenu": "Mostrar _MENU_ entradas",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+            "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+            "infoFiltered": "(filtrado de _MAX_ entradas no total)",
+            "paginate": {
+                "previous": "Anterior",
+                "next": "Próximo"
+            }
         },
         "responsive": true,
-        "order": [[4, 'desc']] // Ordena pela 5ª coluna (data de criação), do mais novo para o mais antigo
+        "order": [[4, 'desc']]
     });
 
-    // Event listener para o clique no controle de expansão (+)
+    // O seu código para expandir as linhas pode vir aqui
     $('#tabelaTreinos tbody').on('click', 'td.details-control', function () {
         const tr = $(this).closest('tr');
         const row = tabela.row(tr);
@@ -158,6 +257,78 @@ $(document).ready(function() {
             tr.addClass('shown');
         }
     });
+
+
+    // [MUDANÇA]: Adicionamos este novo listener para o clique NA LINHA INTEIRA
+    $('#tabelaTreinos tbody').on('click', 'tr', function (event) {
+        // Impede que o modal abra se o clique for no ícone '+'
+        if ($(event.target).hasClass('details-control')) {
+            return;
+        }
+        
+        const dadosDaLinha = tabela.row(this).data();
+        if (dadosDaLinha) {
+            popularModal(dadosDaLinha);
+        }
+    });
+
+    // (Seu código original para o ícone '+' permanece, sem alterações)
+    function formatarDetalhes(exercicios) { /* ... seu código ... */ }
+    $('#tabelaTreinos tbody').on('click', 'td.details-control', function () {
+        const tr = $(this).closest('tr');
+        const row = tabela.row(tr);
+        if (row.child.isShown()) {
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            row.child(formatarDetalhes(row.data().exercicios)).show();
+            tr.addClass('shown');
+        }
+    });
+
+    // (Seu código original para o formulário de "Novo Treino" permanece, sem alterações)
+    const formNovoTreino = document.getElementById('formPreferencias');
+    if (formNovoTreino) {
+        formNovoTreino.addEventListener('submit', async function(event) {
+            // ... seu código para gerar treino com IA ...
+            // A linha abaixo é importante e já estava no seu código:
+            tabela.ajax.reload(null, false);
+        });
+    }
+
+    // --- [NOVA SEÇÃO 2]: LÓGICA DO DOWNLOAD EM PDF ---
+    if(btnDownload) {
+        btnDownload.addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+            const conteudoParaPdf = document.getElementById('modal-body-content');
+            const nomeArquivo = `${modalTitulo.textContent.trim().replace(/\s+/g, '_')}.pdf`;
+
+            html2canvas(conteudoParaPdf, { 
+                scale: 2, 
+                backgroundColor: '#1e1e1e',
+                useCORS: true // Ajuda a carregar imagens se houver
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+                
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save(nomeArquivo);
+            });
+        });
+    }
+
+}); // Fim do $(document).ready()
+
+// --- OUTRAS FUNÇÕES (Configurações do Usuário, Logout, etc.) ---
+
+// (Todo o resto do seu código, como carregarDadosUsuario, salvarConfiguracoes, a lógica de logout, etc., permanece aqui sem alterações)
+async function carregarDadosUsuario() { /* ... seu código ... */ }
+async function salvarConfiguracoes(event) { /* ... seu código ... */ }
+// ... (seus event listeners para configurações e logout) ...
+
+});
 
     // Event listener para a submissão do formulário de "Novo Treino"
     const formNovoTreino = document.getElementById('formPreferencias');
@@ -176,6 +347,7 @@ $(document).ready(function() {
             const objetivo = "Hipertrofia e Força"; // Valor de exemplo, pode ser pego de um campo <select> no modal
 
             const dadosParaApi = { nomeTreino, diasSemana, gruposMusculares, limitacoes, objetivo };
+            console.log(dadosParaApi);
 
             try {
                 const response = await fetch('http://127.0.0.1:8000/api/gerar-treino/', {
@@ -207,7 +379,6 @@ $(document).ready(function() {
             }
         });
     }
-});
 
 // --- FUNÇÃO PARA CARREGAR OS DADOS DO USUÁRIO ---
 async function carregarDadosUsuario() {

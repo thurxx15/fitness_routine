@@ -90,7 +90,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 class ExercicioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercicio
-        fields = ['nome_exercicio', 'series', 'repeticoes', 'descanso', 'grupo_muscular']
+        fields = ['nome_exercicio', 'series', 'repeticoes', 'descanso', 'grupo_muscular', 'dia_semana']
 
 class TreinoSerializer(serializers.ModelSerializer):
     exercicios = ExercicioSerializer(many=True, read_only=True)
