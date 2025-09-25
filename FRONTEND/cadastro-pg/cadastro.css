@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+/*CONF GERAL DO SITE*/
 * {
   margin: 0;
   padding: 0;
@@ -22,6 +25,7 @@ body {
   border-radius: 30px;
   margin-left: 40px; }
 
+/*CONTAINER CAD*/
 .container {
   background-color: #121212;
   padding: 20px;
@@ -44,7 +48,7 @@ h2 {
 
 .subtitle {
   color: #9ca3af;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: center;
   font-size: 14px; }
 
@@ -52,7 +56,7 @@ h2 {
   width: 100%;
   background-color: #374151;
   border: none;
-  border-radius: 10px;
+  border-radius: 15px;
   padding: 15px;
   color: white;
   font-size: 14px;
@@ -62,7 +66,7 @@ h2 {
   width: 100%;
   padding: 15px;
   border: none;
-  border-radius: 12px;
+  border-radius: 15px;
   font-weight: 600;
   cursor: pointer;
   background-color: #32075b;
@@ -71,10 +75,61 @@ h2 {
 .btn:hover {
   background-color: #612d7d; }
 
+.name-fields {
+  display: flex; 
+  gap: 15px;   
+  margin-bottom: 15px; }
+
+.name-fields .input-field {
+  margin-bottom: 0; }
+
+.subtitle a {
+  color: #765694;
+  text-decoration: none; }
+
+.subtitle a:hover {
+  color: #8a5e97;
+  text-decoration: underline; }
+
+.password-field {
+  position: relative;
+  width: 100%; }
+
+.password-field input {
+  padding-right: 40px; }
+
+.password-field .material-symbols-outlined {
+  position: absolute;
+  right: 10px;
+  top: 40%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 20px; }
+
+.password-field .material-symbols-outlined.riscado::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  right: 2px;
+  height: 2px;
+  background-color: #888;
+  transform: rotate(-45deg); }
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24; }
+
+/*ICONES*/
 .ico {
   display: flex;
   justify-content: flex-start; 
-  padding-left: 10px; }
+  padding-left: 10px;
+  margin-top: 30px; }
 
 .ico li {
   list-style: none; }
@@ -101,47 +156,8 @@ h2 {
   filter: invert(1);
   transform: scale(0.5); }
 
-.subtitle a {
-  color: #765694;
-  text-decoration: none; }
 
-.subtitle a:hover {
-  color: #8a5e97;
-  text-decoration: underline; }
-
-.password-field {
-  position: relative;
-  width: 100%; }
-
-.password-field input {
-  padding-right: 40px; }
-
-.password-field .material-symbols-outlined {
-  position: absolute;
-  right: 10px;
-  top: 40%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #888;
-  font-size: 20px; }
-
-.material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 24; }
-
-.password-field .material-symbols-outlined.riscado::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 2px;
-  right: 2px;
-  height: 2px;
-  background-color: #888;
-  transform: rotate(-45deg); }
-
+/*ANIMAÇÃO*/
 @keyframes slideInFromRight {
   0% {
     opacity: 0;
@@ -154,8 +170,7 @@ h2 {
   100% {
     opacity: 1;
     transform: translateX(0);
-    visibility: visible; }
-}
+    visibility: visible; } }
 
 body > * {
   animation: slideInFromRight 0.8s ease forwards;
@@ -169,14 +184,3 @@ body > *:nth-child(2) {
 
 body > *:nth-child(3) {
   animation-delay: 0.5s; }
-
-
-.name-fields {
-  display: flex; 
-  gap: 15px;   
-  margin-bottom: 15px;  
-}
-
-.name-fields .input-field {
-  margin-bottom: 0;
-}

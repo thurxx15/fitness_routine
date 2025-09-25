@@ -1,10 +1,12 @@
+// ALTERNAR BARRA LATERAL
 function alternarBarra() {
   const barra = document.getElementById('barraLateral');
   const conteudo = document.getElementById('mainContent');
-
   barra.classList.toggle('oculta');
-  conteudo.classList.toggle('expandida'); }
+  conteudo.classList.toggle('expandida'); 
+}
 
+// REMOVER BOTÕES FIXOS AO CLICAR NO MENU
 function removerFixos() {
   const btnConfig = document.getElementById('btn-config');
   const btnLogout = document.getElementById('btn-logout');
@@ -18,25 +20,23 @@ function removerFixos() {
 }
 
 window.onload = function() {
-    carregarDadosUsuario()
+    carregarDadosUsuario() 
 }
 
 
 const nomeUsuario = localStorage.getItem("usuario");
-
     if (nomeUsuario && document.getElementById("boas-vindas")) {
-        document.getElementById("boas-vindas").textContent = `Olá ${nomeUsuario}, Bem-vindo ao Fitness Routine.`;
-    } else if (!nomeUsuario) {
-        // Redireciona apenas se não estiver logado
-        window.location.href = "../../login-pg/login.html";
-    }
+        document.getElementById("boas-vindas").textContent = `Olá ${nomeUsuario}, Bem-vindo ao Fitness Routine.`; } 
+    
+    else if (!nomeUsuario) {
+    // Redireciona apenas se não estiver logado
+    window.location.href = "../../login-pg/login.html"; }
 
 /*BLOCO DAS INFORMAÇÕES*/
 const abrirInfo = document.getElementById('abrirInfo');
 const modalInfo = document.getElementById('modalInfo');
 const fecharInfo = document.getElementById('fecharInfo');
 const cancelarInfo = document.getElementById('cancelarInfo');
-
 const abrirInfoPerfil = document.getElementById('btnPerfil');
 
 function abrir_info() {
@@ -66,13 +66,13 @@ document.addEventListener('keydown', (e) => {
 
 const formConfiguracoes = document.querySelector('#modalInfo #formPreferencias');
 
-// --- FUNÇÃO PARA CARREGAR OS DADOS DO USUÁRIO ---
+// FUNÇÃO PARA CARREGAR OS DADOS DO USUÁRIO
 async function carregarDadosUsuario() {
     const accessToken = localStorage.getItem('accessToken');
+
     if (!accessToken) {
         window.location.href = '../../login-pg/login.html';
-        return;
-    }
+        return; }
 
     try {
         const response = await fetch('http://127.0.0.1:8000/api/me/', {
@@ -112,7 +112,7 @@ async function carregarDadosUsuario() {
 }
 
 
-// --- FUNÇÃO PARA SALVAR AS ALTERAÇÕES (COM TRATAMENTO DE ERRO INTELIGENTE) ---
+// FUNÇÃO PARA SALVAR AS ALTERAÇÕES (COM TRATAMENTO DE ERRO INTELIGENTE)
 async function salvarConfiguracoes(event) {
     event.preventDefault();
 
@@ -172,9 +172,6 @@ async function salvarConfiguracoes(event) {
         fechar_info();
 
     } catch (error) {
-        // ===================================================================
-        //  INÍCIO DA LÓGICA INTELIGENTE DE TRATAMENTO DE ERRO
-        // ===================================================================
         // Verifica se o erro é o específico "Failed to fetch" do reinício do servidor
         if (error instanceof TypeError && error.message === 'Failed to fetch') {
             // Assume que a operação deu certo e o servidor reiniciou antes de responder
@@ -185,28 +182,22 @@ async function salvarConfiguracoes(event) {
             // Se for qualquer outro erro (como um erro de validação 400), mostra o erro real
             console.error('Erro real ao salvar:', error.message);
             alert('Ocorreu um erro ao salvar: ' + error.message);
-        }
-        
+        }   
     }
 }
 
-
-// --- EVENT LISTENERS ---
+// EVENT LISTENERS
 abrirInfo.addEventListener('click', carregarDadosUsuario);
 formConfiguracoes.addEventListener('submit', salvarConfiguracoes);
 
-
-
-
 document.addEventListener('DOMContentLoaded', function() {
-    
     const logoutButton = document.getElementById('btn-logout');
 
     // Verifica se o botão de logout existe na página
     if (logoutButton) {
         logoutButton.addEventListener('click', async function() {
 
-            // 1. Pegar os tokens do localStorage
+            //1 Pegar os tokens do localStorage
             const accessToken = localStorage.getItem('access_token');
             const refreshToken = localStorage.getItem('refresh_token');
 
@@ -217,9 +208,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = '../../inicio-pg/inicio.html'; // Redireciona para a página de login
                 return;
             }
-
+            
+            //2 Chamar o endpoint de logout do backend
             try {
-                // 2. Chamar o endpoint de logout do backend
+               
                 const response = await fetch('http://127.0.0.1:8000/api/logout/', {
                     method: 'POST',
                     headers: {
@@ -242,12 +234,12 @@ document.addEventListener('DOMContentLoaded', function() {
             } catch (error) {
                 console.error('Erro de rede ao tentar fazer logout:', error);
             } finally {
-                // 3. Limpar o localStorage e redirecionar (acontece sempre)
+                //3 Limpar o localStorage e redirecionar (acontece sempre)
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
                 // localStorage.clear(); // Alternativa para limpar tudo
 
-                // 4. Redirecionar o usuário para a página de login
+                //4 Redirecionar o usuário para a página de login
                 window.location.href = '../../inicio-pg/inicio.html';
             }
         });
@@ -260,13 +252,15 @@ const passwordVerifyInput = document.getElementById('password-verify');
 const togglePassword = document.getElementById('toggle-password');
 const togglePasswordVerify = document.getElementById('toggle-password-verify');
 
+// VISIBILIDADE SENHA
 togglePassword.addEventListener('click', function () {
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordInput.setAttribute('type', type);
     togglePassword.textContent = type === 'password' ? 'visibility_off' : 'visibility';
     });
 
-    togglePasswordVerify.addEventListener('click', function () {
+// VISIBILIDADE SENHA - CONFIRMAÇÃO
+togglePasswordVerify.addEventListener('click', function () {
     const type = passwordVerifyInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordVerifyInput.setAttribute('type', type);
     togglePasswordVerify.textContent = type === 'password' ? 'visibility_off' : 'visibility';

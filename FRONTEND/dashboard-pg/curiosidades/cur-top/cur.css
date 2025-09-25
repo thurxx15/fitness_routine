@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
 
-
+/*CONF GERAL*/
 * {
   margin: 0;
   padding: 0;
@@ -50,7 +50,6 @@ body {
 .barra_lateral .link:hover {
   background-color: #582089;
   color: white; }
-
 
 /*MAIN PRINCIPAL*/
 .main {
