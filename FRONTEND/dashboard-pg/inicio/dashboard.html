@@ -3,33 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <link rel="shortcut icon" href="../../midia/ico/ico-aba.png" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="../modal-style.css"/>
+
   <title> Fitness Routine - Dashboard </title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
         crossorigin="anonymous" 
-        referrerpolicy="no-referrer" />
-  
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-        
-  <link rel="stylesheet" href="dashboard.css" />
-  <link rel="stylesheet" href="../modal-style.css"/>
-  
+        referrerpolicy="no-referrer" /> 
 </head>
 <body>
 
-  <div class="barra_lateral" id="barraLateral">
-    <img src="../../midia/logo-dash.png" alt="logo-dash"><br><br>
-        <a href="../inicio/dashboard.html" class="link">Início</a>
-        <a href="../planilhas/dashboard.html" class="link">Treinos</a>
-        <a href="../curiosidades/dashboard.html" class="link">Curiosidades</a>
-        <a href="../sobre/dashboard.html" class="link">Sobre</a>
-  </div>
+<!--BARRA LATERAL-->
+<div class="barra_lateral" id="barraLateral">
+  <img src="../../midia/logo-dash.png" alt="logo-dash"><br><br>
+    <a href="../inicio/dashboard.html" class="link">Início</a>
+    <a href="../planilhas/dashboard.html" class="link">Treinos</a>
+    <a href="../curiosidades/dashboard.html" class="link">Curiosidades</a>
+    <a href="../sobre/dashboard.html" class="link">Sobre</a>
+</div>
 
-  <div class="main" id="mainContent">
+<!--MAIN-->
+<div class="main" id="mainContent">
     <h2 id="boas-vindas"></h2><br>
-
 
     <div class="card">
       <h3>Seja bem-vindo!</h3>
@@ -40,9 +40,9 @@
     </div>
 
     <div class="proximo-passo-container">
-        <h2>Qual seu próximo passo?</h2>
-      <div class="acoes-grid">
+      <h2>Qual seu próximo passo?</h2>
 
+      <div class="acoes-grid">
         <a href="../planilhas/dashboard.html" class="acao-card">
           <i class="fas fa-dumbbell"></i>
           <h3>Ver Meus Treinos</h3>
@@ -61,94 +61,107 @@
           <p>Aprenda mais sobre saúde, nutrição e técnicas de exercício.</p>
         </a>
       </div>
+    </div>
 </div>
 
-  </div>
-
+<!--MODAL INFO-->
 <div class="modal-info" id="modalInfo" aria-hidden="true">
-  <div class="modal2" role="dialog" aria-modal="true" aria-labelledby="ConfigInfo">
-    <button class="modal2-fechar" id="fecharInfo" aria-label="Fechar"><i class="fa-solid fa-x"></i></button>
-    <h2 id="tituloInfo">Configurações de usuário</h2>
+<div class="modal2" role="dialog" aria-modal="true" aria-labelledby="ConfigInfo">
 
-    <form id="formPreferencias">
-      <div class="modal-grid">
+<button class="modal2-fechar" id="fecharInfo" aria-label="Fechar"><i class="fa-solid fa-x"></i></button>
+<h2 id="tituloInfo">Configurações de usuário</h2>
+
+  <!--FORM-->
+  <form id="formPreferencias">
+    <div class="modal-grid">
         
-        <!-- Coluna esquerda -->
-        <div class="col-inputs">
+      <!-- Coluna esquerda -->
+      <div class="col-inputs">
 
-          <div class="grupo">
-            <label>Nome completo:</label>
-            <div class="nome-sobrenome">
-              <input type="text" id="nome" name="nome" placeholder="Nome"/>
-              <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome"/>
-            </div>
-          </div>
-
-          <div class="grupo">
-            <label for="username">Nome de usuário: </label>
-            <input type="text" id="username" name="username"/>
-          </div>
-
-          <div class="grupo">
-            <label for="email">Email: </label>
-            <input type="email" id="email" name="email"/>
-          </div>
-
-          <div class="grupo">
-            <div class="password-field">
-              <input type="password" class="input-field" id="password" placeholder="Senha">
-              <span class="material-symbols-outlined" id="toggle-password">visibility</span>
-            </div>
-          </div>
-
-          <div class="grupo">
-            <div class="password-field">
-              <input type="password" id="password-verify" class="input-field" placeholder="Confirme sua senha">
-              <small id="passwordVerifyHelp" class="password-help"></small>
-              <span class="material-symbols-outlined" id="toggle-password-verify">visibility</span>
-            </div>
+        <!--nome-->
+        <div class="grupo">
+          <label>Nome completo:</label>
+          <div class="nome-sobrenome">
+            <input type="text" id="nome" name="nome" placeholder="Nome"/>
+            <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome"/>
           </div>
         </div>
 
-        <!-- Coluna direita -->
-        <div class="col-inputs">
-          <div class="grupo">
-            <label for="nasc">Ano de nascimento: </label>
-            <input type="date" id="dateUser" name="nasc"/>
-          </div>
+        <!--user-->
+        <div class="grupo">
+          <label for="username">Nome de usuário: </label>
+          <input type="text" id="username" name="username"/>
+        </div>
 
-          <div class="grupo">
-            <label for="nivel">Experiência: </label>
-            <div class="level-box">
-              <select id="nivelUser" name="nivel">
-                <option value="" disabled selected>Escolha o nível</option>
-                <option value="iniciante">Iniciante</option>
-                <option value="intermediario">Intermediário</option>
-                <option value="avancado">Avançado</option>
-              </select>
-            </div>
-          </div>
+        <!--email-->
+        <div class="grupo">
+          <label for="email">Email: </label>
+          <input type="email" id="email" name="email"/>
+        </div>
 
-          <div class="grupo">
-            <label for="peso">Peso: (kg) </label>
-            <input type="number" id="pesoUser" name="peso" step="0.1"/>
+        <!--senha-->
+        <div class="grupo">
+          <div class="password-field">
+            <input type="password" class="input-field" id="password" placeholder="Senha">
+            <span class="material-symbols-outlined" id="toggle-password">visibility</span>
           </div>
+        </div>
 
-          <div class="grupo">
-            <label for="altura">Altura: (cm)</label>
-            <input type="number" id="alturaUser" name="altura"/>
+        <!--senha confirmação-->
+        <div class="grupo">
+          <div class="password-field">
+            <input type="password" id="password-verify" class="input-field" placeholder="Confirme sua senha">
+            <small id="passwordVerifyHelp" class="password-help"></small>
+            <span class="material-symbols-outlined" id="toggle-password-verify">visibility</span>
           </div>
         </div>
       </div>
 
-      <div class="acoes">
-        <button type="button" class="btn-secundario" id="cancelarInfo">Cancelar</button>
-        <button type="submit" class="btn-primario">Salvar configurações</button>
+      <!-- Coluna direita -->
+      <div class="col-inputs">
+        <!--nascimento-->
+        <div class="grupo">
+          <label for="nasc">Ano de nascimento: </label>
+          <input type="date" id="dateUser" name="nasc"/>
+        </div>
+
+        <!--experiência-->
+        <div class="grupo">
+          <label for="nivel">Experiência: </label>
+          <div class="level-box">
+            <select id="nivelUser" name="nivel">
+              <option value="" disabled selected>Escolha o nível</option>
+              <option value="iniciante">Iniciante</option>
+              <option value="intermediario">Intermediário</option>
+              <option value="avancado">Avançado</option>
+            </select>
+          </div>
+        </div>
+
+        <!--peso-->
+        <div class="grupo">
+          <label for="peso">Peso: (kg) </label>
+          <input type="number" id="pesoUser" name="peso" step="0.1"/>
+        </div>
+
+        <!--altura-->
+        <div class="grupo">
+          <label for="altura">Altura: (cm)</label>
+          <input type="number" id="alturaUser" name="altura"/>
+        </div>
       </div>
-    </form>
-  </div>
+    </div>
+
+    <div class="acoes">
+      <button type="button" class="btn-secundario" id="cancelarInfo">Cancelar</button>
+      <button type="submit" class="btn-primario">Salvar configurações</button>
+    </div>
+
+  </form>
 </div>
-  
+</div>
+
+<!--BTN-->
 <div class="botoes-fixos">
     <button class="toggle-btn" onclick="alternarBarra(), removerFixos()">
       <i class="fas fa-bars"></i>

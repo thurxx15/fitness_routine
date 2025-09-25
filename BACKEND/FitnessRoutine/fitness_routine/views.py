@@ -1,21 +1,17 @@
 import google.generativeai as genai
-import os
+import os 
 import json
+
 from django.db import transaction
+from .models import Treino, Exercicio
+from .serializer import UserSerializer, UserProfileSerializer, TreinoSerializer
+
+from rest_framework import status, permissions, generics, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions, generics
-from .models import Treino, Exercicio
-from .serializer import TreinoSerializer
-from rest_framework import generics, permissions, viewsets
-from .serializer import UserSerializer, UserProfileSerializer
-
-from rest_framework.response import Response
-from rest_framework import status, permissions, generics
 from rest_framework_simplejwt.tokens import RefreshToken
 
-# --- Configuração da API do Gemini ---
-# Carregue a chave da API a partir de uma variável de ambiente
+# Configuração da API do Gemini
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-flash')
@@ -36,37 +32,37 @@ class GerarTreinoView(APIView):
     def post(self, request, *args, **kwargs):
         user_preferences = request.data
         
-        # --- 1. Engenharia de Prompt ---
+        #1 Engenharia de Prompt
         prompt = self.construir_prompt(user_preferences)
 
         try:
-            # --- 2. Chamada à API do Gemini ---
+            #2 Chamada à API do Gemini
             response = model.generate_content(prompt)
             
             # Limpa e parseia a resposta para JSON
             cleaned_response = response.text.strip().replace('```json', '').replace('```', '')
             treino_gerado = json.loads(cleaned_response)
 
-            # --- 3. Salvar no Banco de Dados (com transação) ---
+            #3 Salvar no Banco de Dados (com transação)
             with transaction.atomic():
                 novo_treino = Treino.objects.create(
                     user=request.user,
                     nome_treino=user_preferences.get('nomeTreino'),
                     dias_semana=user_preferences.get('diasSemana'),
-                    objetivo=user_preferences.get('objetivo', 'Geral') # Adicione um campo objetivo no seu modal
+                    objetivo=user_preferences.get('objetivo', 'Geral')
                 )
 
                 for dia in treino_gerado['plano_de_treino']:
                     for exercicio_data in dia['exercicios']:
-                        Exercicio.objects.create(
-                            treino=novo_treino,
-                            nome_exercicio=exercicio_data.get('exercicio'),
-                            grupo_muscular=dia.get('grupo_muscular'),
-                            series=exercicio_data.get('series'),
-                            repeticoes=exercicio_data.get('repeticoes'),
-                            descanso=exercicio_data.get('descanso'),
-                            dia_semana=exercicio_data.get('dia_semana')
-                        )
+                      Exercicio.objects.create(
+                        treino=novo_treino,
+                        nome_exercicio=exercicio_data.get('exercicio'),
+                        grupo_muscular=dia.get('grupo_muscular'),
+                        series=exercicio_data.get('series'),
+                        repeticoes=exercicio_data.get('repeticoes'),
+                        descanso=exercicio_data.get('descanso'),
+                        dia_semana=exercicio_data.get('dia_semana')
+                      )
 
             serializer = TreinoSerializer(novo_treino)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -77,7 +73,7 @@ class GerarTreinoView(APIView):
             return Response({"error": f"Ocorreu um erro: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def construir_prompt(self, prefs):
-        # Prompt detalhado para garantir uma resposta JSON estruturada
+        # Prompt detalhado
         return f"""
         Crie um plano de treino de academia com base nas seguintes especificações:
         - Nome do Treino: {prefs.get('nomeTreino')}
@@ -87,7 +83,6 @@ class GerarTreinoView(APIView):
         - Limitações: {prefs.get('limitacoes', 'Nenhuma')}
         - Separar o treino por dias da semana (ex: Segunda-feira, Terça-feira, etc.)
        
-
         Retorne a resposta ESTRITAMENTE como um objeto JSON válido, sem nenhum texto ou formatação adicional (como markdown).
         O JSON deve seguir esta estrutura:
         {{
@@ -137,20 +132,21 @@ class GerarTreinoView(APIView):
         }}
         """
 
+# Views para GERENCIAR usuários  
 class UserCreate(generics.CreateAPIView):
     queryset = UserSerializer.Meta.model.objects.all()
     permission_classes = (permissions.AllowAny,)
     serializer_class = UserSerializer
 
-
+# View para PERFIL do usuário
 class UserProfileView(generics.RetrieveUpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserProfileSerializer
 
     def get_object(self):
         return self.request.user
-    
 
+# View para LOGOUT  
 class LogoutView(generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
 

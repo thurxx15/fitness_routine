@@ -1,24 +1,15 @@
-# fitness_routine/serializer.py
-
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from .models import Profile, Treino, Exercicio
 
-# ==============================================================================
-#  ARQUIVO DE SERIALIZERS LIMPO E ORGANIZADO
-# ==============================================================================
-
-# --- 1. Serializers de Suporte (usados por outros) ---
-
+#1 Serializers de Suporte (usados por outros)
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('data_nascimento', 'peso', 'altura', 'nivel_experiencia')
 
-
-# --- 2. Serializer para Registro de Novos Usuários ---
-
+#2 Serializer para Registro de Novos Usuários
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
     email = serializers.EmailField(required=True, validators=[UniqueValidator(queryset=User.objects.all())])
@@ -35,14 +26,11 @@ class UserSerializer(serializers.ModelSerializer):
         
         user.first_name = validated_data.get('first_name', '')
         user.last_name = validated_data.get('last_name', '')
-        
         user.save()
 
         return user
 
-
-# --- 3. Serializer Principal para Gerenciar o Perfil do Usuário ---
-
+#3 Serializer Principal para Gerenciar o Perfil do Usuário
 class UserProfileSerializer(serializers.ModelSerializer):
     # Usa o ProfileSerializer definido acima
     profile = ProfileSerializer(required=False)
@@ -57,7 +45,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         }
 
     def update(self, instance, validated_data):
-        # --- Lógica para o Perfil (dados aninhados) ---
+        # Lógica para o Perfil (dados aninhados)
         if 'profile' in validated_data:
             profile_data = validated_data.pop('profile')
             profile = instance.profile
@@ -69,7 +57,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             profile.nivel_experiencia = profile_data.get('nivel_experiencia', profile.nivel_experiencia)
             profile.save()
 
-        # --- LÓGICA CORRETA E SEGURA PARA A SENHA ---
+        # Lógica para o Usuário
         password = validated_data.pop('password', None)
         if password:
             # Esta é a linha mais importante: ela criptografa a senha
@@ -84,9 +72,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-
-# --- 4. Serializers para Treinos e Exercícios ---
-
+#4 Serializers para Treinos e Exercícios
 class ExercicioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercicio

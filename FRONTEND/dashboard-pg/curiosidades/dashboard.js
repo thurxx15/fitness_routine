@@ -1,16 +1,4 @@
-/*
-================================================================================
-|   ARQUIVO JAVASCRIPT - DASHBOARD DE CURIOSIDADES                             |
-================================================================================
-|   Este arquivo gerencia:                                                     |
-|   1. A lógica do carrossel de imagens.                                       |
-|   2. A atualização do card de texto dinâmico.                                |
-|   3. As funções de UI compartilhadas (barra lateral, modal de configurações).|
-================================================================================
-*/
-
-// --- FUNÇÕES GERAIS DA INTERFACE (COMPARTILHADAS) ---
-
+// FUNCAO DA BARRA
 function alternarBarra() {
     const barra = document.getElementById('barraLateral');
     const conteudo = document.getElementById('mainContent');
@@ -18,6 +6,7 @@ function alternarBarra() {
     conteudo.classList.toggle('expandida');
 }
 
+// FUNCAO BOTOES
 function removerFixos() {
     const btnLogout = document.getElementById('btn-logout');
     const btnUser = document.getElementById('abrirInfo');
@@ -34,10 +23,13 @@ const modalInfo = document.getElementById('modalInfo');
 const fecharInfo = document.getElementById('fecharInfo');
 const cancelarInfo = document.getElementById('cancelarInfo');
 
+//FUNCAO ABRIR MODAL
 function abrir_info() {
     if(modalInfo) modalInfo.classList.add('aberta');
     document.body.style.overflow = 'hidden';
 }
+
+//FUNCAO FECHAR MODAL
 function fechar_info() {
     if(modalInfo) modalInfo.classList.remove('aberta');
     document.body.style.overflow = '';
@@ -48,9 +40,6 @@ if(cancelarInfo) cancelarInfo.addEventListener('click', fechar_info);
 if(fecharInfo) fecharInfo.addEventListener('click', fechar_info);
 if(modalInfo) modalInfo.addEventListener('click', (e) => { if (e.target === modalInfo) fechar_info(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fechar_info(); });
-
-
-// --- LÓGICA ESPECÍFICA DA PÁGINA DE CURIOSIDADES ---
 
 // Array com os dados para o card dinâmico
 const cardData = [
@@ -97,6 +86,7 @@ function updateCarousel() {
     }
 }
 
+// Função para atualizar o conteúdo do card
 function updateCard(newIndex) {
     if (cardTitle && cardText && cardLink && cardData[newIndex]) {
         const currentData = cardData[newIndex];
@@ -115,15 +105,13 @@ if (nextButton && items.length > 0) {
     nextButton.addEventListener("click", () => {
         index = (index + 1) % items.length;
         updateCarousel();
-    });
-}
+    }); }
 
 if (prevButton && items.length > 0) {
     prevButton.addEventListener("click", () => {
         index = (index - 1 + items.length) % items.length;
         updateCarousel();
-    });
-}
+    }); }
 
 // Inicializa o card com o primeiro item quando a página carrega
 // Adicionado um 'DOMContentLoaded' para garantir que todos os elementos estejam prontos
@@ -131,13 +119,13 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCard(0);
 });
 
-// --- FUNÇÃO PARA CARREGAR OS DADOS DO USUÁRIO ---
+// FUNÇÃO PARA CARREGAR OS DADOS DO USUÁRIO
 async function carregarDadosUsuario() {
     const accessToken = localStorage.getItem('accessToken');
+
     if (!accessToken) {
         window.location.href = '../../login-pg/login.html';
-        return;
-    }
+        return; }
 
     try {
         const response = await fetch('http://127.0.0.1:8000/api/me/', {
@@ -176,8 +164,7 @@ async function carregarDadosUsuario() {
     }
 }
 
-
-// --- FUNÇÃO PARA SALVAR AS ALTERAÇÕES (COM TRATAMENTO DE ERRO INTELIGENTE) ---
+// FUNÇÃO PARA SALVAR AS ALTERAÇÕES (COM TRATAMENTO DE ERRO INTELIGENTE)
 async function salvarConfiguracoes(event) {
     event.preventDefault();
 
@@ -211,8 +198,7 @@ async function salvarConfiguracoes(event) {
     if (novaSenha) {
         if (novaSenha !== confirmaSenha) {
             alert('As senhas não coincidem! Por favor, verifique.');
-            return;
-        }
+            return; }
         dadosAtualizados.password = novaSenha;
     }
 
@@ -237,9 +223,6 @@ async function salvarConfiguracoes(event) {
         fechar_info();
 
     } catch (error) {
-        // ===================================================================
-        //  INÍCIO DA LÓGICA INTELIGENTE DE TRATAMENTO DE ERRO
-        // ===================================================================
         // Verifica se o erro é o específico "Failed to fetch" do reinício do servidor
         if (error instanceof TypeError && error.message === 'Failed to fetch') {
             // Assume que a operação deu certo e o servidor reiniciou antes de responder
@@ -256,20 +239,18 @@ async function salvarConfiguracoes(event) {
 }
 
 
-// --- EVENT LISTENERS ---
+// EVENT LISTENERS
 abrirInfo.addEventListener('click', carregarDadosUsuario);
 formConfiguracoes.addEventListener('submit', salvarConfiguracoes);
 
-
 document.addEventListener('DOMContentLoaded', function() {
-    
     const logoutButton = document.getElementById('btn-logout');
 
     // Verifica se o botão de logout existe na página
     if (logoutButton) {
         logoutButton.addEventListener('click', async function() {
 
-            // 1. Pegar os tokens do localStorage
+            //1 Pegar os tokens do localStorage
             const accessToken = localStorage.getItem('access_token');
             const refreshToken = localStorage.getItem('refresh_token');
 
@@ -281,8 +262,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
+            //2 Chamar o endpoint de logout do backend
             try {
-                // 2. Chamar o endpoint de logout do backend
                 const response = await fetch('http://127.0.0.1:8000/api/logout/', {
                     method: 'POST',
                     headers: {
@@ -296,43 +277,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
 
                 if (response.ok) {
-                    console.log('Logout realizado com sucesso no backend.');
-                } else {
+                    console.log('Logout realizado com sucesso no backend.'); } 
+                else {
                     // Mesmo que o backend falhe, o logout no frontend deve continuar
-                    console.error('Falha no logout do backend, mas prosseguindo com o logout local.');
-                }
+                    console.error('Falha no logout do backend, mas prosseguindo com o logout local.'); } }
 
-            } catch (error) {
-                console.error('Erro de rede ao tentar fazer logout:', error);
-            } finally {
-                // 3. Limpar o localStorage e redirecionar (acontece sempre)
+            catch (error) {
+                console.error('Erro de rede ao tentar fazer logout:', error); }
+
+            //3 Limpar o localStorage e redirecionar (acontece sempre)
+            finally {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
-                // localStorage.clear(); // Alternativa para limpar tudo
 
-                // 4. Redirecionar o usuário para a página de login
-                window.location.href = '../../inicio-pg/inicio.html';
-            }
+            //4 Redirecionar o usuário para a página de login   
+                window.location.href = '../../inicio-pg/inicio.html'; }
         });
     }
 });
 
 window.onload = function() {
-    carregarDadosUsuario()
-}
+    carregarDadosUsuario() }
 
 const passwordInput = document.getElementById('password');
 const passwordVerifyInput = document.getElementById('password-verify');
 const togglePassword = document.getElementById('toggle-password');
 const togglePasswordVerify = document.getElementById('toggle-password-verify');
 
+// VISIBIDADE DA SENHA
 togglePassword.addEventListener('click', function () {
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordInput.setAttribute('type', type);
     togglePassword.textContent = type === 'password' ? 'visibility_off' : 'visibility';
     });
 
-    togglePasswordVerify.addEventListener('click', function () {
+// VISIBILIDADE DA SENHA - CONFIRMAÇÃO
+togglePasswordVerify.addEventListener('click', function () {
     const type = passwordVerifyInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordVerifyInput.setAttribute('type', type);
     togglePasswordVerify.textContent = type === 'password' ? 'visibility_off' : 'visibility';

@@ -19,151 +19,158 @@
 </head>
 <body>
 
-    <div class="barra_lateral" id="barraLateral">
-        <img src="../../midia/logo-dash.png" alt="logo-dash"><br><br>
-        <a href="../inicio/dashboard.html" class="link">Início</a>
-        <a href="../planilhas/dashboard.html" class="link">Treinos</a>
-        <a href="../curiosidades/dashboard.html" class="link">Curiosidades</a>
-        <a href="../sobre/dashboard.html" class="link">Sobre</a>
-    </div>
-
-<div class="main" id="mainContent">
-        <div class="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active" data-card="1">
-                    <img src="../../midia/cur/img-cur1.jpg" alt="Imagem 1">
-                </div>
-
-                <div class="carousel-item" data-card="2">
-                    <img src="../../midia/cur/img-cur2.jpg" alt="Imagem 2">
-                </div>
-
-                <div class="carousel-item" data-card="3">
-                    <img src="../../midia/cur/img-cur3.jpg" alt="Imagem 3">
-                </div>
-
-                <div class="carousel-item" data-card="4">
-                    <img src="../../midia/cur/img-cur4.jpg" alt="Imagem 4">
-                </div>
-
-                <div class="carousel-item" data-card="5">
-                    <img src="../../midia/cur/img-cur5.jpg" alt="Imagem 5">
-                </div>
-
-            </div>
-
-            <button class="prev">&#10094;</button>
-            <button class="next">&#10095;</button>
-        </div>
-
-        <div class="card" id="dynamicCard">
-            <div class="card-content">
-                <h2 id="card-title"></h2>
-                <p id="card-text"></p>
-                <a href="#" class="btn" id="card-link"></a>
-            </div>
-        </div>
+<!--BARRA LATERAL-->
+<div class="barra_lateral" id="barraLateral">
+  <img src="../../midia/logo-dash.png" alt="logo-dash"><br><br>
+  <a href="../inicio/dashboard.html" class="link">Início</a>
+  <a href="../planilhas/dashboard.html" class="link">Treinos</a>
+  <a href="../curiosidades/dashboard.html" class="link">Curiosidades</a>
+  <a href="../sobre/dashboard.html" class="link">Sobre</a>
 </div>
 
-<div class="modal-info" id="modalInfo" aria-hidden="true">
-  <div class="modal2" role="dialog" aria-modal="true" aria-labelledby="ConfigInfo">
-    <button class="modal2-fechar" id="fecharInfo" aria-label="Fechar"><i class="fa-solid fa-x"></i></button>
-    <h2 id="tituloInfo">Configurações de usuário</h2>
+<!--MAIN-->
+<div class="main" id="mainContent">
+  <!--carrousel-->
+  <div class="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-card="1"> <img src="../../midia/cur/img-cur1.jpg" alt="Imagem 1"> </div>
+        <div class="carousel-item" data-card="2"> <img src="../../midia/cur/img-cur2.jpg" alt="Imagem 2"> </div>
+        <div class="carousel-item" data-card="3"> <img src="../../midia/cur/img-cur3.jpg" alt="Imagem 3"> </div>
+        <div class="carousel-item" data-card="4"> <img src="../../midia/cur/img-cur4.jpg" alt="Imagem 4"> </div>
+        <div class="carousel-item" data-card="5"> <img src="../../midia/cur/img-cur5.jpg" alt="Imagem 5"> </div>
+    </div>
 
-    <form id="formPreferencias">
-      <div class="modal-grid">
-        
-        <!-- Coluna esquerda -->
-        <div class="col-inputs">
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+  </div>
 
-          <div class="grupo">
-            <label>Nome completo:</label>
-            <div class="nome-sobrenome">
-              <input type="text" id="nome" name="nome" placeholder="Nome"/>
-              <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome"/>
-            </div>
-          </div>
-
-          <div class="grupo">
-            <label for="username">Nome de usuário: </label>
-            <input type="text" id="username" name="username"/>
-          </div>
-
-          <div class="grupo">
-            <label for="email">Email: </label>
-            <input type="email" id="email" name="email"/>
-          </div>
-
-          <div class="grupo">
-            <div class="password-field">
-              <input type="password" class="input-field" id="password" placeholder="Senha">
-              <span class="material-symbols-outlined" id="toggle-password">visibility</span>
-            </div>
-          </div>
-
-          <div class="grupo">
-            <div class="password-field">
-              <input type="password" id="password-verify" class="input-field" placeholder="Confirme sua senha">
-              <small id="passwordVerifyHelp" class="password-help"></small>
-              <span class="material-symbols-outlined" id="toggle-password-verify">visibility</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Coluna direita -->
-        <div class="col-inputs">
-          <div class="grupo">
-            <label for="nasc">Ano de nascimento: </label>
-            <input type="date" id="dateUser" name="nasc"/>
-          </div>
-
-          <div class="grupo">
-            <label for="nivel">Experiência: </label>
-            <div class="level-box">
-              <select id="nivelUser" name="nivel">
-                <option value="" disabled selected>Escolha o nível</option>
-                <option value="iniciante">Iniciante</option>
-                <option value="intermediario">Intermediário</option>
-                <option value="avancado">Avançado</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="grupo">
-            <label for="peso">Peso: (kg) </label>
-            <input type="number" id="pesoUser" name="peso" step="0.1"/>
-          </div>
-
-          <div class="grupo">
-            <label for="altura">Altura: (cm)</label>
-            <input type="number" id="alturaUser" name="altura"/>
-          </div>
-        </div>
-      </div>
-
-      <div class="acoes">
-        <button type="button" class="btn-secundario" id="cancelarInfo">Cancelar</button>
-        <button type="submit" class="btn-primario">Salvar configurações</button>
-      </div>
-    </form>
+  <!--card-->
+  <div class="card" id="dynamicCard">
+    <div class="card-content">
+      <h2 id="card-title"></h2>
+      <p id="card-text"></p>
+      <a href="#" class="btn" id="card-link"></a>
+    </div>
   </div>
 </div>
 
+<!--MODAL INFO-->
+<div class="modal-info" id="modalInfo" aria-hidden="true">
+<div class="modal2" role="dialog" aria-modal="true" aria-labelledby="ConfigInfo">
+
+  <!--button-->
+  <button class="modal2-fechar" id="fecharInfo" aria-label="Fechar"><i class="fa-solid fa-x"></i></button>
+  
+  <!--titulo-->
+  <h2 id="tituloInfo">Configurações de usuário</h2>
+
+  <form id="formPreferencias">
+  <div class="modal-grid">
+      
+    <!-- COLUNA ESQUERDA -->
+    <div class="col-inputs">
+
+      <!--nome-->
+      <div class="grupo">
+        <label>Nome completo:</label>
+        <div class="nome-sobrenome">
+          <input type="text" id="nome" name="nome" placeholder="Nome"/>
+          <input type="text" id="sobrenome" name="sobrenome" placeholder="Sobrenome"/>
+        </div>
+      </div>
+
+      <!--user-->
+      <div class="grupo">
+        <label for="username">Nome de usuário: </label>
+        <input type="text" id="username" name="username"/>
+      </div>
+
+      <!--email-->
+      <div class="grupo">
+        <label for="email">Email: </label>
+        <input type="email" id="email" name="email"/>
+      </div>
+
+      <!--senha-->
+      <div class="grupo">
+        <div class="password-field">
+          <input type="password" class="input-field" id="password" placeholder="Senha">
+          <span class="material-symbols-outlined" id="toggle-password">visibility</span>
+        </div>
+      </div>
+
+      <!--confirma senha-->
+      <div class="grupo">
+        <div class="password-field">
+          <input type="password" id="password-verify" class="input-field" placeholder="Confirme sua senha">
+          <small id="passwordVerifyHelp" class="password-help"></small>
+          <span class="material-symbols-outlined" id="toggle-password-verify">visibility</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUNA DIREITA -->
+    <div class="col-inputs">
+
+        <!--nascimento-->
+        <div class="grupo">
+          <label for="nasc">Ano de nascimento: </label>
+          <input type="date" id="dateUser" name="nasc"/>
+        </div>
+
+        <!--experiencia-->
+        <div class="grupo">
+          <label for="nivel">Experiência: </label>
+          <div class="level-box">
+            <select id="nivelUser" name="nivel">
+              <option value="" disabled selected>Escolha o nível</option>
+              <option value="iniciante">Iniciante</option>
+              <option value="intermediario">Intermediário</option>
+              <option value="avancado">Avançado</option>
+            </select>
+          </div>
+        </div>
+
+        <!--peso-->
+        <div class="grupo">
+          <label for="peso">Peso: (kg) </label>
+          <input type="number" id="pesoUser" name="peso" step="0.1"/>
+        </div>
+
+        <!--altura-->
+        <div class="grupo">
+          <label for="altura">Altura: (cm)</label>
+          <input type="number" id="alturaUser" name="altura"/>
+        </div>
+    </div>
+  </div>
+
+  <!--acoes-->
+  <div class="acoes">
+    <button type="button" class="btn-secundario" id="cancelarInfo">Cancelar</button>
+    <button type="submit" class="btn-primario">Salvar configurações</button>
+  </div>
+
+  </form>
+</div>
+</div>
+
+<!--BTN-->
 <div class="botoes-fixos">
+    <!--alternar-->
     <button class="toggle-btn" onclick="alternarBarra(), removerFixos()">
       <i class="fas fa-bars"></i>
     </button>
 
+    <!--logout-->
     <button class="toggle-btn" id="btn-logout">
-      <a href="../../inicio-pg/inicio.html" class="btn-fixo">
-        <i class="fa-solid fa-right-from-bracket"></i>
-      </a>
+      <i class="fa-solid fa-right-from-bracket"></i>
     </button>
 
+    <!--user-->
     <button class="toggle-btn" id="abrirInfo">
-        <i class="fas fa-user"></i>
+      <i class="fas fa-user"></i>
     </button>
-
 </div>
 
 <script src="dashboard.js"></script>

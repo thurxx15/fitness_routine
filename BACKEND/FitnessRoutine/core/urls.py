@@ -1,13 +1,11 @@
-from django.contrib import admin
 from django.urls import path
 from django.conf import settings
+from django.contrib import admin
 from django.conf.urls.static import static
 
-from fitness_routine.views import UserCreate, UserProfileView
-
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from fitness_routine.views import UserCreate, UserProfileView, GerarTreinoView, TreinoListView
-from fitness_routine.views import UserCreate, UserProfileView, LogoutView
+from fitness_routine.views import UserCreate, UserProfileView, GerarTreinoView, TreinoListView, LogoutView
+
 
 
 urlpatterns = [

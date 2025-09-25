@@ -4,28 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="shortcut icon" href="../../../midia/ico/ico-aba.png" type="image/x-icon">
+  <link rel="stylesheet" href="cur.css" />
+
   <title> Fitness Routine - Dashboard </title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" 
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
         crossorigin="anonymous" 
-        referrerpolicy="no-referrer" />
-        
-  <link rel="stylesheet" href="cur.css" />
+        referrerpolicy="no-referrer" />   
 </head>
 <body>
 
+<!--BARRA LATERAL-->
 <div class="barra_lateral" id="barraLateral">
   <img src="../../../midia/logo-dash.png" alt="logo-dash"><br><br>
-      <a href="../../inicio/dashboard.html" class="link">Início</a>
-      <a href="../../planilhas/dashboard.html" class="link">Treinos</a>
-      <a href="../../curiosidades/dashboard.html" class="link">Curiosidades</a>
-      <a href="../../sobre/dashboard.html" class="link">Sobre</a>
+    <a href="../../inicio/dashboard.html" class="link">Início</a>
+    <a href="../../planilhas/dashboard.html" class="link">Treinos</a>
+    <a href="../../curiosidades/dashboard.html" class="link">Curiosidades</a>
+    <a href="../../sobre/dashboard.html" class="link">Sobre</a>
 </div>
 
+<!--MAIN-->
 <div class="main" id="mainContent">
   <img src="../../../midia/cur/img-cur1.jpg" alt="Banner de Curiosidades Fitness" class="banner-image">
 
+  <!--card-->
   <div class="card curiosities-card">
     <h2>Aprofundando o assunto...</h2>
 
@@ -43,17 +46,21 @@
   </div>
 </div>
 
+<!--BTN-->
 <div class="botoes-fixos">
+    <!--alternar-->
     <button class="toggle-btn" onclick="alternarBarra(), removerFixos()">
       <i class="fas fa-bars"></i>
     </button>
 
+    <!--logout-->
     <button class="toggle-btn" id="btn-logout">
       <a href="../../inicio-pg/inicio.html" class="btn-fixo">
         <i class="fa-solid fa-right-from-bracket"></i>
       </a>
     </button>
 
+    <!--user-->
     <button class="toggle-btn" id="btn-user">
       <a href="../../usuario-pg/usuario.html" class="btn-fixo">
         <i class="fas fa-user"></i>
