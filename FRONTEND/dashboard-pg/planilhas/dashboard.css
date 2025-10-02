@@ -414,6 +414,9 @@ input[type="range"] {
     font-size: 14px;
     transition: border 0.2s, background 0.2s; }
 
+
+
+
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(73%) sepia(14%) saturate(438%) hue-rotate(250deg) brightness(96%) contrast(92%); }
 
@@ -522,6 +525,23 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Remove margens extras para um alinhamento perfeito */
 .dataTables_length, .dataTables_filter {
     margin: 0;
+}
+
+.btn-excluir {
+    background-color: #a4161a; /* Um vermelho escuro */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-excluir:hover {
+    background-color: #ba181b; /* Vermelho mais claro no hover */
+    transform: scale(1.05);
 }
 
 /*==========================================================================
@@ -702,3 +722,99 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         opacity: 1;
     }
 }
+
+
+
+
+
+
+#formConfiguracoes .linha {
+    display: grid;
+    grid-template-columns: 1fr 120px; 
+    gap: 12px;
+    margin: 15px 0; }
+
+#formConfiguracoes .linha label {
+    font-weight: 500;
+    font-size: 13px; }
+
+#formConfiguracoes #limitacoes {
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: #ffffff;
+    font-size: 12px;
+    resize: none;
+    height: 70px; }
+
+#formConfiguracoes .grupo {
+    display: grid;
+    gap: 8px;
+    margin: 15px 0; }
+
+#formConfiguracoes label, #formPreferencias span {
+    font-weight: 500; 
+    font-size: 13px; }
+
+#formConfiguracoes input[type="text"], input[type="time"], textarea {
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: #ffffff; 
+    font-size: 12px;}
+
+#formConfiguracoes input[type="number"] {
+    max-width: 120px;
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: #ffffff; 
+    font-size: 12px; }
+
+#formConfiguracoes label {
+    font-weight: 400; 
+    font-size: 12px;
+    color: #c8b8db; }
+
+#formConfiguracoes input[type="text"],
+#formConfiguracoes input[type="email"],
+#formConfiguracoes input[type="password"],
+#formConfiguracoes input[type="number"],
+#formConfiguracoes textarea {
+    width: 100%;
+    box-sizing: border-box;
+    height: 44px;
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #ffffff; 
+    font-size: 14px;
+    transition: border 0.2s, background 0.2s; }
+
+#formConfiguracoes #nivelUser {
+    width: 120px;
+    box-sizing: border-box;
+    height: 44px;
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #ffffff; 
+    font-size: 12px;
+    transition: border 0.2s, background 0.2s; }
+
+#formConfiguracoes input[type="date"] {
+    width: 120px;
+    box-sizing: border-box;
+    height: 44px;
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #c8b8db; 
+    font-size: 14px;
+    transition: border 0.2s, background 0.2s; }

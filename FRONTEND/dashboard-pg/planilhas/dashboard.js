@@ -77,12 +77,14 @@ document.addEventListener('keydown', (e) => {
 
 // Executa o código apenas quando o DOM estiver completamente carregado
 $(document).ready(function() {
+    let tabela;
 
     /**
      * Formata os detalhes dos exercícios para serem exibidos na linha filha (child row).
      * @param {Array} exercicios - O array de objetos de exercício da API.
      * @returns {string} O HTML formatado para a linha de detalhes.
      */
+
     function formatarDetalhes(exercicios) {
         if (!exercicios || exercicios.length === 0) {
             return '<div class="details-container"><p>Este treino não possui exercícios detalhados.</p></div>';
@@ -95,8 +97,6 @@ $(document).ready(function() {
         detailsHtml += '</ul></div>';
         return detailsHtml;
     }
-
-    $(document).ready(function() {
 
     // --- [NOVA SEÇÃO 1]: LÓGICA DO MODAL DE DETALHES DO TREINO ---
 
@@ -174,9 +174,9 @@ $(document).ready(function() {
     }
 
     abrirModalDetalhes();
-}
+    }
 
-    const tabela = $('#tabelaTreinos').DataTable({
+    tabela = $('#tabelaTreinos').DataTable({
 
         // =============================================================
         // A LINHA QUE FALTAVA ESTÁ AQUI:
@@ -218,6 +218,16 @@ $(document).ready(function() {
                 "data": "data_criacao",
                 "render": function(data) {
                     return new Date(data).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' });
+                }
+            },
+            {
+                "data": null, // Não está atrelada a um dado específico
+                "orderable": false,
+                "searchable": false,
+                "render": function(data, type, row) {
+                    // 'row' contém todos os dados da linha atual
+                    // Criamos um botão com a classe 'btn-excluir' e um data-id com o ID do treino
+                    return `<button class="btn-excluir" data-id="${row.id}">Excluir</button>`;
                 }
             }
         ],
@@ -281,11 +291,10 @@ $(document).ready(function() {
         }
     });
 
-    // (Seu código original para o formulário de "Novo Treino" permanece, sem alterações)
     const formNovoTreino = document.getElementById('formPreferencias');
+
     if (formNovoTreino) {
         formNovoTreino.addEventListener('submit', async function(event) {
-            // ... seu código para gerar treino com IA ...
             // A linha abaixo é importante e já estava no seu código:
             tabela.ajax.reload(null, false);
         });
@@ -314,6 +323,58 @@ $(document).ready(function() {
         });
     }
 
+    $('#tabelaTreinos tbody').on('click', 'button.btn-excluir', async function () {
+    const tr = $(this).closest('tr');
+    const row = tabela.row(tr);
+    const dadosDaLinha = row.data();
+
+    // 1. Pede confirmação ao usuário (MUITO IMPORTANTE!)
+    if (confirm(`Você tem certeza que deseja excluir o treino "${dadosDaLinha.nome_treino}"? Esta ação não pode ser desfeita.`)) {
+        
+        const treinoId = dadosDaLinha.id; // Pega o ID do treino dos dados da linha
+        const token = localStorage.getItem('accessToken');
+
+        try {
+            // 1. Faz a chamada DELETE para a API
+            const response = await fetch(`http://127.0.0.1:8000/api/treinos/${treinoId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            // 2. Processa a resposta
+            
+            // Se a resposta for OK (incluindo 204 No Content), entra neste bloco
+            if (response.ok) {
+                alert('Treino excluído com sucesso!');
+                row.remove().draw(false);
+
+            // Se a resposta for um erro (4xx ou 5xx)
+            } else {
+                let errorMessage = `Falha ao excluir o treino. Status: ${response.status}`;
+                
+                // Tenta ler a resposta como JSON APENAS se houver conteúdo
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.indexOf("application/json") !== -1) {
+                    const errorData = await response.json();
+                    // Usa a mensagem de erro detalhada da API, se existir
+                    errorMessage = errorData.detail || JSON.stringify(errorData);
+                } else {
+                    // Se não for JSON (ex: uma página de erro HTML), usa o texto do status
+                    errorMessage = response.statusText;
+                }
+                
+                // Lança o erro para ser pego pelo catch block
+                throw new Error(errorMessage);
+            }
+
+        } catch (error) {
+            console.error('Erro ao excluir treino:', error);
+            // A notificação agora mostrará uma mensagem de erro muito mais útil
+            alert(`Erro: ${error.message}`);
+        }
+    }
 }); // Fim do $(document).ready()
 
 // --- OUTRAS FUNÇÕES (Configurações do Usuário, Logout, etc.) ---
@@ -472,12 +533,13 @@ async function salvarConfiguracoes(event) {
         console.error('Erro ao salvar:', error);
         alert(error.message);
     }
-}
+    }
 
 // Carrega os dados quando o modal é aberto
 abrirInfo.addEventListener('click', carregarDadosUsuario);
 
 // Salva os dados quando o formulário é enviado
+const formConfiguracoes = document.getElementById('formConfiguracoes');
 formConfiguracoes.addEventListener('submit', salvarConfiguracoes);
 
 

@@ -14,7 +14,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 # Configuração da API do Gemini
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-2.5-pro')
 
 # View para LISTAR os treinos existentes
 class TreinoListView(generics.ListAPIView):
@@ -132,6 +132,15 @@ class GerarTreinoView(APIView):
         }}
         """
 
+# View para DELETAR um treino específico
+class TreinoDeleteView(generics.DestroyAPIView):
+    queryset = Treino.objects.all()
+    serializer_class = TreinoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+    
 # Views para GERENCIAR usuários  
 class UserCreate(generics.CreateAPIView):
     queryset = UserSerializer.Meta.model.objects.all()
