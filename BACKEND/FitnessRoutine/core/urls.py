@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from fitness_routine.views import UserCreate, UserProfileView, GerarTreinoView, TreinoDeleteView, TreinoListView, LogoutView
-
+from fitness_routine.views import TreinoDetailView
 
 
 urlpatterns = [
@@ -21,6 +21,7 @@ urlpatterns = [
     path('api/treinos/<int:pk>/', TreinoDeleteView.as_view(), name='treino-delete'),
 
     path('api/logout/', LogoutView.as_view(), name='logout'),
+    path('api/treinos/<int:treino_id>/', TreinoDetailView.as_view(), name='treino_detail'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

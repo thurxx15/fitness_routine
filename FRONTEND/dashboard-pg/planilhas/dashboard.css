@@ -414,9 +414,6 @@ input[type="range"] {
     font-size: 14px;
     transition: border 0.2s, background 0.2s; }
 
-
-
-
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(73%) sepia(14%) saturate(438%) hue-rotate(250deg) brightness(96%) contrast(92%); }
 
@@ -525,23 +522,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 /* Remove margens extras para um alinhamento perfeito */
 .dataTables_length, .dataTables_filter {
     margin: 0;
-}
-
-.btn-excluir {
-    background-color: #a4161a; /* Um vermelho escuro */
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 12px;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-.btn-excluir:hover {
-    background-color: #ba181b; /* Vermelho mais claro no hover */
-    transform: scale(1.05);
 }
 
 /*==========================================================================
@@ -726,4 +706,96 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         transform: translateY(0);
         opacity: 1;
     }
+}
+
+.password-field {
+  position: relative;
+  width: 100%; }
+
+.password-field input {
+  padding-right: 40px; }
+
+.password-field .material-symbols-outlined {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 20px!important; }
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 1000,
+    'GRAD' 0,
+    'opsz' 24; }
+
+.password-field .material-symbols-outlined.riscado::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  right: 2px;
+  height: 2px;
+  background-color: #888;
+  transform: rotate(-45deg); }
+
+  /* =================================================================== */
+/*  NOVO ESTILO PARA O MODAL DE DETALHES DE TREINO                     */
+/* =================================================================== */
+
+/* Título do dia da semana (ex: "Terça-feira") */
+.dia-titulo {
+    background-color: #2a1b3d; /* Roxo mais escuro */
+    color: #e0e0e0;
+    padding: 10px 15px;
+    margin-top: 20px; /* Espaço entre as tabelas */
+    margin-bottom: 0;
+    border-radius: 8px 8px 0 0; /* Bordas arredondadas apenas no topo */
+    font-size: 1.1em;
+}
+
+/* Tabela de exercícios de cada dia */
+.tabela-dia {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* Cabeçalho da tabela (Exercício, Séries, etc.) */
+.tabela-dia th {
+    background-color: #2a1b3d;
+    font-size: 1em;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid #3c096c;
+}
+
+/* Células da tabela */
+.tabela-dia td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #332147;
+}
+
+/* Efeito de hover nas linhas */
+.tabela-dia tbody tr:hover {
+    background-color: #2c2144;
+}
+
+.btn-excluir {
+    background-color: #7b2cbf; /* Um roxo escuro */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-excluir:hover {
+    background-color: #9d4edd; /* Roxo mais claro no hover */
+    transform: scale(1.05);
 }

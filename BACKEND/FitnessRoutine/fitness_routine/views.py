@@ -62,6 +62,7 @@ class GerarTreinoView(APIView):
                         repeticoes=exercicio_data.get('repeticoes'),
                         descanso=exercicio_data.get('descanso'),
                         dia_semana=exercicio_data.get('dia_semana')
+                        
                       )
 
             serializer = TreinoSerializer(novo_treino)
@@ -73,57 +74,47 @@ class GerarTreinoView(APIView):
             return Response({"error": f"Ocorreu um erro: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def construir_prompt(self, prefs):
-        # Prompt detalhado
+        # Prompt detalhado para garantir uma resposta JSON estruturada
         return f"""
         Crie um plano de treino de academia com base nas seguintes especificações:
-        - Nome do Treino: {prefs.get('nomeTreino')}
         - Foco/Objetivo: {prefs.get('objetivo', 'Hipertrofia')}
         - Dias por semana: {prefs.get('diasSemana')}
         - Grupos musculares a focar: {', '.join(prefs.get('gruposMusculares', []))}
         - Limitações: {prefs.get('limitacoes', 'Nenhuma')}
-        - Separar o treino por dias da semana (ex: Segunda-feira, Terça-feira, etc.)
-       
-        Retorne a resposta ESTRITAMENTE como um objeto JSON válido, sem nenhum texto ou formatação adicional (como markdown).
-        O JSON deve seguir esta estrutura:
+
+        Organize os exercícios em grupos, onde cada grupo corresponde a um dia de treino.
+
+        Retorne a resposta ESTRITAMENTE como um objeto JSON válido, sem nenhum texto ou formatação adicional.
+        O JSON deve seguir esta estrutura exata, incluindo a chave "dia_semana" para cada exercício:
         {{
           "plano_de_treino": [
             {{
-              "dia": 1,
               "grupo_muscular": "Peito e Tríceps",
               "exercicios": [
                 {{
                   "exercicio": "Supino Reto com Barra",
                   "series": "4",
                   "repeticoes": "8-12",
-                  "descanso": "60 segundos"
+                  "descanso": "60 segundos",
                   "dia_semana": "Segunda-feira"
                 }},
                 {{
                   "exercicio": "Crucifixo Inclinado com Halteres",
                   "series": "3",
                   "repeticoes": "10-15",
-                  "descanso": "45 segundos"
+                  "descanso": "45 segundos",
                   "dia_semana": "Segunda-feira"
                 }}
               ]
-            }}
-
+            }},
             {{
-              "dia": 2,
-              "grupo_muscular": "Peito e Tríceps",
+              "grupo_muscular": "Costas e Bíceps",
               "exercicios": [
                 {{
-                  "exercicio": "Supino Reto com Barra",
+                  "exercicio": "Barra Fixa",
                   "series": "4",
-                  "repeticoes": "8-12",
-                  "descanso": "60 segundos"
-                  "dia_semana": "Terça-feira"
-                }},
-                {{
-                  "exercicio": "Crucifixo Inclinado com Halteres",
-                  "series": "3",
-                  "repeticoes": "10-15",
-                  "descanso": "45 segundos"
+                  "repeticoes": "Até a falha",
+                  "descanso": "90 segundos",
                   "dia_semana": "Terça-feira"
                 }}
               ]
@@ -131,7 +122,6 @@ class GerarTreinoView(APIView):
           ]
         }}
         """
-
 # View para DELETAR um treino específico
 class TreinoDeleteView(generics.DestroyAPIView):
     queryset = Treino.objects.all()
@@ -168,3 +158,20 @@ class LogoutView(generics.GenericAPIView):
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+
+class TreinoDetailView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def delete(self, request, treino_id, format=None):
+        try:
+            # Encontra o treino que pertence ao usuário logado
+            treino = Treino.objects.get(id=treino_id, user=request.user)
+        except Treino.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        # Apaga o treino
+        treino.delete()
+        
+        # Retorna uma resposta de sucesso sem conteúdo
+        return Response(status=status.HTTP_204_NO_CONTENT)
