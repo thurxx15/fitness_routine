@@ -160,18 +160,16 @@ class LogoutView(generics.GenericAPIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         
 
-class TreinoDetailView(APIView):
+class TreinoDetailView(generics.DestroyAPIView):
+    """
+    Esta view lida com a exclusão (DELETE) de um treino específico.
+    """
     permission_classes = [permissions.IsAuthenticated]
+    serializer_class = TreinoSerializer
+    
+    # Linha crucial que diz à view para procurar o ID na URL com o nome 'treino_id'
+    lookup_url_kwarg = 'treino_id'
 
-    def delete(self, request, treino_id, format=None):
-        try:
-            # Encontra o treino que pertence ao usuário logado
-            treino = Treino.objects.get(id=treino_id, user=request.user)
-        except Treino.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        
-        # Apaga o treino
-        treino.delete()
-        
-        # Retorna uma resposta de sucesso sem conteúdo
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    def get_queryset(self):
+        # Garante que o usuário só possa deletar os próprios treinos
+        return Treino.objects.filter(user=self.request.user)

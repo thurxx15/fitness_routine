@@ -260,7 +260,6 @@ function gerarPdfDoTreino(treinoData) {
                 dataSrc: ''
             },
             columns: [
-                { className: 'details-control', orderable: false, data: null, defaultContent: '' },
                 { data: 'nome_treino' }, { data: 'objetivo' },
                 { data: 'exercicios', render: (d) => (!d || d.length === 0) ? "Nenhum" : `${d.length} exercícios` },
                 { data: 'data_criacao', render: (d) => d ? new Date(d).toLocaleDateString('pt-BR') : '-' },
