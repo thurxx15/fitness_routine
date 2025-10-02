@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from fitness_routine.views import UserCreate, UserProfileView, GerarTreinoView, TreinoListView, LogoutView
+from fitness_routine.views import UserCreate, UserProfileView, GerarTreinoView, TreinoDeleteView, TreinoListView, LogoutView
 
 
 
@@ -18,6 +18,7 @@ urlpatterns = [
     path('api/me/', UserProfileView.as_view(), name='user_profile'),
     path('api/treinos/', TreinoListView.as_view(), name='treino_list'),
     path('api/gerar-treino/', GerarTreinoView.as_view(), name='gerar_treino'),
+    path('api/treinos/<int:pk>/', TreinoDeleteView.as_view(), name='treino-delete'),
 
     path('api/logout/', LogoutView.as_view(), name='logout'),
 

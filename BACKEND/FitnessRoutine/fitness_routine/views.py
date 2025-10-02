@@ -132,6 +132,15 @@ class GerarTreinoView(APIView):
         }}
         """
 
+# View para DELETAR um treino específico
+class TreinoDeleteView(generics.DestroyAPIView):
+    queryset = Treino.objects.all()
+    serializer_class = TreinoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+    
 # Views para GERENCIAR usuários  
 class UserCreate(generics.CreateAPIView):
     queryset = UserSerializer.Meta.model.objects.all()
