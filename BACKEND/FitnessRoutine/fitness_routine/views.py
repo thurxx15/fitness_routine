@@ -49,7 +49,7 @@ class GerarTreinoView(APIView):
                     user=request.user,
                     nome_treino=user_preferences.get('nomeTreino'),
                     dias_semana=user_preferences.get('diasSemana'),
-                    objetivo=user_preferences.get('objetivo', 'Geral')
+                    objetivo=user_preferences.get('objetivo', 'Geral'),
                 )
 
                 for dia in treino_gerado['plano_de_treino']:
@@ -122,6 +122,7 @@ class GerarTreinoView(APIView):
           ]
         }}
         """
+
 # View para DELETAR um treino específico
 class TreinoDeleteView(generics.DestroyAPIView):
     queryset = Treino.objects.all()
@@ -159,7 +160,7 @@ class LogoutView(generics.GenericAPIView):
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         
-
+# View para DELETAR um treino específico (alternativa)
 class TreinoDetailView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 

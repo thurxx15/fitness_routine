@@ -40,15 +40,15 @@
   <div class="tabela-container">
   <table id="tabelaTreinos" class="display" style="width:100%;">
     <thead>
-      <tr>
-        <th></th>
-        <th>Nome do Treino</th>
-        <th>Objetivo</th>
-        <th>Exercícios (Resumo)</th>
-        <th>Data de Criação</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
+  <tr>
+    <th></th> <!-- Para o ícone '+' -->
+    <th>Nome do Treino</th>
+    <th>Objetivo</th>
+    <th>Exercícios</th>
+    <th>Data de Criação</th>
+    <th>Ações</th> <!-- <-- LINHA ADICIONADA -->
+  </tr>
+</thead>
     <tbody></tbody>
   </table>
 </div>
@@ -94,17 +94,25 @@
           <label><input type="checkbox" name="grupos" value="Lombar" /> Lombar</label>
           <label><input type="checkbox" name="grupos" value="Antebraços" /> Antebraços</label>
           <label><input type="checkbox" name="grupos" value="Trapézio" /> Trapézio</label>
-          <label><input type="checkbox" name="grupos" value="Full Body" /> Full Body</label>
-          <label><input type="checkbox" name="grupos" value="ABC" /> ABC</label>
-          <label><input type="checkbox" name="grupos" value="ABCD" /> ABCD</label>
-          <label><input type="checkbox" name="grupos" value="PPL (Push / Pull / Legs)" /> PPL</label>
+          <label><input type="checkbox" name="grupos" value="Full Body" /> Todos</label>
         </div>
-      </div><br>
+      </div>
+
+      <div class="grupo">
+        <span>Estilo de divisão de treino:</span>
+        <div class="grade-divisoes">
+          <label><input type="checkbox" name="divisoes" value="ABC" /> ABC</label>
+          <label><input type="checkbox" name="divisoes" value="ABCD" /> ABCD</label>
+          <label><input type="checkbox" name="divisoes" value="ABCDE" /> ABCDE</label>
+          <label><input type="checkbox" name="divisoes" value="PPL (Push / Pull / Legs)" /> PPL</label>
+        </div>
+      </div>
+
 
       <div class="grupo">
         <label for="limitacoes">Limitações de saúde (opcional):</label>
         <textarea id="limitacoes" name="limitacoes" rows="3"></textarea>
-      </div><br>
+      </div>
 
       <span id="erro-d_s" class="erro"></span>
       <span id="erro-limitacoes" class="erro"></span>
@@ -188,8 +196,9 @@
 
           <div class="grupo">
             <label for="altura">Altura: (cm)</label>
-            <input type="number" id="alturaUser" name="altura"/>
+            <input type="number" id="alturaUser" name="altura" min="1" required/>
           </div>
+
         </div>
       </div>
 
