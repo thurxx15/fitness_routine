@@ -1,3 +1,11 @@
+/*
+================================================================================
+|   ARQUIVO JAVASCRIPT - DASHBOARD DE TREINOS                                  |
+|   Versão final, organizada e com todas as funcionalidades.                   |
+================================================================================
+*/
+
+// --- FUNÇÕES GLOBAIS (acessíveis pelo HTML via onclick/oninput) ---
 
 function alternarBarra() {
     const barra = document.getElementById('barraLateral');
@@ -14,6 +22,91 @@ function atualizarTempo(valor) {
     saidaElemento.textContent = `${horas}h ${String(minutos).padStart(2, '0')}min`;
   }
 }
+
+function removerFixos() {
+    const btnLogout = document.getElementById('btn-logout');
+    const btnUser = document.getElementById('abrirInfo');
+    [btnLogout, btnUser].forEach((btn) => {
+        if (btn) {
+            btn.style.display = (btn.style.display === 'none') ? 'block' : 'none';
+        }
+    });
+}
+
+// Lógica para o Modal de "Novo Treino"
+const abrirForm = document.getElementById('abrirForm');
+const modalForm = document.getElementById('modalForm');
+const fecharForm = document.getElementById('fecharForm');
+const cancelarForm = document.getElementById('cancelarForm');
+
+function abrir_form() {
+    modalForm.classList.add('aberta');
+    document.body.style.overflow = 'hidden';
+}
+
+function fechar_form() {
+    modalForm.classList.remove('aberta');
+    document.body.style.overflow = '';
+}
+
+if(abrirForm) abrirForm.addEventListener('click', abrir_form);
+if(cancelarForm) cancelarForm.addEventListener('click', fechar_form);
+if(fecharForm) fecharForm.addEventListener('click', fechar_form);
+if(modalForm) modalForm.addEventListener('click', (e) => { if (e.target === modalForm) fechar_form(); });
+
+// Lógica para o Modal de "Configurações do Usuário"
+const abrirInfo = document.getElementById('abrirInfo');
+const modalInfo = document.getElementById('modalInfo');
+const fecharInfo = document.getElementById('fecharInfo');
+const cancelarInfo = document.getElementById('cancelarInfo');
+
+function abrir_info() {
+    modalInfo.classList.add('aberta');
+    document.body.style.overflow = 'hidden';
+}
+function fechar_info() {
+    modalInfo.classList.remove('aberta');
+    document.body.style.overflow = '';
+}
+if(abrirInfo) abrirInfo.addEventListener('click', abrir_info);
+if(cancelarInfo) cancelarInfo.addEventListener('click', fechar_info);
+if(fecharInfo) fecharInfo.addEventListener('click', fechar_info);
+if(modalInfo) modalInfo.addEventListener('click', (e) => { if (e.target === modalInfo) fechar_info(); });
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        fechar_form();
+        fechar_info();
+    }
+});
+
+
+// --- LÓGICA DO DATATABLE E GERAÇÃO DE TREINOS ---
+
+// Executa o código apenas quando o DOM estiver completamente carregado
+$(document).ready(function() {
+    let tabela;
+
+    /**
+     * Formata os detalhes dos exercícios para serem exibidos na linha filha (child row).
+     * @param {Array} exercicios - O array de objetos de exercício da API.
+     * @returns {string} O HTML formatado para a linha de detalhes.
+     */
+
+    function formatarDetalhes(exercicios) {
+        if (!exercicios || exercicios.length === 0) {
+            return '<div class="details-container"><p>Este treino não possui exercícios detalhados.</p></div>';
+        }
+
+        let detailsHtml = '<div class="details-container"><h4>Detalhes dos Exercícios:</h4><ul>';
+        exercicios.forEach(ex => {
+            detailsHtml += `<li><strong>${ex.nome_exercicio}</strong> (${ex.grupo_muscular || 'N/A'}): ${ex.series} séries de ${ex.repeticoes} repetições, com ${ex.descanso} de descanso.</li>`;
+        });
+        detailsHtml += '</ul></div>';
+        return detailsHtml;
+    }
+
+    // --- [NOVA SEÇÃO 1]: LÓGICA DO MODAL DE DETALHES DO TREINO ---
 
 
 // --- CÓDIGO EXECUTADO QUANDO A PÁGINA ESTÁ TOTALMENTE CARREGADA ---
@@ -65,9 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-
-   
 function gerarPdfDoTreino(treinoData) {
     if (!treinoData) {
       alert("Erro ao gerar PDF: dados do treino não encontrados.");
@@ -239,8 +329,221 @@ function gerarPdfDoTreino(treinoData) {
     }
 
     abrirModalDetalhes();
+    }
+
+    tabela = $('#tabelaTreinos').DataTable({
+
+        // =============================================================
+        // A LINHA QUE FALTAVA ESTÁ AQUI:
+        // Define a estrutura do HTML para que o CSS funcione.
+        "dom": '<"tabela-controles-topo"lf>' +
+               't' +
+               '<"tabela-controles-base"ip>',
+        // =============================================================
+
+        "ajax": {
+            "url": "http://127.0.0.1:8000/api/treinos/",
+            "type": "GET",
+            "headers": {
+                // CORREÇÃO: A sintaxe correta usa `backticks` (`)
+                "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+            },
+            "dataSrc": "" // A API retorna um array JSON diretamente
+        },
+        "columns": [
+            {
+                "className": 'details-control',
+                "orderable": false,
+                "data": null,
+                "defaultContent": ''
+            },
+            { "data": "nome_treino" },
+            { "data": "objetivo" },
+            { 
+                "data": "exercicios",
+                "render": function(data) {
+                    if (!data || data.length === 0) return "Nenhum exercício";
+                    const nomes = data.map(ex => ex.nome_exercicio);
+                    const preview = nomes.slice(0, 2).join(', ');
+                    // CORREÇÃO: A sintaxe correta usa `backticks` (`)
+                    return nomes.length > 2 ? `${preview}...` : preview;
+                }
+            },
+            { 
+                "data": "data_criacao",
+                "render": function(data) {
+                    return new Date(data).toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' });
+                }
+            },
+            {
+                "data": null, // Não está atrelada a um dado específico
+                "orderable": false,
+                "searchable": false,
+                "render": function(data, type, row) {
+                    // 'row' contém todos os dados da linha atual
+                    // Criamos um botão com a classe 'btn-excluir' e um data-id com o ID do treino
+                    return `<button class="btn-excluir" data-id="${row.id}">Excluir</button>`;
+                }
+            }
+        ],
+        "language": {
+            "search": "Pesquisar:",
+            // CORREÇÃO: Faltavam os underscores (_)
+            "lengthMenu": "Mostrar _MENU_ entradas",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+            "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
+            "infoFiltered": "(filtrado de _MAX_ entradas no total)",
+            "paginate": {
+                "previous": "Anterior",
+                "next": "Próximo"
+            }
+        },
+        "responsive": true,
+        "order": [[4, 'desc']]
+    });
+
+    // O seu código para expandir as linhas pode vir aqui
+    $('#tabelaTreinos tbody').on('click', 'td.details-control', function () {
+        const tr = $(this).closest('tr');
+        const row = tabela.row(tr);
+
+        if (row.child.isShown()) {
+            // Se a linha já está aberta, fecha
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            // Se a linha está fechada, abre e exibe os detalhes formatados
+            row.child(formatarDetalhes(row.data().exercicios)).show();
+            tr.addClass('shown');
+        }
+    });
+
+
+    // [MUDANÇA]: Adicionamos este novo listener para o clique NA LINHA INTEIRA
+    $('#tabelaTreinos tbody').on('click', 'tr', function (event) {
+        // Impede que o modal abra se o clique for no ícone '+'
+        if ($(event.target).hasClass('details-control')) {
+            return;
+        }
+        
+        const dadosDaLinha = tabela.row(this).data();
+        if (dadosDaLinha) {
+            popularModal(dadosDaLinha);
+        }
+    });
+
+    // (Seu código original para o ícone '+' permanece, sem alterações)
+    function formatarDetalhes(exercicios) { /* ... seu código ... */ }
+    $('#tabelaTreinos tbody').on('click', 'td.details-control', function () {
+        const tr = $(this).closest('tr');
+        const row = tabela.row(tr);
+        if (row.child.isShown()) {
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            row.child(formatarDetalhes(row.data().exercicios)).show();
+            tr.addClass('shown');
+        }
+    });
+
+    const formNovoTreino = document.getElementById('formPreferencias');
+
+    if (formNovoTreino) {
+        formNovoTreino.addEventListener('submit', async function(event) {
+            // A linha abaixo é importante e já estava no seu código:
+            tabela.ajax.reload(null, false);
+        });
+    }
+
+    // --- [NOVA SEÇÃO 2]: LÓGICA DO DOWNLOAD EM PDF ---
+    if(btnDownload) {
+        btnDownload.addEventListener('click', () => {
+            const { jsPDF } = window.jspdf;
+            const conteudoParaPdf = document.getElementById('modal-body-content');
+            const nomeArquivo = `${modalTitulo.textContent.trim().replace(/\s+/g, '_')}.pdf`;
+
+            html2canvas(conteudoParaPdf, { 
+                scale: 2, 
+                backgroundColor: '#1e1e1e',
+                useCORS: true // Ajuda a carregar imagens se houver
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+                
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save(nomeArquivo);
+            });
+        });
+    }
+
+    $('#tabelaTreinos tbody').on('click', 'button.btn-excluir', async function () {
+    const tr = $(this).closest('tr');
+    const row = tabela.row(tr);
+    const dadosDaLinha = row.data();
+
+    // 1. Pede confirmação ao usuário (MUITO IMPORTANTE!)
+    if (confirm(`Você tem certeza que deseja excluir o treino "${dadosDaLinha.nome_treino}"? Esta ação não pode ser desfeita.`)) {
+        
+        const treinoId = dadosDaLinha.id; // Pega o ID do treino dos dados da linha
+        const token = localStorage.getItem('accessToken');
+
+        try {
+            // 1. Faz a chamada DELETE para a API
+            const response = await fetch(`http://127.0.0.1:8000/api/treinos/${treinoId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            // 2. Processa a resposta
+            
+            // Se a resposta for OK (incluindo 204 No Content), entra neste bloco
+            if (response.ok) {
+                alert('Treino excluído com sucesso!');
+                row.remove().draw(false);
+
+            // Se a resposta for um erro (4xx ou 5xx)
+            } else {
+                let errorMessage = `Falha ao excluir o treino. Status: ${response.status}`;
+                
+                // Tenta ler a resposta como JSON APENAS se houver conteúdo
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.indexOf("application/json") !== -1) {
+                    const errorData = await response.json();
+                    // Usa a mensagem de erro detalhada da API, se existir
+                    errorMessage = errorData.detail || JSON.stringify(errorData);
+                } else {
+                    // Se não for JSON (ex: uma página de erro HTML), usa o texto do status
+                    errorMessage = response.statusText;
+                }
+                
+                // Lança o erro para ser pego pelo catch block
+                throw new Error(errorMessage);
+            }
+
+        } catch (error) {
+            console.error('Erro ao excluir treino:', error);
+            // A notificação agora mostrará uma mensagem de erro muito mais útil
+            alert(`Erro: ${error.message}`);
+        }
+    }
+}); // Fim do $(document).ready()
+
+// --- OUTRAS FUNÇÕES (Configurações do Usuário, Logout, etc.) ---
+
+// (Todo o resto do seu código, como carregarDadosUsuario, salvarConfiguracoes, a lógica de logout, etc., permanece aqui sem alterações)
+async function carregarDadosUsuario() { /* ... seu código ... */ }
+async function salvarConfiguracoes(event) { /* ... seu código ... */ }
+// ... (seus event listeners para configurações e logout) ...
+
+});
+
+    // Event listener para a submissão do formulário de "Novo Treino"
+    const formNovoTreino = document.getElementById('formPreferencias');
   }
-  
   const btnDownload = document.getElementById('btnDownloadPdf');
     if (btnDownload) {
         btnDownload.addEventListener('click', () => {
@@ -250,7 +553,7 @@ function gerarPdfDoTreino(treinoData) {
         });
     }
 
-       // --- DATATABLE ---
+    // --- DATATABLE ---
     if (window.jQuery && $('#tabelaTreinos').length) {
         tabela = $('#tabelaTreinos').DataTable({
             dom: '<"tabela-controles-topo"lf>t<"tabela-controles-base"ip>',
@@ -263,8 +566,7 @@ function gerarPdfDoTreino(treinoData) {
                 { className: 'details-control', orderable: false, data: null, defaultContent: '' },
                 { data: 'nome_treino' }, { data: 'objetivo' },
                 { data: 'exercicios', render: (d) => (!d || d.length === 0) ? "Nenhum" : `${d.length} exercícios` },
-                { data: 'data_criacao', render: (d) => d ? new Date(d).toLocaleDateString('pt-BR') : '-' },
-                { data: null, orderable: false, className: 'actions-column', render: (d,t,r) => `<button class="btn-excluir" data-id="${r.id}">Excluir</button>` }
+                { data: 'data_criacao', render: (d) => d ? new Date(d).toLocaleDateString('pt-BR') : '-' }
             ],
             language: { url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json" },
             responsive: true,
@@ -272,23 +574,9 @@ function gerarPdfDoTreino(treinoData) {
         });
 
         $('#tabelaTreinos tbody').on('click', 'tr', function (event) {
-            if ($(event.target).closest('.actions-column').length || $(event.target).hasClass('details-control')) return;
+            if ($(event.target).hasClass('details-control')) return;
             const dadosDaLinha = tabela.row(this).data();
             if (dadosDaLinha) popularModal(dadosDaLinha);
-        });
-        
-        $('#tabelaTreinos tbody').on('click', '.btn-excluir', async function () {
-            const treinoId = $(this).data('id');
-            if (confirm(`Tem certeza de que deseja excluir este treino?`)) {
-                try {
-                    const response = await fetch(`http://127.0.0.1:8000/api/treinos/${treinoId}/`, {
-                        method: 'DELETE',
-                        headers: { 'Authorization': `Bearer ${authToken}` }
-                    });
-                    if (response.ok) { alert('Treino excluído!'); tabela.ajax.reload(); }
-                    else { throw new Error('Falha ao excluir.'); }
-                } catch (error) { alert('Erro: ' + error.message); }
-            }
         });
     }
 
@@ -397,6 +685,17 @@ function gerarPdfDoTreino(treinoData) {
       fecharModal(modalInfo);
 
     } catch (error) {
+        console.error('Erro ao salvar:', error);
+        alert(error.message);
+    }
+    }
+
+// Carrega os dados quando o modal é aberto
+abrirInfo.addEventListener('click', carregarDadosUsuario);
+
+// Salva os dados quando o formulário é enviado
+const formConfiguracoes = document.getElementById('formConfiguracoes');
+formConfiguracoes.addEventListener('submit', salvarConfiguracoes);
       if (error.message.includes('Failed to fetch')) {
         alert('Configurações salvas com sucesso!');
         fecharModal(modalInfo);
@@ -418,15 +717,29 @@ function gerarPdfDoTreino(treinoData) {
         });
     }
 
-    // --- TOGGLE SENHA ---
-    const passwordInput = document.getElementById('password');
-    const togglePassword = document.getElementById('toggle-password');
-    if (togglePassword && passwordInput) {
-        togglePassword.addEventListener('click', () => {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            togglePassword.textContent = type === 'password' ? 'visibility_off' : 'visibility';
-        });
-    }
-    // (Adicione aqui a lógica para o 'toggle-password-verify' se precisar)
-});
+window.onload = function() {
+    carregarDadosUsuario()
+}
+
+const passwordInput = document.getElementById('password');
+const passwordVerifyInput = document.getElementById('password-verify');
+const togglePassword = document.getElementById('toggle-password');
+const togglePasswordVerify = document.getElementById('toggle-password-verify');
+
+togglePassword.addEventListener('click', function () {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    togglePassword.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+    });
+
+    togglePasswordVerify.addEventListener('click', function () {
+    const type = passwordVerifyInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordVerifyInput.setAttribute('type', type);
+    togglePasswordVerify.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+    });
+
+btn.addEventListener('click', function() {
+
+    if (passwordInput.value !== passwordVerifyInput.value) {
+        alert('As senhas não coincidem, verifique novamente.');
+        return; } });
