@@ -73,6 +73,7 @@ document.addEventListener('keydown', (e) => {
 });
 
 
+
 // --- LÓGICA DO DATATABLE E GERAÇÃO DE TREINOS ---
 
 // Executa o código apenas quando o DOM estiver completamente carregado
@@ -540,6 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
 window.onload = function() {
     carregarDadosUsuario()
 }
+
 
 const passwordInput = document.getElementById('password');
 const passwordVerifyInput = document.getElementById('password-verify');

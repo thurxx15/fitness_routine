@@ -3,4 +3,5 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+]
