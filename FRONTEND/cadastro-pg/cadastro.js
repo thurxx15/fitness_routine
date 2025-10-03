@@ -1,21 +1,25 @@
+//constantes
 const btn = document.getElementById('btn');
 const passwordInput = document.getElementById('password');
 const passwordVerifyInput = document.getElementById('password-verify');
 const togglePassword = document.getElementById('toggle-password');
 const togglePasswordVerify = document.getElementById('toggle-password-verify');
 
+// Função para alternar a visibilidade da senha
 togglePassword.addEventListener('click', function () {
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordInput.setAttribute('type', type);
     togglePassword.textContent = type === 'password' ? 'visibility_off' : 'visibility';
     });
 
-    togglePasswordVerify.addEventListener('click', function () {
+// Função para alternar a visibilidade da senha de verificação
+togglePasswordVerify.addEventListener('click', function () {
     const type = passwordVerifyInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordVerifyInput.setAttribute('type', type);
     togglePasswordVerify.textContent = type === 'password' ? 'visibility_off' : 'visibility';
     });
 
+// Função para validar se as senhas coincidem
 btn.addEventListener('click', function() {
 
     if (passwordInput.value !== passwordVerifyInput.value) {

@@ -486,10 +486,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .btn-secundario:hover { 
     background: #211a2f; }
 
-
-/* ==========================================================================
-   ESTILOS GERAIS E CONTAINER
-   ========================================================================== */
 .tabela-container {
     padding: 20px;
     background-color: #121212;

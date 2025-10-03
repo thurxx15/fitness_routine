@@ -1,3 +1,4 @@
+// Função para alternar a visibilidade da barra lateral
 function alternarBarra() {
     const barra = document.getElementById('barraLateral');
     const conteudo = document.getElementById('mainContent');
@@ -6,6 +7,7 @@ function alternarBarra() {
     conteudo.classList.toggle('expandida'); 
 }
 
+// Função para alternar a visibilidade dos botões fixos
 function removerFixos() {
     const btnConfig = document.getElementById('btn-config');
     const btnLogout = document.getElementById('btn-logout');

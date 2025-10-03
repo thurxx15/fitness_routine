@@ -1,12 +1,38 @@
-// FUNCAO DA BARRA
+// CONSTANTES
+// modal
+const abrirInfo = document.getElementById('abrirInfo');
+const modalInfo = document.getElementById('modalInfo');
+const fecharInfo = document.getElementById('fecharInfo');
+const cancelarInfo = document.getElementById('cancelarInfo');
+
+// carrousel
+const carouselInner = document.querySelector(".carousel-inner");
+const cardTitle = document.getElementById("card-title");
+const cardText = document.getElementById("card-text");
+const cardLink = document.getElementById("card-link");
+const items = document.querySelectorAll(".carousel-item");
+let index = 0;
+
+const nextButton = document.querySelector(".next");
+const prevButton = document.querySelector(".prev");
+
+// password
+const passwordInput = document.getElementById('password');
+const passwordVerifyInput = document.getElementById('password-verify');
+const togglePassword = document.getElementById('toggle-password');
+const togglePasswordVerify = document.getElementById('toggle-password-verify');
+
+// outros
+abrirInfo.addEventListener('click', carregarDadosUsuario);
+formConfiguracoes.addEventListener('submit', salvarConfiguracoes);
+
+// FUNCAO DE ALTERNAR BARRA LATERAL E BOTOES FIXOS
 function alternarBarra() {
     const barra = document.getElementById('barraLateral');
     const conteudo = document.getElementById('mainContent');
     barra.classList.toggle('oculta');
     conteudo.classList.toggle('expandida');
 }
-
-// FUNCAO BOTOES
 function removerFixos() {
     const btnLogout = document.getElementById('btn-logout');
     const btnUser = document.getElementById('abrirInfo');
@@ -17,24 +43,24 @@ function removerFixos() {
     });
 }
 
-// Lógica para o Modal de "Configurações do Usuário"
-const abrirInfo = document.getElementById('abrirInfo');
-const modalInfo = document.getElementById('modalInfo');
-const fecharInfo = document.getElementById('fecharInfo');
-const cancelarInfo = document.getElementById('cancelarInfo');
+// CARREGAR DADOS DO USUÁRIO AO CARREGAR A PÁGINA
+window.onload = function() {
+    carregarDadosUsuario() 
+}
 
-//FUNCAO ABRIR MODAL
+//funções de abrir e fechar modal
 function abrir_info() {
-    if(modalInfo) modalInfo.classList.add('aberta');
-    document.body.style.overflow = 'hidden';
+  modalInfo.classList.add('aberta');
+  modalInfo.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
 }
-
-//FUNCAO FECHAR MODAL
 function fechar_info() {
-    if(modalInfo) modalInfo.classList.remove('aberta');
-    document.body.style.overflow = '';
+  modalInfo.classList.remove('aberta');
+  modalInfo.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
 }
 
+//events
 if(abrirInfo) abrirInfo.addEventListener('click', abrir_info);
 if(cancelarInfo) cancelarInfo.addEventListener('click', fechar_info);
 if(fecharInfo) fecharInfo.addEventListener('click', fechar_info);
@@ -70,23 +96,13 @@ const cardData = [
     }
 ];
 
-// Referências aos elementos HTML do carrossel e do card
-const carouselInner = document.querySelector(".carousel-inner");
-const cardTitle = document.getElementById("card-title");
-const cardText = document.getElementById("card-text");
-const cardLink = document.getElementById("card-link");
-const items = document.querySelectorAll(".carousel-item");
-let index = 0;
-
-// Função para atualizar o carrossel e o card correspondente
+// Função para atualizar o carrossel e o card correspondente, e conteudo do card
 function updateCarousel() {
     if (carouselInner && items.length > 0) {
         carouselInner.style.transform = `translateX(${-index * 100}%)`;
         updateCard(index);
     }
 }
-
-// Função para atualizar o conteúdo do card
 function updateCard(newIndex) {
     if (cardTitle && cardText && cardLink && cardData[newIndex]) {
         const currentData = cardData[newIndex];
@@ -97,16 +113,12 @@ function updateCard(newIndex) {
     }
 }
 
-// Adiciona os event listeners aos botões de navegação do carrossel
-const nextButton = document.querySelector(".next");
-const prevButton = document.querySelector(".prev");
-
+// Adiciona verificação para garantir que os botões e itens existam
 if (nextButton && items.length > 0) {
     nextButton.addEventListener("click", () => {
         index = (index + 1) % items.length;
         updateCarousel();
     }); }
-
 if (prevButton && items.length > 0) {
     prevButton.addEventListener("click", () => {
         index = (index - 1 + items.length) % items.length;
@@ -119,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCard(0);
 });
 
-// FUNÇÃO PARA CARREGAR OS DADOS DO USUÁRIO
+// FUNÇÕES DE CARREGAMENTO E SALVAMENTO DE DADOS DO USUÁRIO
 async function carregarDadosUsuario() {
     const accessToken = localStorage.getItem('accessToken');
 
@@ -163,8 +175,6 @@ async function carregarDadosUsuario() {
         alert(error.message);
     }
 }
-
-// FUNÇÃO PARA SALVAR AS ALTERAÇÕES (COM TRATAMENTO DE ERRO INTELIGENTE)
 async function salvarConfiguracoes(event) {
     event.preventDefault();
 
@@ -237,12 +247,9 @@ async function salvarConfiguracoes(event) {
         
     }
 }
-
-
-// EVENT LISTENERS
-abrirInfo.addEventListener('click', carregarDadosUsuario);
 formConfiguracoes.addEventListener('submit', salvarConfiguracoes);
 
+// LOGOUT
 document.addEventListener('DOMContentLoaded', function() {
     const logoutButton = document.getElementById('btn-logout');
 
@@ -296,14 +303,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-window.onload = function() {
-    carregarDadosUsuario() }
-
-const passwordInput = document.getElementById('password');
-const passwordVerifyInput = document.getElementById('password-verify');
-const togglePassword = document.getElementById('toggle-password');
-const togglePasswordVerify = document.getElementById('toggle-password-verify');
-
 // VISIBIDADE DA SENHA
 togglePassword.addEventListener('click', function () {
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -318,6 +317,7 @@ togglePasswordVerify.addEventListener('click', function () {
     togglePasswordVerify.textContent = type === 'password' ? 'visibility_off' : 'visibility';
     });
 
+// VALIDAÇÃO DE SENHA
 btn.addEventListener('click', function() {
 
     if (passwordInput.value !== passwordVerifyInput.value) {

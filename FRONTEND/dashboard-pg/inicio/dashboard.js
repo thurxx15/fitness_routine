@@ -1,12 +1,28 @@
-// ALTERNAR BARRA LATERAL
+//CONSTANTES
+//modal
+const abrirInfo = document.getElementById('abrirInfo');
+const modalInfo = document.getElementById('modalInfo');
+const fecharInfo = document.getElementById('fecharInfo');
+const cancelarInfo = document.getElementById('cancelarInfo');
+const abrirInfoPerfil = document.getElementById('btnPerfil');
+
+// password
+const passwordInput = document.getElementById('password');
+const passwordVerifyInput = document.getElementById('password-verify');
+const togglePassword = document.getElementById('toggle-password');
+const togglePasswordVerify = document.getElementById('toggle-password-verify');
+
+//outras
+const nomeUsuario = localStorage.getItem("usuario");
+const formConfiguracoes = document.querySelector('#modalInfo #formPreferencias');
+
+// ALTERNAR BARRA LATERAL E BOTOES FIXOS
 function alternarBarra() {
   const barra = document.getElementById('barraLateral');
   const conteudo = document.getElementById('mainContent');
   barra.classList.toggle('oculta');
   conteudo.classList.toggle('expandida'); 
 }
-
-// REMOVER BOTÕES FIXOS AO CLICAR NO MENU
 function removerFixos() {
   const btnConfig = document.getElementById('btn-config');
   const btnLogout = document.getElementById('btn-logout');
@@ -19,26 +35,16 @@ function removerFixos() {
   });
 }
 
+// CARREGAR DADOS DO USUÁRIO AO CARREGAR A PÁGINA
 window.onload = function() {
     carregarDadosUsuario() 
 }
 
+// BOAS VINDAS AO USUÁRIO
+if (nomeUsuario && document.getElementById("boas-vindas")) {
+    document.getElementById("boas-vindas").textContent = `Olá ${nomeUsuario}, Bem-vindo ao Fitness Routine.`; } 
 
-const nomeUsuario = localStorage.getItem("usuario");
-    if (nomeUsuario && document.getElementById("boas-vindas")) {
-        document.getElementById("boas-vindas").textContent = `Olá ${nomeUsuario}, Bem-vindo ao Fitness Routine.`; } 
-    
-    else if (!nomeUsuario) {
-    // Redireciona apenas se não estiver logado
-    window.location.href = "../../login-pg/login.html"; }
-
-/*BLOCO DAS INFORMAÇÕES*/
-const abrirInfo = document.getElementById('abrirInfo');
-const modalInfo = document.getElementById('modalInfo');
-const fecharInfo = document.getElementById('fecharInfo');
-const cancelarInfo = document.getElementById('cancelarInfo');
-const abrirInfoPerfil = document.getElementById('btnPerfil');
-
+//FUNCAO ABRIR E FECHAR MODAL
 function abrir_info() {
   modalInfo.classList.add('aberta');
   modalInfo.setAttribute('aria-hidden', 'false');
@@ -50,23 +56,14 @@ function fechar_info() {
   document.body.style.overflow = '';
 }
 
-abrirInfo.addEventListener('click', abrir_info);
-abrirInfoPerfil.addEventListener('click', abrir_info);
+/*eventos*/
+if(abrirInfo) abrirInfo.addEventListener('click', abrir_info);
+if(cancelarInfo) cancelarInfo.addEventListener('click', fechar_info);
+if(fecharInfo) fecharInfo.addEventListener('click', fechar_info);
+if(modalInfo) modalInfo.addEventListener('click', (e) => { if (e.target === modalInfo) fechar_info(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fechar_info(); });
 
-cancelarInfo.addEventListener('click', fechar_info);
-fecharInfo.addEventListener('click', fechar_info);
-
-/*info*/
-modalInfo.addEventListener('click', (e) => {
-  if (e.target === modalInfo) fechar_info();
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') fechar_info();
-});
-
-const formConfiguracoes = document.querySelector('#modalInfo #formPreferencias');
-
-// FUNÇÃO PARA CARREGAR OS DADOS DO USUÁRIO
+// FUNÇÕES DE CARREGAMENDO E SALVAMENTO DE DADOS DO USUÁRIO
 async function carregarDadosUsuario() {
     const accessToken = localStorage.getItem('accessToken');
 
@@ -110,9 +107,6 @@ async function carregarDadosUsuario() {
         alert(error.message);
     }
 }
-
-
-// FUNÇÃO PARA SALVAR AS ALTERAÇÕES (COM TRATAMENTO DE ERRO INTELIGENTE)
 async function salvarConfiguracoes(event) {
     event.preventDefault();
 
@@ -185,11 +179,9 @@ async function salvarConfiguracoes(event) {
         }   
     }
 }
-
-// EVENT LISTENERS
-abrirInfo.addEventListener('click', carregarDadosUsuario);
 formConfiguracoes.addEventListener('submit', salvarConfiguracoes);
 
+// LOGOUT
 document.addEventListener('DOMContentLoaded', function() {
     const logoutButton = document.getElementById('btn-logout');
 
@@ -247,11 +239,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-const passwordInput = document.getElementById('password');
-const passwordVerifyInput = document.getElementById('password-verify');
-const togglePassword = document.getElementById('toggle-password');
-const togglePasswordVerify = document.getElementById('toggle-password-verify');
-
 // VISIBILIDADE SENHA
 togglePassword.addEventListener('click', function () {
     const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -266,6 +253,7 @@ togglePasswordVerify.addEventListener('click', function () {
     togglePasswordVerify.textContent = type === 'password' ? 'visibility_off' : 'visibility';
     });
 
+// VALIDAÇÃO SENHA   
 btn.addEventListener('click', function() {
 
     if (passwordInput.value !== passwordVerifyInput.value) {
