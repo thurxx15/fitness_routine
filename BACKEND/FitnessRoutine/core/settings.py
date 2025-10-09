@@ -121,6 +121,11 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_ORIGINS = [
+     "https://fitness-routine-frontend.vercel.app"
+]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
