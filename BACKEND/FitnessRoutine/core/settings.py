@@ -17,7 +17,7 @@ from django.core.management.utils import get_random_secret_key
 SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['fitness-routine.onrender.com', 'localhost', '127.0.0.1']
 
