@@ -19,7 +19,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['fitness-routine.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['fitness-routine.onrender.com', 'localhost', '127.0.0.1', '10.138.50.34']
 
 
 # Application definition
@@ -123,7 +123,9 @@ REST_FRAMEWORK = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_ORIGINS = [
-     "https://fitness-routine-frontend.vercel.app"
+     "https://fitness-routine-frontend.vercel.app",
+     "10.138.50.34",
+     "10.138.50.34:8081"
 ]
 
 MEDIA_URL = '/media/'

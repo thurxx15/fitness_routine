@@ -160,16 +160,27 @@ class LogoutView(generics.GenericAPIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         
 
-class TreinoDetailView(generics.DestroyAPIView):
+# views.py (VERSÃO CORRIGIDA E SIMPLIFICADA da TreinoDetailView)
+
+# ... (outras importações e views no topo do arquivo) ...
+
+# DELETE a view 'TreinoDeleteView' se ela ainda existir.
+
+class TreinoDetailView(generics.RetrieveDestroyAPIView):
     """
-    Esta view lida com a exclusão (DELETE) de um treino específico.
+    Esta view agora lida com:
+    - BUSCAR um treino específico (GET /api/treinos/1/)
+    - EXCLUIR um treino específico (DELETE /api/treinos/1/)
     """
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = TreinoSerializer
-    
-    # Linha crucial que diz à view para procurar o ID na URL com o nome 'treino_id'
-    lookup_url_kwarg = 'treino_id'
+
+    # Como estamos usando 'pk' na URL (o padrão do Django),
+    # não precisamos mais de 'lookup_field' ou 'lookup_url_kwarg'.
+    # O Django REST Framework cuida de tudo automaticamente.
 
     def get_queryset(self):
-        # Garante que o usuário só possa deletar os próprios treinos
+        # Garante que o usuário só possa interagir com os próprios treinos.
         return Treino.objects.filter(user=self.request.user)
+
+# ... (resto das suas views) ...
