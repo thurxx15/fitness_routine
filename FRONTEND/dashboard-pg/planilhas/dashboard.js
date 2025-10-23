@@ -100,67 +100,45 @@ function gerarPdfDoTreino(treinoData) {
     for (const dia of ordemDias) {
       if (!exerciciosAgrupados[dia]) continue;
 
-      //  INÍCIO DAS MUDANÇAS DE ESTILO
-
+      // ===================================================================
+      //  INÍCIO DA CORREÇÃO
+      // ===================================================================
       // Define os cabeçalhos da tabela
-      const head = [['Exercício', 'Séries x Repetições', 'Descanso']];
+      const head = [['Exercícios', 'Séries x Repetições', 'Descanso']];
       
-      // Mapeia os dados dos exercícios para o formato da tabela
+      // Mapeia os dados dos exercícios, usando '??' para garantir que valores nulos não quebrem o código
       const body = exerciciosAgrupados[dia].map(ex => [
-        ex.nome_exercicio,
-        `${ex.series}x${ex.repeticoes}`, // Combina Séries e Repetições
-        ex.descanso
+        ex.nome_exercicio ?? 'N/A',
+        `${ex.series ?? '-'}x${ex.repeticoes ?? '-'}`,
+        ex.descanso ?? '-'
       ]);
+      // ===================================================================
+      //  FIM DA CORREÇÃO
+      // ===================================================================
 
       // Chama o plugin para desenhar a tabela
       doc.autoTable({
         startY: y,
         head: head,
         body: body,
-        theme: 'grid', // Básico com todas as bordas
-        
-        // Estilo do Título do Grupo (ex: Treino A - Peito e Tríceps)
-        // Adicionamos isso antes de a tabela ser desenhada
-        didParseCell: function (data) {
-            if (data.section === 'head' && data.row.index === 0) {
-                // Mescla as células do cabeçalho para criar um título
-                data.cell.styles.halign = 'center';
-                data.cell.styles.fillColor = [60, 9, 108]; // Roxo
-                data.cell.styles.textColor = [255, 255, 255];
-                data.cell.styles.fontStyle = 'bold';
-                
-                // Pega a primeira célula e a expande
-                if (data.column.index === 0) {
-                    data.cell.colSpan = 3; // Ocupa as 3 colunas
-                    data.cell.text = dia; // Define o texto do título
-                }
-            }
+        theme: 'grid',
+        willDrawPage: function (data) {
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.setFillColor(60, 9, 108);
+            doc.setTextColor(255, 255, 255);
+            doc.rect(data.settings.margin.left, y - 8, doc.internal.pageSize.getWidth() - data.settings.margin.left * 2, 10, 'F');
+            doc.text(dia, doc.internal.pageSize.getWidth() / 2, y - 2, { align: 'center' });
         },
-        
-        // Estilos para o cabeçalho das colunas (Exercício, Séries, etc.)
-        headStyles: {
-          fillColor: [240, 240, 240], // Fundo cinza claro
-          textColor: [40, 40, 40],   // Texto escuro
-          fontStyle: 'bold',
-        },
-
-        // Estilos para as linhas do corpo
-        alternateRowStyles: {
-          fillColor: [250, 250, 250] // Cinza ainda mais claro para o efeito zebrado
-        },
-
-        // Estilo da primeira coluna (Exercício) para dar destaque
-        columnStyles: {
-            0: {
-                fontStyle: 'bold',
-            }
-        }
+        headStyles: { fillColor: [230, 230, 230], textColor: [40, 40, 40], fontStyle: 'bold' },
+        alternateRowStyles: { fillColor: [248, 248, 248] },
+        columnStyles: { 0: { fontStyle: 'bold' } },
+        margin: { top: y }
       });
-     
-      y = doc.autoTable.previous.finalY + 15; // Atualiza a posição para a próxima tabela
+      
+      y = doc.autoTable.previous.finalY + 15;
     }
 
-    // --- INICIA O DOWNLOAD ---
     doc.save(`treino_${treinoData.nome_treino}.pdf`);
   }
 
@@ -409,13 +387,32 @@ function gerarPdfDoTreino(treinoData) {
     if (formConfig) formConfig.addEventListener('submit', salvarConfiguracoes);
 
     // --- LOGOUT ---
+   // ===================================================================
+    //  INÍCIO DA NOVA SEÇÃO: LÓGICA DE LOGOUT COM CONFIRMAÇÃO
+    // ===================================================================
     const logoutBtn = document.getElementById('btn-logout');
     if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            localStorage.clear();
-            window.location.href = '../../inicio-pg/inicio.html';
+        logoutBtn.addEventListener('click', (event) => {
+            // 1. Previne a ação padrão do link (que é navegar imediatamente)
+            event.preventDefault(); 
+            
+            // 2. Mostra a caixa de diálogo de confirmação
+            const querSair = confirm("Tem certeza de que deseja sair?");
+
+            // 3. Só continua se o usuário clicou em "OK"
+            if (querSair) {
+                // 4. Limpa o armazenamento local para deslogar o usuário
+                localStorage.clear(); 
+                
+                // 5. Redireciona para a página inicial
+                window.location.href = '../../inicio-pg/inicio.html'; 
+            }
+            // Se o usuário clicar em "Cancelar", nada acontece.
         });
     }
+    // ===================================================================
+    //  FIM DA NOVA SEÇÃO
+    // ===================================================================
 
     // --- TOGGLE SENHA ---
     const passwordInput = document.getElementById('password');

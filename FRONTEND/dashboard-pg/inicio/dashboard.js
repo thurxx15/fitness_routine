@@ -259,3 +259,5 @@ btn.addEventListener('click', function() {
     if (passwordInput.value !== passwordVerifyInput.value) {
         alert('As senhas não coincidem, verifique novamente.');
         return; } });
+
+//Botao de logout 

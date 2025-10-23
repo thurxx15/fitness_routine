@@ -14,7 +14,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 # Configuração da API do Gemini
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-2.5-pro')
+model = genai.GenerativeModel('gemini-2.5-flash')
 
 # View para LISTAR os treinos existentes
 class TreinoListView(generics.ListAPIView):

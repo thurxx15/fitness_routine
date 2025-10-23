@@ -127,7 +127,8 @@ body {
 .acao-card i {
   font-size: 3em;
   color: #3c096c;
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+  cursor: pointer;}
 
 .acao-card h3 {
   font-size: 1.4em;
@@ -150,7 +151,8 @@ body {
   border-radius: 8px;
   text-decoration: none;
   border-left: 5px solid #3c096c;
-  transition: transform 0.3s ease, border-color 0.3s ease; }
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  cursor: pointer; }
 
 .acao-card:hover {
   transform: translateY(-8px); }

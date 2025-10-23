@@ -294,7 +294,7 @@ header .links .links-h2:hover::after {
 .container3 .info3 {
     width: 40%;
     padding: 20px 60px;
-    text-align: right;
+    
     box-sizing: border-box; }
 
 .container3 .info3 h3 {

@@ -164,7 +164,8 @@ body {
   color: #c8b8db;
   font-size: 20px;
   padding: 15px 15px;
-  border-radius: 20px; }
+  border-radius: 20px;
+cursor: pointer; }
 
 .prev { left: 15px; }
 .next { right: 15px; }
