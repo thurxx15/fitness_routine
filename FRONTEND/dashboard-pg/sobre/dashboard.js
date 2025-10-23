@@ -33,6 +33,9 @@ const modalInfo = document.getElementById('modalInfo');
 const fecharInfo = document.getElementById('fecharInfo');
 const cancelarInfo = document.getElementById('cancelarInfo');
 
+const formConfiguracoes = document.getElementById('formConfiguracoes');
+
+
 function abrir_info() {
   modalInfo.classList.add('aberta');
   modalInfo.setAttribute('aria-hidden', 'false');
@@ -56,7 +59,6 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') fechar_info();
 });
 
-const formConfiguracoes = document.querySelector('#modalInfo #formPreferencias');
 
 // --- FUNÇÃO PARA CARREGAR OS DADOS DO USUÁRIO ---
 async function carregarDadosUsuario() {
@@ -133,7 +135,7 @@ async function salvarConfiguracoes(event) {
     };
 
     const novaSenha = document.getElementById('password').value;
-    const confirmaSenha = document.getElementById('confirmaSenha').value;
+    const confirmaSenha = document.getElementById('password-verify').value;
 
     if (novaSenha) {
         if (novaSenha !== confirmaSenha) {
@@ -184,65 +186,30 @@ async function salvarConfiguracoes(event) {
 
 
 // --- EVENT LISTENERS ---
-abrirInfo.addEventListener('click', carregarDadosUsuario);
 formConfiguracoes.addEventListener('submit', salvarConfiguracoes);
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    
-    const logoutButton = document.getElementById('btn-logout');
+//LOGOUT
+const logoutBtn = document.getElementById('btn-logout');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (event) => {
+            // 1. Previne a ação padrão do link (que é navegar imediatamente)
+            event.preventDefault(); 
+            
+            // 2. Mostra a caixa de diálogo de confirmação
+            const querSair = confirm("Tem certeza de que deseja sair?");
 
-    // Verifica se o botão de logout existe na página
-    if (logoutButton) {
-        logoutButton.addEventListener('click', async function() {
-
-            // 1. Pegar os tokens do localStorage
-            const accessToken = localStorage.getItem('access_token');
-            const refreshToken = localStorage.getItem('refresh_token');
-
-            if (!refreshToken) {
-                console.error('Refresh token não encontrado para fazer logout.');
-                // Mesmo se não houver token, limpe tudo e redirecione
-                localStorage.clear();
-                window.location.href = '../../inicio-pg/inicio.html'; // Redireciona para a página de login
-                return;
+            // 3. Só continua se o usuário clicou em "OK"
+            if (querSair) {
+                // 4. Limpa o armazenamento local para deslogar o usuário
+                localStorage.clear(); 
+                
+                // 5. Redireciona para a página inicial
+                window.location.href = '../../inicio-pg/inicio.html'; 
             }
-
-            try {
-                // 2. Chamar o endpoint de logout do backend
-                const response = await fetch('http://127.0.0.1:8000/api/logout/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        // O endpoint de logout também é protegido, então precisamos do access token
-                        'Authorization': `Bearer ${accessToken}` 
-                    },
-                    body: JSON.stringify({
-                        'refresh_token': refreshToken
-                    })
-                });
-
-                if (response.ok) {
-                    console.log('Logout realizado com sucesso no backend.');
-                } else {
-                    // Mesmo que o backend falhe, o logout no frontend deve continuar
-                    console.error('Falha no logout do backend, mas prosseguindo com o logout local.');
-                }
-
-            } catch (error) {
-                console.error('Erro de rede ao tentar fazer logout:', error);
-            } finally {
-                // 3. Limpar o localStorage e redirecionar (acontece sempre)
-                localStorage.removeItem('access_token');
-                localStorage.removeItem('refresh_token');
-                // localStorage.clear(); // Alternativa para limpar tudo
-
-                // 4. Redirecionar o usuário para a página de login
-                window.location.href = '../../inicio-pg/inicio.html';
-            }
+            // Se o usuário clicar em "Cancelar", nada acontece.
         });
     }
-});
 
 window.onload = function() {
     carregarDadosUsuario()
@@ -259,11 +226,11 @@ togglePassword.addEventListener('click', function () {
     togglePassword.textContent = type === 'password' ? 'visibility_off' : 'visibility';
     });
 
-    togglePasswordVerify.addEventListener('click', function () {
+togglePasswordVerify.addEventListener('click', function () {
     const type = passwordVerifyInput.getAttribute('type') === 'password' ? 'text' : 'password';
     passwordVerifyInput.setAttribute('type', type);
     togglePasswordVerify.textContent = type === 'password' ? 'visibility_off' : 'visibility';
-    });
+});
 
 btn.addEventListener('click', function() {
 

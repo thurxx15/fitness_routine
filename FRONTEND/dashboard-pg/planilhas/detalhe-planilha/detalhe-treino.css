@@ -1,0 +1,16 @@
+.conteudo-treino {
+            padding: 20px 40px;
+        }
+        .cabecalho-treino h1 {
+            font-size: 2.5em;
+            color: #c8b8db;
+            margin-bottom: 5px;
+        }
+        .cabecalho-treino p {
+            font-size: 1.2em;
+            color: #a893c6;
+            margin-top: 0;
+        }
+        .corpo-treino {
+            margin-top: 30px;
+        }

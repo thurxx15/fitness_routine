@@ -122,6 +122,7 @@ class GerarTreinoView(APIView):
           ]
         }}
         """
+
 # View para DELETAR um treino específico
 class TreinoDeleteView(generics.DestroyAPIView):
     queryset = Treino.objects.all()
@@ -159,17 +160,15 @@ class LogoutView(generics.GenericAPIView):
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         
-
-class TreinoDetailView(generics.DestroyAPIView):
+# View para TREINO DETALHADO
+class TreinoDetailView(generics.RetrieveAPIView):
     """
-    Esta view lida com a exclusão (DELETE) de um treino específico.
+    View para buscar os detalhes de um único treino pelo seu ID (pk).
     """
-    permission_classes = [permissions.IsAuthenticated]
+    queryset = Treino.objects.all()
     serializer_class = TreinoSerializer
-    
-    # Linha crucial que diz à view para procurar o ID na URL com o nome 'treino_id'
-    lookup_url_kwarg = 'treino_id'
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        # Garante que o usuário só possa deletar os próprios treinos
-        return Treino.objects.filter(user=self.request.user)
+        """ Medida de segurança: Garante que o usuário só possa ver seus próprios treinos. """
+        return self.queryset.filter(user=self.request.user)

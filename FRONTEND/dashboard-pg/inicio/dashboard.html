@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <link rel="stylesheet" href="dashboard.css" />
   <link rel="stylesheet" href="../modal-style.css"/>
+  <link rel="stylesheet" href="../barra-style.css"/>
 
   <title> Fitness Routine - Dashboard </title>
 
@@ -49,7 +50,7 @@
           <p>Acesse suas planilhas e comece a treinar agora mesmo.</p>
         </a>
 
-        <a class="acao-card" class="acao-card" id="btnPerfil">
+        <a class="acao-card" class="acao-card" id="perfil-card">
           <i class="fas fa-chart-line"></i>
           <h3>Acompanhar Perfil</h3>
           <p>Visualize suas informações e características.</p>
@@ -72,7 +73,7 @@
 <h2 id="tituloInfo">Configurações de usuário</h2>
 
   <!--FORM-->
-  <form id="formPreferencias">
+  <form id="formConfiguracoes">
     <div class="modal-grid">
         
       <!-- Coluna esquerda -->
@@ -101,8 +102,9 @@
 
         <!--senha-->
         <div class="grupo">
+          <label for="password">Atualize sua senha:</label>
           <div class="password-field">
-            <input type="password" class="input-field" id="password" placeholder="Senha">
+            <input type="password" class="input-field" id="password" placeholder="Sua nova senha">
             <span class="material-symbols-outlined" id="toggle-password">visibility</span>
           </div>
         </div>
@@ -110,7 +112,7 @@
         <!--senha confirmação-->
         <div class="grupo">
           <div class="password-field">
-            <input type="password" id="password-verify" class="input-field" placeholder="Confirme sua senha">
+            <input type="password" id="password-verify" class="input-field" placeholder="Confirme sua nova senha">
             <small id="passwordVerifyHelp" class="password-help"></small>
             <span class="material-symbols-outlined" id="toggle-password-verify">visibility</span>
           </div>

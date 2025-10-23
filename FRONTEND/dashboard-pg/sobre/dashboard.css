@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
 
-
 * {
   margin: 0;
   padding: 0;
@@ -11,59 +10,6 @@ body {
   background-color: #121212;
   color: white; }
 
-.barra_lateral {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
-  height: 100vh;
-  background: linear-gradient(#3c096c, #3c096c, #19082a);
-  padding: 20px 20px 20px 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  transition: transform 0.3s ease;
-  z-index: 999; }
-
-.barra_lateral.oculta {
-  transform: translateX(-100%); }
-
-.barra_lateral h1 {
-  color: #c8b8db;
-  margin-bottom: 30px; }
-
-.barra_lateral a {
-  text-decoration: none;
-  color: white;
-  margin-bottom: 15px;
-  padding: 10px; }
-
-.barra_lateral .link {
-  text-decoration: none;
-  color: white;
-  margin-bottom: 15px;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background 0.3s; }
-
-.barra_lateral .link:hover {
-  background-color: #582089;
-  color: white; }
-
-.barra-footer {
-  margin-top: 230px; }
-
-.barra-footer a {
-  text-decoration: none;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  display: block;
-  transition: background 0.3s; }
-
-.barra-footer a:hover {
-  background-color: #c8b8db;
-  color: #3c096c; }
 
 .main {
   padding: 30px;
@@ -192,36 +138,3 @@ body {
   position: absolute;
   left: 0;
   top: 4px; }
-
-  .password-field {
-  position: relative;
-  width: 100%; }
-
-.password-field input {
-  padding-right: 40px; }
-
-.password-field .material-symbols-outlined {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #888;
-  font-size: 20px!important; }
-
-.material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 1000,
-    'GRAD' 0,
-    'opsz' 24; }
-
-.password-field .material-symbols-outlined.riscado::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 2px;
-  right: 2px;
-  height: 2px;
-  background-color: #888;
-  transform: rotate(-45deg); }

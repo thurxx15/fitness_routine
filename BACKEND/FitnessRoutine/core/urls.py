@@ -21,7 +21,7 @@ urlpatterns = [
     path('api/treinos/<int:pk>/', TreinoDeleteView.as_view(), name='treino-delete'),
 
     path('api/logout/', LogoutView.as_view(), name='logout'),
-    path('api/treinos/<int:treino_id>/', TreinoDetailView.as_view(), name='treino_detail'),
+    path('api/treino-detalhe/<int:pk>/', TreinoDetailView.as_view(), name='treino-detail'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
