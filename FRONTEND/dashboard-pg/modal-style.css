@@ -63,52 +63,6 @@
     gap: 15px;
     margin-top: 6px; }
 
-#formPreferencias .linha {
-    display: grid;
-    grid-template-columns: 1fr 120px; 
-    gap: 12px;
-    margin: 15px 0; }
-
-#formPreferencias .linha label {
-    font-weight: 500;
-    font-size: 13px; }
-
-#formPreferencias #limitacoes {
-    background: #120e1b;
-    border: 1px solid #2a1f3d;
-    border-radius: 10px;
-    padding: 10px 12px;
-    color: #ffffff;
-    font-size: 12px;
-    resize: none;
-    height: 70px; }
-
-#formPreferencias .grupo {
-    display: grid;
-    gap: 8px;
-    margin: 15px 0; }
-
-#formPreferencias label, #formPreferencias span {
-    font-weight: 500; 
-    font-size: 13px; }
-
-#formPreferencias input[type="text"], input[type="time"], textarea {
-    background: #120e1b;
-    border: 1px solid #2a1f3d;
-    border-radius: 10px;
-    padding: 10px 12px;
-    color: #ffffff; 
-    font-size: 12px;}
-
-#formPreferencias input[type="number"] {
-    max-width: 120px;
-    background: #120e1b;
-    border: 1px solid #2a1f3d;
-    border-radius: 10px;
-    padding: 10px 12px;
-    color: #ffffff; 
-    font-size: 12px; }
-
 input[type="time"]:focus {
   border-color: #9d4edd;
   box-shadow: 0 0 12px rgba(157, 78, 221, 0.8); }
@@ -222,51 +176,6 @@ input[type="range"] {
     display: flex;
     flex-direction: column; }
 
-#formPreferencias label {
-    font-weight: 400; 
-    font-size: 12px;
-    color: #c8b8db; }
-
-#formPreferencias input[type="text"],
-#formPreferencias input[type="email"],
-#formPreferencias input[type="password"],
-#formPreferencias input[type="number"],
-#formPreferencias textarea {
-    width: 100%;
-    box-sizing: border-box;
-    height: 44px;
-    background: #120e1b;
-    border: 1px solid #2a1f3d;
-    border-radius: 12px;
-    padding: 12px 14px;
-    color: #ffffff; 
-    font-size: 14px;
-    transition: border 0.2s, background 0.2s; }
-
-#formPreferencias #nivelUser {
-    width: 120px;
-    box-sizing: border-box;
-    height: 44px;
-    background: #120e1b;
-    border: 1px solid #2a1f3d;
-    border-radius: 12px;
-    padding: 12px 14px;
-    color: #ffffff; 
-    font-size: 12px;
-    transition: border 0.2s, background 0.2s; }
-
-#formPreferencias input[type="date"] {
-    width: 120px;
-    box-sizing: border-box;
-    height: 44px;
-    background: #120e1b;
-    border: 1px solid #2a1f3d;
-    border-radius: 12px;
-    padding: 12px 14px;
-    color: #c8b8db; 
-    font-size: 14px;
-    transition: border 0.2s, background 0.2s; }
-
 input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(73%) sepia(14%) saturate(438%) hue-rotate(250deg) brightness(96%) contrast(92%); }
 
@@ -324,11 +233,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .btn-secundario:hover { 
     background: #211a2f; }
-
-
-/* ================================== */
-/*  3. ESTILOS PARA O DATATABLE       */
-/* ================================== */
 
 /* Wrapper geral da tabela */
 .dataTables_wrapper {
@@ -429,3 +333,129 @@ tr.shown td.details-control {
     margin-bottom: 8px;
     line-height: 1.5;
 }
+
+
+#formConfiguracoes .linha {
+    display: grid;
+    grid-template-columns: 1fr 120px; 
+    gap: 12px;
+    margin: 15px 0; }
+
+#formConfiguracoes .linha label {
+    font-weight: 500;
+    font-size: 13px; }
+
+#formConfiguracoes #limitacoes {
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: #ffffff;
+    font-size: 12px;
+    resize: none;
+    height: 70px; }
+
+#formConfiguracoes .grupo {
+    display: grid;
+    gap: 8px;
+    margin: 10px 0; }
+
+#formConfiguracoes label, #formConfiguracoes span {
+    font-weight: 500; 
+    font-size: 13px; }
+
+#formConfiguracoes input[type="text"], input[type="time"], textarea {
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: #ffffff; 
+    font-size: 12px;}
+
+#formConfiguracoes input[type="number"] {
+    max-width: 120px;
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 10px;
+    padding: 10px 12px;
+    color: #ffffff; 
+    font-size: 12px; }
+
+#formConfiguracoes label {
+    font-weight: 400; 
+    font-size: 12px;
+    color: #c8b8db; }
+
+#formConfiguracoes input[type="text"],
+#formConfiguracoes input[type="email"],
+#formConfiguracoes input[type="password"],
+#formConfiguracoes input[type="number"],
+#formConfiguracoes textarea {
+    width: 100%;
+    box-sizing: border-box;
+    height: 44px;
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #ffffff; 
+    font-size: 14px;
+    transition: border 0.2s, background 0.2s; }
+
+#formConfiguracoes #nivelUser {
+    width: 120px;
+    box-sizing: border-box;
+    height: 44px;
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #ffffff; 
+    font-size: 12px;
+    transition: border 0.2s, background 0.2s; }
+
+#formConfiguracoes input[type="date"] {
+    width: 120px;
+    box-sizing: border-box;
+    height: 44px;
+    background: #120e1b;
+    border: 1px solid #2a1f3d;
+    border-radius: 12px;
+    padding: 12px 14px;
+    color: #c8b8db; 
+    font-size: 14px;
+    transition: border 0.2s, background 0.2s; }
+
+/*password*/
+.password-field {
+  position: relative;
+  width: 100%; }
+
+.password-field input {
+  padding-right: 40px; }
+
+.password-field .material-symbols-outlined {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 20px!important; }
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 1000,
+    'GRAD' 0,
+    'opsz' 24; }
+
+.password-field .material-symbols-outlined.riscado::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  right: 2px;
+  height: 2px;
+  background-color: #888;
+  transform: rotate(-45deg); }

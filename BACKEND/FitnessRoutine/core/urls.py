@@ -24,12 +24,9 @@ urlpatterns = [
     # Rotas de Treino
     path('api/treinos/', TreinoListView.as_view(), name='treino_list'),
     path('api/gerar-treino/', GerarTreinoView.as_view(), name='gerar_treino'),
+    path('api/treinos/<int:pk>/', TreinoDeleteView.as_view(), name='treino-delete'),
 
-    # ===================================================================
-    #  A CORREÇÃO PRINCIPAL ESTÁ AQUI
-    #  Agora temos UMA ÚNICA rota para lidar com um treino específico.
-    #  Ela aceita um número (o ID do treino) e o chama de 'pk'.
-    # ===================================================================
-    path('api/treinos/<int:pk>/', TreinoDetailView.as_view(), name='treino-detail'),
+    path('api/logout/', LogoutView.as_view(), name='logout'),
+    path('api/treino-detalhe/<int:pk>/', TreinoDetailView.as_view(), name='treino-detail'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

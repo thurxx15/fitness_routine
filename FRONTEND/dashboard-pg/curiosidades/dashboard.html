@@ -12,9 +12,9 @@
         referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-
     <link rel="stylesheet" href="dashboard.css" />
     <link rel="stylesheet" href="../modal-style.css"/>
+    <link rel="stylesheet" href="../barra-style.css"/>
     
 </head>
 <body>
@@ -64,7 +64,7 @@
   <!--titulo-->
   <h2 id="tituloInfo">Configurações de usuário</h2>
 
-  <form id="formPreferencias">
+  <form id="formConfiguracoes">
   <div class="modal-grid">
       
     <!-- COLUNA ESQUERDA -->
@@ -93,8 +93,9 @@
 
       <!--senha-->
       <div class="grupo">
+        <label for="password">Atualize sua senha:</label>
         <div class="password-field">
-          <input type="password" class="input-field" id="password" placeholder="Senha">
+          <input type="password" class="input-field" id="password" placeholder="Sua nova senha">
           <span class="material-symbols-outlined" id="toggle-password">visibility</span>
         </div>
       </div>
@@ -102,7 +103,7 @@
       <!--confirma senha-->
       <div class="grupo">
         <div class="password-field">
-          <input type="password" id="password-verify" class="input-field" placeholder="Confirme sua senha">
+          <input type="password" id="password-verify" class="input-field" placeholder="Confirme sua nova senha">
           <small id="passwordVerifyHelp" class="password-help"></small>
           <span class="material-symbols-outlined" id="toggle-password-verify">visibility</span>
         </div>

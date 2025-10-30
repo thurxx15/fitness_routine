@@ -1,9 +1,19 @@
-
 function alternarBarra() {
     const barra = document.getElementById('barraLateral');
     const conteudo = document.getElementById('mainContent');
     if (barra) barra.classList.toggle('oculta');
     if (conteudo) conteudo.classList.toggle('expandida');
+}
+function removerFixos() {
+  const btnConfig = document.getElementById('btn-config');
+  const btnLogout = document.getElementById('btn-logout');
+  const btnUser = document.getElementById('abrirInfo');
+
+  [btnConfig, btnLogout, btnUser].forEach((btn) => {
+    if (btn) {
+      btn.style.display = (btn.style.display === 'none') ? 'block' : 'none';
+    }
+  });
 }
 
 function atualizarTempo(valor) {
@@ -68,8 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
    
-function gerarPdfDoTreino(treinoData) {
-    if (!treinoData) {
+function gerarPdfDoTreino() {
+    if (!treinoAtualParaPdf) {
       alert("Erro ao gerar PDF: dados do treino não encontrados.");
       return;
     }
@@ -80,67 +90,89 @@ function gerarPdfDoTreino(treinoData) {
     // --- CABEÇALHO DO PDF ---
     doc.setFontSize(20);
     doc.setTextColor(40, 40, 40);
-    doc.text(`Plano de Treino: ${treinoData.nome_treino}`, 105, 22, { align: 'center' });
+    doc.text(`Plano de Treino: ${treinoAtualParaPdf.nome_treino}`, 105, 22, { align: 'center' });
     doc.setFontSize(12);
     doc.setTextColor(100, 100, 100);
-    doc.text(`Objetivo: ${treinoData.objetivo}`, 14, 32);
+    doc.text(`Objetivo: ${treinoAtualParaPdf.objetivo}`, 14, 32);
 
-    let y = 45;
+    // ===================================================================
+    //  INÍCIO DA MUDANÇA PRINCIPAL
+    // ===================================================================
 
-    // --- PREPARAÇÃO DOS DADOS ---
-    const exerciciosAgrupados = (treinoData.exercicios || []).reduce((acc, ex) => {
+    // --- PREPARAÇÃO DOS DADOS PARA UMA ÚNICA TABELA ---
+    const exerciciosAgrupados = (treinoAtualParaPdf.exercicios || []).reduce((acc, ex) => {
       const dia = ex.dia_semana || 'Exercícios';
       (acc[dia] = acc[dia] || []).push(ex);
       return acc;
     }, {});
     
     const ordemDias = ["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado","Domingo","Não especificado"];
+    
+    const head = [['Exercício', 'Séries x Repetições', 'Descanso']];
+    const allRows = []; // Um único array para todas as linhas
 
-    // --- CRIAÇÃO DAS TABELAS ESTILIZADAS ---
+    // Itera sobre os dias para construir o array de linhas
     for (const dia of ordemDias) {
-      if (!exerciciosAgrupados[dia]) continue;
-
-      // ===================================================================
-      //  INÍCIO DA CORREÇÃO
-      // ===================================================================
-      // Define os cabeçalhos da tabela
-      const head = [['Exercícios', 'Séries x Repetições', 'Descanso']];
-      
-      // Mapeia os dados dos exercícios, usando '??' para garantir que valores nulos não quebrem o código
-      const body = exerciciosAgrupados[dia].map(ex => [
-        ex.nome_exercicio ?? 'N/A',
-        `${ex.series ?? '-'}x${ex.repeticoes ?? '-'}`,
-        ex.descanso ?? '-'
-      ]);
-      // ===================================================================
-      //  FIM DA CORREÇÃO
-      // ===================================================================
-
-      // Chama o plugin para desenhar a tabela
-      doc.autoTable({
-        startY: y,
-        head: head,
-        body: body,
-        theme: 'grid',
-        willDrawPage: function (data) {
-            doc.setFontSize(14);
-            doc.setFont('helvetica', 'bold');
-            doc.setFillColor(60, 9, 108);
-            doc.setTextColor(255, 255, 255);
-            doc.rect(data.settings.margin.left, y - 8, doc.internal.pageSize.getWidth() - data.settings.margin.left * 2, 10, 'F');
-            doc.text(dia, doc.internal.pageSize.getWidth() / 2, y - 2, { align: 'center' });
-        },
-        headStyles: { fillColor: [230, 230, 230], textColor: [40, 40, 40], fontStyle: 'bold' },
-        alternateRowStyles: { fillColor: [248, 248, 248] },
-        columnStyles: { 0: { fontStyle: 'bold' } },
-        margin: { top: y }
-      });
-      
-      y = doc.autoTable.previous.finalY + 15;
+      if (exerciciosAgrupados[dia]) {
+        // 1. Adiciona uma linha de TÍTULO para o dia
+        allRows.push([
+          { 
+            content: dia, 
+            colSpan: 3, // Ocupa as 3 colunas
+            styles: { 
+              halign: 'center', 
+              fillColor: [220, 220, 220], // Cinza claro
+              textColor: [40, 40, 40],
+              fontStyle: 'bold'
+            } 
+          }
+        ]);
+        
+        // 2. Adiciona as linhas de exercícios para aquele dia
+        exerciciosAgrupados[dia].forEach(ex => {
+          allRows.push([
+            ex.nome_exercicio,
+            `${ex.series}x${ex.repeticoes}`,
+            ex.descanso
+          ]);
+        });
+      }
     }
 
-    doc.save(`treino_${treinoData.nome_treino}.pdf`);
-  }
+    // 3. FAZ UMA ÚNICA CHAMADA PARA DESENHAR A TABELA INTEIRA
+    doc.autoTable({
+        startY: 40, // Posição inicial abaixo do cabeçalho
+        head: head,
+        body: allRows, // Passa o array com todas as linhas
+        theme: 'grid',
+        
+        // Estilos para o cabeçalho das colunas (Exercício, Séries, etc.)
+        headStyles: {
+          fillColor: [60, 9, 108], // Roxo
+          textColor: [255, 255, 255],   // Texto branco
+          fontStyle: 'bold',
+        },
+
+        // Estilos para as linhas do corpo
+        alternateRowStyles: {
+          fillColor: [245, 245, 245] // Efeito zebrado
+        },
+
+        // Estilo da primeira coluna (Exercício) para dar destaque
+        columnStyles: {
+            0: {
+                fontStyle: 'bold',
+            }
+        }
+    });
+
+    // ===================================================================
+    //  FIM DA MUDANÇA
+    // ===================================================================
+
+    // --- INICIA O DOWNLOAD ---
+    doc.save(`treino_${treinoAtualParaPdf.nome_treino}.pdf`);
+}
 
   function popularModal(dadosDoTreino) {
     if (!dadosDoTreino) return;
@@ -243,16 +275,47 @@ function gerarPdfDoTreino(treinoData) {
                 { data: 'data_criacao', render: (d) => d ? new Date(d).toLocaleDateString('pt-BR') : '-' },
                 { data: null, orderable: false, className: 'actions-column', render: (d,t,r) => `<button class="btn-excluir" data-id="${r.id}">Excluir</button>` }
             ],
-            language: { url: "//cdn.datatables.net/plug-ins/1.13.6/i18n/pt-BR.json" },
+            language: {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros no total)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+},
             responsive: true,
             order: [[4, 'desc']]
         });
 
         $('#tabelaTreinos tbody').on('click', 'tr', function (event) {
-            if ($(event.target).closest('.actions-column').length || $(event.target).hasClass('details-control')) return;
-            const dadosDaLinha = tabela.row(this).data();
-            if (dadosDaLinha) popularModal(dadosDaLinha);
-        });
+    // Impede a ação se o clique for em um botão ou controle (como '+' ou 'Excluir')
+    if ($(event.target).closest('button, .details-control').length > 0) {
+        return;
+    }
+
+    // Pega os dados da linha clicada
+    const dadosDaLinha = tabela.row(this).data();
+
+    if (dadosDaLinha && dadosDaLinha.id) {
+        // Redireciona para a nova página, passando o ID do treino na URL
+        window.location.href = `/FRONTEND/dashboard-pg/detalhe-planilha/detalhe-treino.html?id=${dadosDaLinha.id}`;
+    }
+});
         
         $('#tabelaTreinos tbody').on('click', '.btn-excluir', async function () {
             const treinoId = $(this).data('id');
@@ -386,10 +449,7 @@ function gerarPdfDoTreino(treinoData) {
     const formConfig = document.querySelector('#modalInfo form');
     if (formConfig) formConfig.addEventListener('submit', salvarConfiguracoes);
 
-    // --- LOGOUT ---
-   // ===================================================================
-    //  INÍCIO DA NOVA SEÇÃO: LÓGICA DE LOGOUT COM CONFIRMAÇÃO
-    // ===================================================================
+    //LOGOUT
     const logoutBtn = document.getElementById('btn-logout');
     if (logoutBtn) {
         logoutBtn.addEventListener('click', (event) => {
@@ -410,9 +470,6 @@ function gerarPdfDoTreino(treinoData) {
             // Se o usuário clicar em "Cancelar", nada acontece.
         });
     }
-    // ===================================================================
-    //  FIM DA NOVA SEÇÃO
-    // ===================================================================
 
     // --- TOGGLE SENHA ---
     const passwordInput = document.getElementById('password');
