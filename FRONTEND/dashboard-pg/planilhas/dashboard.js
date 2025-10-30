@@ -313,7 +313,7 @@ function gerarPdfDoTreino() {
 
     if (dadosDaLinha && dadosDaLinha.id) {
         // Redireciona para a nova página, passando o ID do treino na URL
-        window.location.href = `/FRONTEND/dashboard-pg/detalhe-planilha/detalhe-treino.html?id=${dadosDaLinha.id}`;
+        window.location.href = `detalhe-planilha/detalhe-treino.html?id=${dadosDaLinha.id}`; 
     }
 });
         

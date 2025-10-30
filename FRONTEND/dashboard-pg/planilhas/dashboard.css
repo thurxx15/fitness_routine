@@ -61,14 +61,19 @@ body {
 
 /*texto*/
 .page-header {
-    margin-bottom: 30px;
     display: flex;
-    justify-content: space-between; }
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #3c096c; /* Adiciona a linha roxa */
+}
 
 .page-title {
-    font-size: 2rem;
+    font-size: 2.2em;                 /* Aumenta a fonte */
     font-weight: 700;
-    color: #c8b8db; }
+    color: #ffffff;  
+}
 
 /*MODAL 1*/
 .modal-form {
@@ -479,73 +484,66 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin: 0;
 }
 
-/*==========================================================================
-   ESTILOS DA TABELA (Mantidos e Refinados)
-   ========================================================================== */
-/*==========================================================================
-   ESTILOS DA TABELA (COM LINHAS VERTICAIS)
-   ========================================================================== */
+/* SUBSTITUA POR ISTO */
+
+/* Remove o estilo da "caixa" da tabela para focar nas linhas */
 #tabelaTreinos {
     width: 100%;
-    border-collapse: separate; /* Importante para o espaçamento funcionar */
-    border-spacing: 0;
-    background: #1a1a1a;
-    border: 1px solid #3c096c;
-    border-radius: 10px;
-    overflow: hidden; /* Garante que as bordas arredondadas sejam respeitadas */
+    border-collapse: separate;      /* Essencial para o espaçamento funcionar */
+    border-spacing: 0 10px;         /* CRIA O ESPAÇO VERTICAL ENTRE AS LINHAS */
+    background: transparent;        /* Remove o fundo da tabela */
+    border: none;                   /* Remove a borda da tabela */
 }
 
+/* Esconde o cabeçalho original da tabela (opcional, mas limpa o visual) */
 #tabelaTreinos thead {
-    background: linear-gradient(135deg, #3c096c, #5a189a);
-    color: #ffffff;
+    display: none;
 }
 
-#tabelaTreinos thead th {
-    padding: 15px 18px;
-    text-align: left;
-    font-weight: 600;
-
-    /* =================================================================== */
-    /* Adiciona a linha vertical no cabeçalho */
-    /* =================================================================== */
-    border-right: 1px solid #332147; /* Cor sutil, a mesma da borda inferior */
+/* Remove o fundo padrão das linhas pares/ímpares do DataTables */
+#tabelaTreinos.dataTable tbody tr.odd,
+#tabelaTreinos.dataTable tbody tr.even {
+    background-color: #1a1a1a !important; /* Cor de fundo para cada "card" */
 }
 
-#tabelaTreinos thead th:last-child {
-    border-right: none; /* Remove a borda da última célula do cabeçalho */
+/* Estiliza cada linha como um card */
+#tabelaTreinos tbody tr {
+    background-color: #1a1a1a;
+    border-radius: 8px; /* Bordas arredondadas */
+    transition: all 0.2s ease-in-out;
 }
 
-
+/* Estilo para todas as células */
 #tabelaTreinos tbody td {
-    padding: 14px 18px;
-    border-bottom: 1px solid #332147;
-
-    /* =================================================================== */
-    /* A CORREÇÃO PRINCIPAL ESTÁ AQUI */
-    /* =================================================================== */
-    border-right: 1px solid #332147; /* Adiciona a linha vertical entre as colunas */
+    padding: 16px 22px;
+    border: none; /* Remove as bordas internas */
+    vertical-align: middle;
+    color: #a893c6;
 }
 
+/* Estilo ESPECIAL para a primeira célula (Nome do Treino) */
+#tabelaTreinos tbody td:first-child {
+    border-left: 4px solid #7b2cbf; /* Adiciona a barra roxa à esquerda */
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    font-weight: 500;
+    font-size: 1.05em;
+    color: #e0e0e0; /* Cor do nome do treino */
+    transition: all 0.2s ease-in-out;
+}
+
+/* Arredonda os cantos da última célula */
 #tabelaTreinos tbody td:last-child {
-    border-right: none; /* Remove a borda desnecessária da última coluna */
-}
-
-#tabelaTreinos tbody tr:nth-child(even) {
-    background-color: #211f24;
-}
-
-#tabelaTreinos tbody tr:hover {
-    background-color: #2a1b3d;
-}
-
-#tabelaTreinos tbody tr:last-child td {
-    border-bottom: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 
-/* ==========================================================================
-   PAGINAÇÃO (Mantida)
-   ========================================================================== */
+#tabelaTreinos tbody tr:hover td:first-child {
+    color: #c8b8db; 
+    transform: scale(1.03);
+}
+
 .dataTables_paginate .paginate_button {
     padding: 8px 14px;
     margin: 0 4px;

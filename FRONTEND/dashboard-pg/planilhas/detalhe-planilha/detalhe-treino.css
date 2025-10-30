@@ -1,16 +1,223 @@
-.conteudo-treino {
-            padding: 20px 40px;
-        }
-        .cabecalho-treino h1 {
-            font-size: 2.5em;
-            color: #c8b8db;
-            margin-bottom: 5px;
-        }
-        .cabecalho-treino p {
-            font-size: 1.2em;
-            color: #a893c6;
-            margin-top: 0;
-        }
-        .corpo-treino {
-            margin-top: 30px;
-        }
+/* ==========================================================================
+   CONFIGURAÇÕES GERAIS E LAYOUT
+   ========================================================================== */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    overflow: hidden; /* Previne o scroll da página inteira */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content {
+    width: 100%;
+    max-width: 1200px;
+    height: 95vh;
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   CABEÇALHO DO TREINO (TÍTULO E BOTÕES)
+   ========================================================================== */
+.cabecalho-treino {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #3c096c;
+    flex-shrink: 0;
+}
+
+.info-treino h1 {
+    font-size: 2.2em;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.info-treino p {
+    font-size: 1.1em;
+    color: #a893c6;
+    margin-top: 5px;
+}
+
+.acoes-treino {
+    display: flex;
+    gap: 15px;
+}
+
+.btn-acao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-voltar {
+    background-color: #332147;
+    color: #c8b8db;
+}
+
+.btn-voltar:hover {
+    background-color: #5a189a;
+    color: white;
+}
+
+.btn-pdf {
+    background-color: #7b2cbf;
+    color: white;
+}
+
+.btn-pdf:hover {
+    background-color: #9d4edd;
+}
+
+/* ==========================================================================
+   CORPO DO TREINO E CARROSSEL (COM SCROLL INTERNO)
+   ========================================================================== */
+.corpo-treino {
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-start; /* Alinha no topo */
+    overflow-y: auto;
+    padding-top: 20px;
+}
+
+.corpo-treino::-webkit-scrollbar { width: 8px; }
+.corpo-treino::-webkit-scrollbar-track { background: #1e1e1e; }
+.corpo-treino::-webkit-scrollbar-thumb { background-color: #3c096c; border-radius: 4px; }
+
+.carrossel-container {
+    position: relative;
+    padding: 0 60px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.carrossel-viewport {
+    width: 100%;
+    overflow: hidden;
+}
+
+.carrossel-trilho {
+    display: flex;
+    transition: transform 0.4s ease-out;
+}
+
+.carrossel-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+
+.carrossel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(60, 9, 108, 0.7);
+    border: 1px solid rgba(123, 44, 191, 0.5);
+    color: white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.carrossel-btn:hover { background-color: #7b2cbf; transform: translateY(-50%) scale(1.1); }
+.carrossel-btn:disabled { opacity: 0.2; cursor: not-allowed; transform: translateY(-50%) scale(1); }
+.btn-esquerda { left: 0px; }
+.btn-direita { right: 0px; }
+
+/* ==========================================================================
+   ESTILOS DENTRO DE CADA SLIDE
+   ========================================================================== */
+.dia-titulo {
+    font-size: 1.5em;
+    text-align: center;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: none;
+    text-transform: uppercase;
+    color: #c8b8db;
+}
+
+.tabela-dia {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.tabela-dia thead { display: none; }
+
+.tabela-dia tbody tr {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    transition: ease 0.3s;
+}
+
+.tabela-dia tbody tr:hover {
+    transform: scale(1.01);
+}
+
+.tabela-dia tbody td {
+    padding: 16px 22px;
+    border: none;
+    vertical-align: middle;
+}
+
+.tabela-dia tbody td:first-child {
+    border-left: 4px solid #7b2cbf;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.tabela-dia tbody td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.exercicio-link {
+    font-size: 1.05em;
+    font-weight: 500;
+    color: #e0e0e0;
+    text-decoration: none;
+}
+
+.exercicio-link:hover { color: #c8b8db; }
+
+.tabela-dia tbody td:not(:first-child) {
+    text-align: center;
+    font-size: 1.05em;
+    color: #a893c6;
+    font-weight: 500;
+}

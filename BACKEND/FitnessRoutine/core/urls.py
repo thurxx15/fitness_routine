@@ -24,7 +24,6 @@ urlpatterns = [
     # Rotas de Treino
     path('api/treinos/', TreinoListView.as_view(), name='treino_list'),
     path('api/gerar-treino/', GerarTreinoView.as_view(), name='gerar_treino'),
-    path('api/treinos/<int:pk>/', TreinoDeleteView.as_view(), name='treino-delete'),
 
     path('api/logout/', LogoutView.as_view(), name='logout'),
     path('api/treino-detalhe/<int:pk>/', TreinoDetailView.as_view(), name='treino-detail'),

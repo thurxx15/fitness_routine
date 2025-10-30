@@ -4,35 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalhes do Treino</title>
-    <link rel="stylesheet" href="detalhe-treino.css">
-   
+    <!-- Substitua pelo caminho correto para o seu arquivo CSS -->
+    <link rel="stylesheet" href="detalhe-treino.css"> 
 </head>
 <body>
-    <!-- Você pode incluir sua barra lateral e header aqui, se forem componentes separados -->
 
     <main id="mainContent" class="main-content">
         <div class="conteudo-treino">
+
+            <!-- ======================================================== -->
+            <!--        ESTRUTURA DO CABEÇALHO MODIFICADA               -->
+            <!-- ======================================================== -->
             <div class="cabecalho-treino">
-                <h1 id="nome-treino">Carregando Treino...</h1>
-                <p id="objetivo-treino"></p>
+                
+                <!-- Coluna da Esquerda: Título e Objetivo -->
+                <div class="info-treino">
+                    <h1 id="nome-treino">CARREGANDO TREINO...</h1>
+                    <p id="objetivo-treino"></p>
+                </div>
+
+                <!-- Coluna da Direita: Botões de Ação -->
+                <div class="acoes-treino">
+                    <a href="../dashboard.html" class="btn-acao btn-voltar">&#10094; Voltar</a>
+                    <button id="btnDownloadPdf" class="btn-acao btn-pdf">Baixar PDF</button>
+                </div>
+
             </div>
             
+            <!-- ======================================================== -->
+            <!--             ESTRUTURA DO CARROSSEL (início)              -->
+            <!-- ======================================================== -->
             <div id="corpo-treino" class="corpo-treino">
-                <!-- As tabelas de exercícios serão inseridas aqui pelo JavaScript -->
+                <div class="carrossel-container">
+                    <button id="btnCarrosselEsquerda" class="carrossel-btn btn-esquerda">&#10094;</button>
+                    <div class="carrossel-viewport">
+                        <div id="carrossel-trilho" class="carrossel-trilho">
+                            <!-- Os slides do treino serão inseridos aqui pelo JavaScript -->
+                        </div>
+                    </div>
+                    <button id="btnCarrosselDireita" class="carrossel-btn btn-direita">&#10095;</button>
+                </div>
             </div>
+            <!-- ======================================================== -->
+            <!--              ESTRUTURA DO CARROSSEL (fim)                -->
+            <!-- ======================================================== -->
 
-            <div class="acoes-treino" style="margin-top: 30px;">
-                <button id="btnDownloadPdf" class="btn-pdf">Baixar em PDF</button>
-            </div>
         </div>
     </main>
 
-    <!-- Adicione os scripts necessários no final -->
+    <!-- Scripts no final -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
     
-    <!-- O nosso NOVO script para esta página -->
-    <script src="detalhe-treino.js"></script>
+    <!-- Substitua pelo caminho correto para o seu arquivo JS -->
+    <script src="detalhe-treino.js"></script> 
 </body>
 </html>
