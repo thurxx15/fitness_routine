@@ -1,11 +1,11 @@
+# fitness_routine/models.py
+
 from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
-# Modelo para o Perfil do Usuário
 class Profile(models.Model):
-    # Níveis de experiência definidos como escolhas para consistência
     EXPERIENCIA_CHOICES = [
         ('iniciante', 'Iniciante'),
         ('intermediario', 'Intermediário'),
@@ -15,13 +15,13 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     data_nascimento = models.DateField(null=True, blank=True)
     peso = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    altura = models.PositiveIntegerField(null=True, blank=True) # Em centímetros
+    altura = models.PositiveIntegerField(null=True, blank=True)
     nivel_experiencia = models.CharField(max_length=20, choices=EXPERIENCIA_CHOICES, null=True, blank=True)
+    profile_image = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
 
     def __str__(self):
         return f'Perfil de {self.user.username}'
 
-# Adicione um signal para criar o perfil automaticamente quando um usuário for criado
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -31,18 +31,16 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
-# Modelos para Treinos e Exercícios
 class Treino(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='treinos')
     nome_treino = models.CharField(max_length=100)
     dias_semana = models.PositiveIntegerField()
-    objetivo = models.CharField(max_length=100) # Ex: Hipertrofia, Resistência
+    objetivo = models.CharField(max_length=100)
     data_criacao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Treino '{self.nome_treino}' de {self.user.username}"
 
-# Modelo para Exercícios dentro de um Treino
 class Exercicio(models.Model):
     DIA_CHOICES = [
         ("Segunda-feira", "Segunda-feira"),

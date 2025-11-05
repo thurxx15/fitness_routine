@@ -21,6 +21,9 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['fitness-routine.onrender.com', 'localhost', '127.0.0.1', '10.138.50.34']
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Application definition
 INSTALLED_APPS = [

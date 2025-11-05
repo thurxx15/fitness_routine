@@ -1,3 +1,5 @@
+# fitness_routine/views.py
+
 import google.generativeai as genai
 import os 
 import json
@@ -14,7 +16,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 # Configuração da API do Gemini
 GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY')
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-2.5-flash')
+model = genai.GenerativeModel('gemini-1.5-flash')
 
 # View para LISTAR os treinos existentes
 class TreinoListView(generics.ListAPIView):
@@ -22,28 +24,18 @@ class TreinoListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        # Retorna apenas os treinos do usuário autenticado
         return Treino.objects.filter(user=self.request.user).prefetch_related('exercicios').order_by('-data_criacao')
 
 # View para GERAR um novo treino
 class GerarTreinoView(APIView):
     permission_classes = [permissions.IsAuthenticated]
-
     def post(self, request, *args, **kwargs):
         user_preferences = request.data
-        
-        #1 Engenharia de Prompt
         prompt = self.construir_prompt(user_preferences)
-
         try:
-            #2 Chamada à API do Gemini
             response = model.generate_content(prompt)
-            
-            # Limpa e parseia a resposta para JSON
             cleaned_response = response.text.strip().replace('```json', '').replace('```', '')
             treino_gerado = json.loads(cleaned_response)
-
-            #3 Salvar no Banco de Dados (com transação)
             with transaction.atomic():
                 novo_treino = Treino.objects.create(
                     user=request.user,
@@ -51,7 +43,6 @@ class GerarTreinoView(APIView):
                     dias_semana=user_preferences.get('diasSemana'),
                     objetivo=user_preferences.get('objetivo', 'Geral')
                 )
-
                 for dia in treino_gerado['plano_de_treino']:
                     for exercicio_data in dia['exercicios']:
                       Exercicio.objects.create(
@@ -62,62 +53,28 @@ class GerarTreinoView(APIView):
                         repeticoes=exercicio_data.get('repeticoes'),
                         descanso=exercicio_data.get('descanso'),
                         dia_semana=exercicio_data.get('dia_semana')
-                        
                       )
-
             serializer = TreinoSerializer(novo_treino)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
         except json.JSONDecodeError:
             return Response({"error": "A resposta da IA não é um JSON válido."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         except Exception as e:
             return Response({"error": f"Ocorreu um erro: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
     def construir_prompt(self, prefs):
-        # Prompt detalhado para garantir uma resposta JSON estruturada
         return f"""
         Crie um plano de treino de academia com base nas seguintes especificações:
         - Foco/Objetivo: {prefs.get('objetivo', 'Hipertrofia')}
         - Dias por semana: {prefs.get('diasSemana')}
         - Grupos musculares a focar: {', '.join(prefs.get('gruposMusculares', []))}
         - Limitações: {prefs.get('limitacoes', 'Nenhuma')}
-
         Organize os exercícios em grupos, onde cada grupo corresponde a um dia de treino.
-
         Retorne a resposta ESTRITAMENTE como um objeto JSON válido, sem nenhum texto ou formatação adicional.
         O JSON deve seguir esta estrutura exata, incluindo a chave "dia_semana" para cada exercício:
         {{
           "plano_de_treino": [
             {{
               "grupo_muscular": "Peito e Tríceps",
-              "exercicios": [
-                {{
-                  "exercicio": "Supino Reto com Barra",
-                  "series": "4",
-                  "repeticoes": "8-12",
-                  "descanso": "60 segundos",
-                  "dia_semana": "Segunda-feira"
-                }},
-                {{
-                  "exercicio": "Crucifixo Inclinado com Halteres",
-                  "series": "3",
-                  "repeticoes": "10-15",
-                  "descanso": "45 segundos",
-                  "dia_semana": "Segunda-feira"
-                }}
-              ]
-            }},
-            {{
-              "grupo_muscular": "Costas e Bíceps",
-              "exercicios": [
-                {{
-                  "exercicio": "Barra Fixa",
-                  "series": "4",
-                  "repeticoes": "Até a falha",
-                  "descanso": "90 segundos",
-                  "dia_semana": "Terça-feira"
-                }}
-              ]
+              "exercicios": [{{ "exercicio": "Supino Reto com Barra", "series": "4", "repeticoes": "8-12", "descanso": "60 segundos", "dia_semana": "Segunda-feira" }}]
             }}
           ]
         }}
@@ -128,7 +85,6 @@ class TreinoDeleteView(generics.DestroyAPIView):
     queryset = Treino.objects.all()
     serializer_class = TreinoSerializer
     permission_classes = [permissions.IsAuthenticated]
-
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
     
@@ -142,33 +98,40 @@ class UserCreate(generics.CreateAPIView):
 class UserProfileView(generics.RetrieveUpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserProfileSerializer
-
     def get_object(self):
         return self.request.user
 
 # View para LOGOUT  
 class LogoutView(generics.GenericAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-
     def post(self, request):
         try:
             refresh_token = request.data["refresh_token"]
             token = RefreshToken(refresh_token)
             token.blacklist()
-
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         
-# View para TREINO DETALHADO
+# View para TREINO DETALHADO (Original, para o site web)
 class TreinoDetailView(generics.RetrieveAPIView):
-    """
-    View para buscar os detalhes de um único treino pelo seu ID (pk).
-    """
     queryset = Treino.objects.all()
+    serializer_class = TreinoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+
+# =======================================================
+# -> CORREÇÃO APLICADA AQUI: ADICIONADO O RECUO (INDENTAÇÃO) CORRETO
+# =======================================================
+class MobileTreinoDetailView(generics.RetrieveAPIView):
+    """
+    Retorna os detalhes de um treino, incluindo todos os exercícios associados.
+    Otimizado para o aplicativo móvel.
+    """
+    # As 4 linhas abaixo agora estão com o recuo correto (dentro da classe)
     serializer_class = TreinoSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        """ Medida de segurança: Garante que o usuário só possa ver seus próprios treinos. """
-        return self.queryset.filter(user=self.request.user)
+        return Treino.objects.filter(user=self.request.user).prefetch_related('exercicios')
