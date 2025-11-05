@@ -26,25 +26,36 @@
 
     <input type="text" class="input-field" id="user" placeholder="Usuário" />
      <div class="password-field">
-                <input type="password" class="input-field" id="password" placeholder="Senha">
-                <span class="material-symbols-outlined" id="toggle-password">visibility</span>
-            </div>
+        <input type="password" class="input-field" id="password" placeholder="Senha">
+        <span class="material-symbols-outlined" id="toggle-password">visibility</span>
+    </div>
 
     <p class="subtitle">Não tem uma conta? <a href="../cadastro-pg/cadastro.html">Cadastre-se</a>.
-    Caso tenha esquecidos a sua senha, <a href="">Recupere-a agora!</a></p>
-    <p class="subtitle"></p>
+    Caso tenha esquecido a sua senha, <a href="#" onclick="abrirPopup()">Recupere-a agora!</a></p>
+
     <button class="btnAcao" id="btnAcao" type="submit">Entrar</button>
 
     <ul class="ico" style="margin-top: 60px;">
       <li><a href="#"><img src="../midia/ico/ico-ttk.svg"></a></li>
       <li><a href="https://api.whatsapp.com/send/?phone=5514997674157&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer"><img src="../midia/ico/ico-wpp.svg"></a></li>
       <li><a href="https://www.instagram.com/routinefitnessbr" target="_blank" rel="noopener noreferrer"><img src="../midia/ico/ico-ins.svg" ></a></li>
-      
     </ul>
   </div>
 
+  <!-- INÍCIO DO POP-UP DE RECUPERAÇÃO DE SENHA -->
+  <div id="popup-recuperar" class="popup-overlay">
+    <div class="popup-conteudo">
+      <span class="fechar-popup" onclick="fecharPopup()">&times;</span>
+      <h3>Recuperar Senha</h3>
+      <p>Por favor, insira seu e-mail de cadastro. Enviaremos uma nova senha temporária para você.</p>
+      <input type="email" class="input-field" id="email-recuperacao" placeholder="Seu e-mail" />
+      <button class="btnAcao" id="btn-enviar-recuperacao">Enviar</button>
+    </div>
+  </div>
+  <!-- FIM DO POP-UP -->
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="login.js"></script>
 
 </body>
-
 </html>
