@@ -443,129 +443,124 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-family: 'Segoe UI', 'Poppins', sans-serif;
 }
 
+/* ======================================================= */
+/* =                  ESTILOS DA DATATABLE               = */
+/* ======================================================= */
+
 .dataTables_wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Diminui o espaçamento geral */
-    color: #c8b8db;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #c8b8db;
 }
 
-/* ==========================================================================
-   CONTROLES DO TOPO E DA BASE (AQUI ESTÁ A CORREÇÃO)
-   ========================================================================== */
-
-/* Container para a linha de cima (Show entries + Search) */
-.tabela-controles-topo {
-    display: flex;
-    justify-content: space-between; /* <-- Alinha itens nas extremidades */
-    align-items: center;
+/* --- Controles do Topo e Base --- */
+.tabela-controles-topo, .tabela-controles-base {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Container para a linha de baixo (Info + Paginação) */
-.tabela-controles-base {
-    display: flex;
-    justify-content: space-between; /* <-- Alinha itens nas extremidades */
-    align-items: center;
+.dataTables_length select, .dataTables_filter input {
+  background: #1f1f1f;
+  color: #eeeeee;
+  border: 1px solid #3c096c;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-left: 5px;
 }
 
-/* Estiliza os campos de input e select */
-.dataTables_length select,
-.dataTables_filter input {
-    background: #1f1f1f;
-    color: #eeeeee;
-    border: 1px solid #3c096c;
-    border-radius: 6px;
-    padding: 8px 12px;
-    margin-left: 5px;
-}
-
-/* Remove margens extras para um alinhamento perfeito */
 .dataTables_length, .dataTables_filter {
-    margin: 0;
+  margin: 0;
 }
 
-/* SUBSTITUA POR ISTO */
-
-/* Remove o estilo da "caixa" da tabela para focar nas linhas */
+/* --- Linhas da Tabela (Visual de Card) --- */
 #tabelaTreinos {
-    width: 100%;
-    border-collapse: separate;      /* Essencial para o espaçamento funcionar */
-    border-spacing: 0 10px;         /* CRIA O ESPAÇO VERTICAL ENTRE AS LINHAS */
-    background: transparent;        /* Remove o fundo da tabela */
-    border: none;                   /* Remove a borda da tabela */
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  background: transparent;
+  border: none;
 }
 
-/* Esconde o cabeçalho original da tabela (opcional, mas limpa o visual) */
 #tabelaTreinos thead {
-    display: none;
+  display: none;
 }
 
-/* Remove o fundo padrão das linhas pares/ímpares do DataTables */
-#tabelaTreinos.dataTable tbody tr.odd,
-#tabelaTreinos.dataTable tbody tr.even {
-    background-color: #1a1a1a !important; /* Cor de fundo para cada "card" */
+#tabelaTreinos.dataTable tbody tr {
+  background-color: #1a1a1a !important;
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
 }
 
-/* Estiliza cada linha como um card */
-#tabelaTreinos tbody tr {
-    background-color: #1a1a1a;
-    border-radius: 8px; /* Bordas arredondadas */
-    transition: all 0.2s ease-in-out;
-}
-
-/* Estilo para todas as células */
 #tabelaTreinos tbody td {
-    padding: 16px 22px;
-    border: none; /* Remove as bordas internas */
-    vertical-align: middle;
-    color: #a893c6;
+  padding: 18px 22px;
+  border: none;
+  vertical-align: middle;
+  color: #a893c6;
 }
 
-/* Estilo ESPECIAL para a primeira célula (Nome do Treino) */
 #tabelaTreinos tbody td:first-child {
-    border-left: 4px solid #7b2cbf; /* Adiciona a barra roxa à esquerda */
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    font-weight: 500;
-    font-size: 1.05em;
-    color: #e0e0e0; /* Cor do nome do treino */
-    transition: all 0.2s ease-in-out;
+  border-left: 4px solid #7b2cbf;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  font-weight: 500;
+  font-size: 1.05em;
+  color: #e0e0e0;
 }
 
-/* Arredonda os cantos da última célula */
 #tabelaTreinos tbody td:last-child {
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
-
-#tabelaTreinos tbody tr:hover td:first-child {
-    color: #c8b8db; 
-    transform: scale(1.03);
+#tabelaTreinos tbody tr:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* --- Paginação --- */
 .dataTables_paginate .paginate_button {
-    padding: 8px 14px;
-    margin: 0 4px;
-    background: #1f1f1f;
-    border: 1px solid #3c096c;
-    border-radius: 6px;
-    color: #c8b8db;
-    text-decoration: none;
-    cursor: pointer;
+  padding: 8px 14px;
+  margin: 0 4px;
+  background: #1f1f1f;
+  border: 1px solid #3c096c;
+  border-radius: 6px;
+  color: #c8b8db;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .dataTables_paginate .paginate_button:hover {
-    background: #3c096c;
-    color: #ffffff;
+  background: #3c096c;
+  color: #ffffff;
 }
 
 .dataTables_paginate .paginate_button.current {
-    background: linear-gradient(135deg, #7b2cbf, #9d4edd);
-    color: #ffffff !important;
-    font-weight: bold;
-    border: none;
+  background: linear-gradient(135deg, #7b2cbf, #9d4edd);
+  color: #ffffff !important;
+  font-weight: bold;
+  border: none;
 }
+
+/* --- Botão Excluir na Tabela --- */
+.btn-excluir {
+  background-color: #3c096c;
+  color: #c8b8db;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-excluir:hover {
+  transform: scale(1.1);
+}
+
 
 /* O fundo escurecido do modal */
 .modal-treino {
