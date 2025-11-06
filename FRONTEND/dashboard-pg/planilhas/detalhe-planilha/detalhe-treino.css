@@ -102,12 +102,9 @@ body {
     display: flex;
     align-items: flex-start; /* Alinha no topo */
     overflow-y: auto;
-    padding-top: 20px;
+    overflow-x: hidden;
+    padding: 20px 20px;
 }
-
-.corpo-treino::-webkit-scrollbar { width: 8px; }
-.corpo-treino::-webkit-scrollbar-track { background: #1e1e1e; }
-.corpo-treino::-webkit-scrollbar-thumb { background-color: #3c096c; border-radius: 4px; }
 
 .carrossel-container {
     position: relative;
@@ -152,7 +149,7 @@ body {
     transition: all 0.3s ease;
 }
 
-.carrossel-btn:hover { background-color: #7b2cbf; transform: translateY(-50%) scale(1.1); }
+.carrossel-btn:hover { transform: translateY(-50%) scale(1.1); }
 .carrossel-btn:disabled { opacity: 0.2; cursor: not-allowed; transform: translateY(-50%) scale(1); }
 .btn-esquerda { left: 0px; }
 .btn-direita { right: 0px; }
