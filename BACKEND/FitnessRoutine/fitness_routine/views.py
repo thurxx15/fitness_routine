@@ -100,6 +100,14 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = UserProfileSerializer
     def get_object(self):
         return self.request.user
+        
+    # =======================================================
+    #  ALTERAÇÃO ADICIONADA AQUI
+    # =======================================================
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"request": self.request})
+        return context
 
 # View para LOGOUT  
 class LogoutView(generics.GenericAPIView):
@@ -121,15 +129,11 @@ class TreinoDetailView(generics.RetrieveAPIView):
     def get_queryset(self):
         return self.queryset.filter(user=self.request.user)
 
-# =======================================================
-# -> CORREÇÃO APLICADA AQUI: ADICIONADO O RECUO (INDENTAÇÃO) CORRETO
-# =======================================================
 class MobileTreinoDetailView(generics.RetrieveAPIView):
     """
     Retorna os detalhes de um treino, incluindo todos os exercícios associados.
     Otimizado para o aplicativo móvel.
     """
-    # As 4 linhas abaixo agora estão com o recuo correto (dentro da classe)
     serializer_class = TreinoSerializer
     permission_classes = [permissions.IsAuthenticated]
 
