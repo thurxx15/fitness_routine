@@ -1,186 +1,205 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
 
-/*CONF GERAL DO SITE*/
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+}
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(to right, #131212);
-  color: white;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden; }
+    font-family: 'Poppins', sans-serif;
+    background-color: #131212;
+    color: white;
+    display: flex; /* Habilita o Flexbox para o layout principal */
+    min-height: 100vh;
+}
 
 .imagem-esquerda {
-  width: 1020px;
-  height: 650px;
-  background-image: url("../midia/img/img-cad.jpg");  
-  background-size: cover;
-  background-position: center;
-  border-radius: 30px;
-  margin-left: 40px; }
+    flex-basis: 60%; /* Ocupa 55% da largura da tela */
+    min-height: 100vh;
+    background-image: url("../midia/img/img-cad.jpg");  
+    background-size: cover;
+    background-position: center;
+}
 
-/*CONTAINER CAD*/
 .container {
-  background-color: #121212;
-  padding: 20px;
-  margin-left: 40px;
-  border-radius: 40px;
-  width: 400px;
-  box-shadow: 0 20px 50px #121212; }
+    flex-basis: 40%; /* Ocupa os 45% restantes */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 40px;
+}
+
+/* O conteúdo dentro do container */
+.form-content {
+    width: 100%;
+    max-width: 360px; /* Limita a largura do formulário */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .logo {
-  font-size: 20px;
-  font-weight: 700;
-  color: white;
-  margin-left: 20px; }
-
-h2 {
-  font-size: 14px;
-  color: #9ca3af;
-  margin-bottom: 30px;
-  text-align: center; }
+    margin-bottom: 10px;
+}
 
 .subtitle {
-  color: #9ca3af;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 14px; }
+    color: #9ca3af;
+    margin-bottom: 15px;
+    font-size: 13px; 
+    text-align: center;
+}
 
 .input-field {
-  width: 100%;
-  background-color: #374151;
-  border: none;
-  border-radius: 15px;
-  padding: 15px;
-  color: white;
-  font-size: 14px;
-  margin-bottom: 15px; }
+    width: 100%;
+    background-color: #2d3748;
+    border: 1px solid #4a5568;
+    border-radius: 12px;
+    padding: 15px;
+    color: white;
+    font-size: 12px;
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+}
 
-.btn {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  background-color: #32075b;
-  color: white; }
-
-.btn:hover {
-  background-color: #612d7d; }
+.input-field::placeholder {
+    color: #a0aec0;
+}
 
 .name-fields {
-  display: flex; 
-  gap: 15px;   
-  margin-bottom: 15px; }
-
-.name-fields .input-field {
-  margin-bottom: 0; }
-
-.subtitle a {
-  color: #765694;
-  text-decoration: none; }
-
-.subtitle a:hover {
-  color: #8a5e97;
-  text-decoration: underline; }
+    display: flex; 
+    gap: 15px;   
+    width: 100%;
+    margin-bottom: 10px;
+}
 
 .password-field {
-  position: relative;
-  width: 100%; }
+    position: relative;
+    width: 100%; 
+    margin-bottom: 10px;
+}
 
 .password-field input {
-  padding-right: 40px; }
+    padding-right: 45px; 
+}
 
 .password-field .material-symbols-outlined {
-  position: absolute;
-  right: 10px;
-  top: 40%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #888;
-  font-size: 20px; }
-
-.password-field .material-symbols-outlined.riscado::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 2px;
-  right: 2px;
-  height: 2px;
-  background-color: #888;
-  transform: rotate(-45deg); }
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #a0aec0;
+    font-size: 20px;
+}
 
 .material-symbols-outlined {
   font-variation-settings:
     'FILL' 0,
     'wght' 400,
     'GRAD' 0,
-    'opsz' 24; }
+    'opsz' 24; 
+}
 
-/*ICONES*/
+.btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #3c096c;
+    color: white;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #4c1d95;
+}
+
+.subtitle a {
+    color: #c8b8db;
+    text-decoration: none; 
+}
+
+.subtitle a:hover {
+    text-decoration: underline; 
+}
+
 .ico {
-  display: flex;
-  justify-content: flex-start; 
-  padding-left: 10px;
-  margin-top: 30px; }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 75px;
+    margin-top: 30px;
+}
 
 .ico li {
-  list-style: none; }
+    list-style: none;
+}
 
 .ico li a {
-  display: inline-block;
-  margin-left: 45px;
-  background: #1c1b1b;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  transition: 0.3s ease-in-out; }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    transition: 0.3s ease-in-out;
+    border: 1px solid #4a5568;
+}
 
 .ico li a:hover {
-  background: #374724;
-  transform: translateY(-5px);
-  filter: invert(1);
-  box-shadow: 3px -3px 35px -5px rgb(0, 0, 0); }
+    border-color: #c8b8db;
+    transform: scale(1.1);
+}
 
 .ico li a img {
-  filter: invert(1);
-  transform: scale(0.5); }
+    filter: invert(1);
+    transform: scale(0.5);
+}
 
 
-/*ANIMAÇÃO*/
-@keyframes slideInFromRight {
-  0% {
-    opacity: 0;
-    transform: translateX(100px);
-    visibility: hidden; }
-  
-  1% {
-    visibility: visible; }
-  
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-    visibility: visible; } }
+/* =================================================================== */
+/* ============== CONFIGURAÇÕES DE RESPONSIVIDADE ==================== */
+/* =================================================================== */
 
-body > * {
-  animation: slideInFromRight 0.8s ease forwards;
-  visibility: hidden; }
+@media (max-width: 900px) {
+    .imagem-esquerda {
+        display: none; /* Oculta o painel da imagem */
+    }
 
-body > *:nth-child(1) {
-  animation-delay: 0.1s; }
+    .container {
+        flex-basis: 100%; /* Ocupa a tela inteira */
+        width: 100%;
+        max-width: none;
+    }
+}
 
-body > *:nth-child(2) {
-  animation-delay: 0.3s; }
+@media (max-width: 480px) {
+    .container {
+        padding: 20px; /* Reduz o padding em telas pequenas */
+    }
 
-body > *:nth-child(3) {
-  animation-delay: 0.5s; }
+    .form-content {
+        max-width: 100%;
+    }
+
+    .logo img {
+        height: 60px;
+    }
+
+    /* CORREÇÃO CRÍTICA PARA O MOBILE */
+    .name-fields {
+        flex-direction: column; /* Empilha os campos de nome */
+        gap: 15px;
+        margin-bottom: 0; /* A margem agora está nos inputs individuais */
+    }
+
+    .input-field {
+        margin-bottom: 15px; /* Garante que todos os inputs tenham espaçamento */
+    }
+}

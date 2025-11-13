@@ -8,72 +8,63 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #131212 50%, #070707);
+    background-color: #131212; /* Cor de fallback */
+    background-image: url("../midia/img/img-log.png"); /* Nova imagem de fundo */
+    background-size: cover;
+    background-position: center right; /* Foca na parte direita da imagem */
     color: white;
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-start; /* Alinha o painel do formulário à esquerda */
     align-items: center;
-    height: 100vh;
-    position: relative;
+    min-height: 100vh;
     overflow: hidden; 
 }
 
-.imagem-direita {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    width: 1020px;
-    height: 650px;
-    background-image: url("../midia/img/img-log.png");
-    background-size: cover;
-    background-position: center;
-    border-radius: 30px; 
-}
+/* A div .imagem-direita não é mais necessária e seu estilo foi removido */
 
 .container {
-    position: relative;
-    background-color: #131212;
-    padding: 20px;
-    margin-left: 40px;
-    border-radius: 40px;
-    width: 400px;
-    box-shadow: 0 20px 50px #131212; 
+    background-color: #131212; /* Fundo sólido para o painel da esquerda */
+    min-height: 100vh;
+    width: 45%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
 }
 
 .logo {
-    font-size: 20px;
-    font-weight: 70px;
-    color: white;
-    margin-left: 20px; 
+    margin-bottom: 20px;
 }
 
 .logo img {
-    height: 130px; 
-}
-
-h2 {
-    font-size: 14px;
-    color: #9ca3af;
-    margin-bottom: 30px;
-    margin-left: 100px; 
+    height: 150px; /* Logo menor e mais refinado */
 }
 
 .subtitle {
     color: #9ca3af;
     margin-bottom: 30px;
-    margin-left: 10px;
-    font-size: 14px; 
+    font-size: 13px; 
+    text-align: center;
+    max-width: 350px;
+    line-height: 1.6;
 }
 
 .input-field {
     width: 100%;
-    background-color: #374151;
-    border: none;
-    border-radius: 10px;
+    background-color: #2d3748; /* Tom de azul-acinzentado da imagem */
+    border: 1px solid #4a5568;
+    border-radius: 12px; /* Mais arredondado */
     padding: 15px;
     color: white;
     font-size: 14px;
     margin-bottom: 15px; 
+    font-family: 'Poppins', sans-serif;
+}
+
+.input-field::placeholder {
+    color: #a0aec0;
 }
 
 .btnAcao {
@@ -83,62 +74,57 @@ h2 {
     border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
-    background-color: #32075b;
+    background-color: #3c096c; /* Roxo principal do site */
     color: white;
-    margin-top: 10px; 
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
-.btnAcao:hover { /* Corrigido de .btn para .btnAcao */
-    background-color: #612d7d; 
+.btnAcao:hover {
+    background-color: #4c1d95;
 }
 
 .ico {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -70px;
-    padding-right: 35px; 
+    gap: 40px;
+    margin-top: 40px;
 }
 
 .ico li {
-    list-style: none; 
-    gap: 40px; 
+    list-style: none;
 }
 
 .ico li a {
-    display: inline-block;
-    margin-left: 45px;
-    background: #1c1b1b;
-    width: 50px;
-    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: transparent; /* Fundo transparente */
+    width: 55px; /* Ícones menores */
+    height: 55px;
     border-radius: 50%;
-    transition: 0.3s ease-in-out; 
+    transition: 0.3s ease-in-out;
+    border: 1px solid #4a5568; /* Borda sutil */
 }
 
 .ico li a:hover {
-    background: #374724;
+    background-color: #3c096c;
+    border-color: #3c096c;
     transform: scale(1.1);
-    filter: invert(1);
-    -webkit-box-shadow: 3px -3px 35px -5px rgb(0, 0, 0);
-    -moz-box-shadow: 3px -3px 35px -5px rgb(0, 0, 0);
-    box-shadow: 3px -3px 35px -5px rgb(0, 0, 0); 
 }
 
 .ico li a img {
     filter: invert(1);
-    transform: scale(0.5); 
+    transform: scale(0.5);
 }
 
 .subtitle a {
-    color: #765694;
+    color: #c8b8db; /* Roxo claro do site */
     text-decoration: none; 
 }
 
 .subtitle a:hover {
-    color: #8a5e97;
     text-decoration: underline; 
 }
 
@@ -148,17 +134,18 @@ h2 {
 }
 
 .password-field input {
-    padding-right: 40px; 
+    padding-right: 45px; 
 }
 
 .password-field .material-symbols-outlined {
     position: absolute;
-    right: 10px;
-    top: 39%;
+    right: 15px;
+    top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #888;
-    font-size: 20px; 
+    color: #a0aec0;
+    font-size: 20px;
+    padding-bottom: 15px;
 }
 
 .material-symbols-outlined {
@@ -170,9 +157,8 @@ h2 {
 }
 
 /* ================================================= */
-/*      NOVOS ESTILOS PARA O POP-UP DE RECUPERAÇÃO   */
+/*      ESTILOS PARA O POP-UP DE RECUPERAÇÃO         */
 /* ================================================= */
-
 .popup-overlay {
     position: fixed;
     top: 0;
@@ -180,10 +166,12 @@ h2 {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
-    display: none; /* Inicia oculto */
+    backdrop-filter: blur(5px);
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    padding: 20px;
 }
 
 .popup-conteudo {
@@ -191,8 +179,8 @@ h2 {
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    width: 450px;
-    max-width: 90%;
+    width: 100%;
+    max-width: 450px;
     position: relative;
     text-align: center;
 }
@@ -224,7 +212,41 @@ h2 {
     color: #fff;
 }
 
-/* Ajusta o espaçamento do botão dentro do pop-up */
 .popup-conteudo .btnAcao {
     margin-top: 20px;
+}
+
+/* =================================================================== */
+/* ============== CONFIGURAÇÕES DE RESPONSIVIDADE ==================== */
+/* =================================================================== */
+
+@media (max-width: 900px) {
+    body {
+        background-position: center center;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 450px;
+        background-color: rgba(19, 18, 18, 0.85); /* Fundo semi-transparente */
+        backdrop-filter: blur(10px); /* Efeito de vidro */
+        border-radius: 20px;
+        min-height: auto;
+        padding: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+    .container {
+        padding: 30px 25px;
+    }
+    .logo img {
+        height: 60px;
+    }
+    h2 {
+        font-size: 11px;
+    }
 }
