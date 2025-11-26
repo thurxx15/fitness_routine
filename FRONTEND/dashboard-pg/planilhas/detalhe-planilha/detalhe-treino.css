@@ -218,3 +218,51 @@ body {
     color: #a893c6;
     font-weight: 500;
 }
+
+/* ==========================================================================
+   NOVO ESTILO: ÍCONE YOUTUBE NA TABELA
+   ========================================================================== */
+
+/* Container dentro da célula para alinhar texto e ícone */
+.conteudo-exercicio {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Texto na esquerda, ícone na direita */
+    gap: 10px;
+}
+
+.texto-exercicio {
+    font-size: 1.05em;
+    font-weight: 500;
+    color: #e0e0e0;
+}
+
+.link-youtube {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 5px; /* Área de clique maior */
+}
+
+/* Tamanho e cor do SVG */
+.icon-youtube {
+    width: 28px;
+    height: 28px;
+    fill: #FF0000; /* Vermelho YouTube */
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.5)); /* Sombra para destaque */
+}
+
+/* Efeito ao passar o mouse */
+.link-youtube:hover {
+    transform: scale(1.2); /* Aumenta um pouco */
+}
+
+.link-youtube:hover .icon-youtube {
+    fill: #ff4d4d; /* Vermelho mais claro */
+}
+
