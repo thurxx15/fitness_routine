@@ -45,45 +45,38 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 - [Pip](https://pip.pypa.io/en/stable/installation/) (gerenciador de pacotes do Python)
 
 ### Clonando o Repositório
-Configurando o Backend
-Navegue até a pasta do backend:
-code
-Bash
+Configurando o Backend:
+- Navegue até a pasta do backend
 cd BACKEND/FitnessRoutine
-Crie um ambiente virtual para isolar as dependências do projeto:
-code
-Bash
+
+- Crie um ambiente virtual para isolar as dependências do projeto:
 python -m venv venv
-Ative o ambiente virtual:
+
+- Ative o ambiente virtual:
 No Windows:
-code
-Bash
 venv\Scripts\activate
+
 No macOS e Linux:
-code
-Bash
 source venv/bin/activate
-Instale as dependências do backend listadas no arquivo requirements.txt:
-code
-Bash
+
+- Instale as dependências do backend listadas no arquivo requirements.txt:
 pip install -r ../requirements.txt
-Aplique as migrações do banco de dados:
-code
-Bash
+
+- Aplique as migrações do banco de dados:
 python manage.py migrate
-Inicie o servidor do backend:
-code
-Bash
+
+- Inicie o servidor do backend:
 python manage.py runserver
-O servidor Django estará rodando em http://127.0.0.1:8000/.
-Configurando o Frontend
+
+- O servidor Django estará rodando em http://127.0.0.1:8000/.
+  
+## Configurando o Frontend
 Abra um novo terminal.
-O frontend é composto por arquivos HTML, CSS e JS estáticos. Para visualizá-lo, você pode usar um servidor local. Se você tiver o Python instalado, pode usar o módulo http.server. Navegue até a pasta do frontend e inicie o servidor:
-code
-Bash
+- O frontend é composto por arquivos HTML, CSS e JS estáticos. Para visualizá-lo, você pode usar um servidor local. Se você tiver o Python instalado, pode usar o módulo http.server. Navegue até a pasta do frontend e inicie o servidor:
 cd FRONTEND
 python -m http.server
-Acesse http://localhost:8000 (ou a porta que for indicada no seu terminal) no seu navegador para interagir com a aplicação.
-```bash
+
+- Acesse http://localhost:8000 (ou a porta que for indicada no seu terminal) no seu navegador para interagir com a aplicação.
+  
 git clone https://github.com/thurxx15/fitness_routine.git
 cd fitness_routine
