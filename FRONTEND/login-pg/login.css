@@ -8,17 +8,19 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #131212; /* Cor de fallback */
-    background-image: url("../midia/img/img-log.png"); /* Nova imagem de fundo */
+    background-color: #131212;
+    background-image: url("../midia/img/img.log.png");
     background-size: cover;
-    background-position: center right; /* Foca na parte direita da imagem */
+    background-position: 75% center; /* Ajuste fino */
+    background-repeat: no-repeat;
     color: white;
     display: flex;
-    justify-content: flex-start; /* Alinha o painel do formulário à esquerda */
+    justify-content: flex-start;
     align-items: center;
     min-height: 100vh;
-    overflow: hidden; 
+    overflow: hidden;
 }
+
 
 /* A div .imagem-direita não é mais necessária e seu estilo foi removido */
 

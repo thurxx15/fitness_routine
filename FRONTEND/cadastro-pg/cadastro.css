@@ -17,7 +17,7 @@ body {
 .imagem-esquerda {
     flex-basis: 60%; /* Ocupa 55% da largura da tela */
     min-height: 100vh;
-    background-image: url("../midia/img/img-cad.jpg");  
+    background-image: url("../midia/img/img.cad.png");  
     background-size: cover;
     background-position: center;
 }
