@@ -25,4 +25,4 @@ google-generativeai==0.5.2
 
 # Utilitário para carregar variáveis de ambiente de um arquivo .env
 # Recomendado para gerenciar chaves de API (como a do Gemini) em desenvolvimento local
-python-dotenv==1.0.1
+python-dotenv==1.2.2
