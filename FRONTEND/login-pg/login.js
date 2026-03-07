@@ -13,7 +13,7 @@ const userInput = document.getElementById('user');
 
 // Função que faz a chamada para a API de login
 async function fazerLogin(username, password) {
-    const URL = "http://127.0.0.1:8000/api/token/";
+    const URL = "https://fitness-routine-5j1h.onrender.com";
     try {
         const resposta = await fetch(URL, {
             method: 'POST',
