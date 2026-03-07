@@ -34,7 +34,7 @@ btn.addEventListener('click', function() {
     formData.append('first_name', document.getElementById('first_name').value);
     formData.append('last_name', document.getElementById('last_name').value);
 
-    const URL = 'http://127.0.0.1:8000/api/register/';
+    const URL = 'https://fitness-routine-5j1h.onrender.com/api/register/';
 
     fetch(URL, {
         method: 'POST',
