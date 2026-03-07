@@ -7,26 +7,28 @@
 
 # Framework principal da web
 # A versão foi especificada pelo arquivo settings.py gerado.
-Django==5.2.1
+Django
 
 # Biblioteca para construir a API RESTful sobre o Django
-djangorestframework==3.15.1
+djangorestframework
 
 # Extensão do Django REST Framework para autenticação baseada em JSON Web Tokens (JWT)
-djangorestframework-simplejwt==5.3.1
+djangorestframework-simplejwt
 
 # Middleware para gerenciar cabeçalhos de Cross-Origin Resource Sharing (CORS)
 # Essencial para permitir que o front-end se comunique com a API
-django-cors-headers==4.3.1 
+django-cors-headers
 
 # SDK oficial do Google para interagir com a API do Gemini
 # Usado para a geração de treinos baseada em IA
-google-generativeai==0.5.2
+google-generativeai
 
 # Utilitário para carregar variáveis de ambiente de um arquivo .env
 # Recomendado para gerenciar chaves de API (como a do Gemini) em desenvolvimento local
-python-dotenv==1.2.2
+python-dotenv
 
 gunicorn
 
 whitenoise
+
+Pillow
