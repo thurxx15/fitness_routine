@@ -265,7 +265,7 @@ function gerarPdfDoTreino() {
         tabela = $('#tabelaTreinos').DataTable({
             dom: '<"tabela-controles-topo"lf>t<"tabela-controles-base"ip>',
             ajax: {
-                url: 'http://127.0.0.1:8000/api/treinos/',
+                url: 'https://fitness-routine-5j1h.onrender.com/api/treinos/',
                 headers: { Authorization: `Bearer ${authToken}` },
                 dataSrc: ''
             },
