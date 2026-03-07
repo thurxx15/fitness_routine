@@ -69,7 +69,7 @@ async function carregarDadosUsuario() {
     }
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/me/', {
+        const response = await fetch('https://fitness-routine-5j1h.onrender.com/api/me/', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
@@ -146,7 +146,7 @@ async function salvarConfiguracoes(event) {
     }
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/me/', {
+        const response = await fetch('https://fitness-routine-5j1h.onrender.com/api/me/', {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
