@@ -321,7 +321,7 @@ function gerarPdfDoTreino() {
             const treinoId = $(this).data('id');
             if (confirm(`Tem certeza de que deseja excluir este treino?`)) {
                 try {
-                    const response = await fetch(`http://fitness-routine-5j1h.onrender.com/api/treinos/${treinoId}/`, {
+                    const response = await fetch(`https://fitness-routine-5j1h.onrender.com/api/treinos/${treinoId}/`, {
                         method: 'DELETE',
                         headers: { 'Authorization': `Bearer ${authToken}` }
                     });
@@ -347,7 +347,7 @@ function gerarPdfDoTreino() {
                 objetivo: 'Hipertrofia e Força'
             };
             try {
-                const response = await fetch('http://fitness-routine-5j1h.onrender.com/api/gerar-treino/', {
+                const response = await fetch('https://fitness-routine-5j1h.onrender.com/api/gerar-treino/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${authToken}` },
                     body: JSON.stringify(dadosParaApi)
@@ -367,7 +367,7 @@ function gerarPdfDoTreino() {
     // --- FUNÇÕES DE CONFIGURAÇÕES DO USUÁRIO ---
     async function carregarDadosUsuario() {
         try {
-            const response = await fetch('http://fitness-routine-5j1h.onrender.com/api/me/', { headers: { Authorization: `Bearer ${authToken}` }});
+            const response = await fetch('https://fitness-routine-5j1h.onrender.com/api/me/', { headers: { Authorization: `Bearer ${authToken}` }});
             if (!response.ok) throw new Error('Falha ao carregar dados.');
             const data = await response.json();
             const setIfExists = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
@@ -420,7 +420,7 @@ function gerarPdfDoTreino() {
 
     // 5. Envia os dados para a API com o tratamento de erro
     try {
-      const response = await fetch('http://fitness-routine-5j1h.onrender.com/api/me/', {
+      const response = await fetch('https://fitness-routine-5j1h.onrender.com/api/me/', {
         method: 'PATCH',
         headers: { Authorization: `Bearer ${authToken}`, 'Content-Type': 'application/json' },
         body: JSON.stringify(dadosAtualizados)
